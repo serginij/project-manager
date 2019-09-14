@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: lightsteelblue;
+}
+
+canvas {
+  border: 1px solid red;
+  
+}
+
+.add-button {
+  position: absolute;
+  background-color: red;
+  color: white;
+}
+
+#root {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+}
