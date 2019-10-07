@@ -11,7 +11,7 @@ export const Node = props => {
     event.preventDefault()
     // console.log(event.clientX)
     setDragging(false)
-    props.onMove(props.id, { x: x, y: y })
+    props.onMove(props.id, { x: x, y: y - 50 })
   }
 
   const handleOnDrag = event => {
@@ -29,7 +29,15 @@ export const Node = props => {
 
   return (
     <Container
-      onClick={props.onClick}
+      onClick={() =>
+        props.onClick(props.id, {
+          id: props.id,
+          x: 0,
+          y: 0,
+          startX: x,
+          startY: y - 50
+        })
+      }
       x={x}
       y={y}
       draggable
@@ -38,7 +46,7 @@ export const Node = props => {
       onDragStart={handleDragStart}
       dragging={dragging}
     >
-      Simple node
+      Simple node {props.id}
     </Container>
   )
 }
@@ -50,6 +58,6 @@ const Container = styled.div`
   position: absolute;
   left: ${props => props.x + 'px'};
   top: ${props => props.y + 'px'};
-  /* opacity: ${props => (props.dragging ? '0.01' : '1')}; */
+  opacity: ${props => (props.dragging ? '0.01' : '1')};
   cursor: grab;
 `

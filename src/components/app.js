@@ -1,53 +1,92 @@
 import React, { Component } from 'react'
 
 import { Node } from '@components/node'
+import { Branches } from '@components/branches'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      nodes: [
-        {
-          id: 0,
-          x: 0,
-          y: 0
-        }
-      ],
-      counter: 1
+  state = {
+    nodes: [
+      {
+        id: 0,
+        x: 0,
+        y: 0
+      }
+    ],
+    tree: {
+      data: {
+        id: 0,
+        x: 0,
+        y: 0
+      },
+      level: 1,
+      children: []
+    },
+    counter: 1
+  }
+
+  handleAddNode = (id, data, tree = this.state.tree) => {
+    let newTree = tree
+    data.id = this.state.counter
+    this.insertNode(id, data, newTree)
+    console.log(newTree)
+    this.setState(prevState => ({
+      tree: newTree,
+      nodes: [...prevState.nodes, { id: prevState.counter, x: 0, y: 0 }],
+      counter: prevState.counter + 1
+    }))
+  }
+
+  insertNode = (id, data, tree) => {
+    if (tree.data.id === id) {
+      tree.children.push({ data, level: tree.level + 1, children: [] })
+    } else if (tree.children.length) {
+      tree.children.forEach(child => this.insertNode(id, data, child))
+    }
+  }
+
+  handleMoveNode = (id, coords) => {
+    let newNodes = this.state.nodes
+    let index = newNodes.indexOf(newNodes.find(el => el.id === id))
+    newNodes[index].x = coords.x
+    newNodes[index].y = coords.y
+
+    let newTree = this.state.tree
+    this.updateNode(newTree, id, { id: id, x: coords.x, y: coords.y })
+
+    // console.log(index)
+    this.setState(
+      {
+        nodes: newNodes,
+        tree: newTree
+      },
+      () => console.log(this.state.nodes)
+    )
+    // console.log(id, coords)
+  }
+
+  updateNode = (tree, id, data) => {
+    if (tree.data.id === id) {
+      tree.data = {
+        ...tree.data,
+        x: data.x,
+        y: data.y
+      }
+      if (tree.children.length) {
+        tree.children.map(child => {
+          child.data.startX = data.x
+          child.data.startY = data.y
+        })
+      }
+    } else if (tree.children.length) {
+      tree.children.forEach(child => this.updateNode(child, id, data))
     }
   }
 
   render() {
-    const handleAddNode = () => {
-      this.setState(
-        prevState => ({
-          nodes: [...prevState.nodes, { id: prevState.counter, x: 0, y: 0 }],
-          counter: prevState.counter + 1
-        }),
-        () => console.log(this.state.nodes)
-      )
-    }
-
-    const handleMoveNode = (id, coords) => {
-      let newNodes = this.state.nodes
-      let index = newNodes.indexOf(newNodes.find(el => el.id === id))
-      newNodes[index].x = coords.x
-      newNodes[index].y = coords.y
-
-      // console.log(index)
-      this.setState(
-        {
-          nodes: newNodes
-        },
-        () => console.log(this.state.nodes)
-      )
-      // console.log(id, coords)
-    }
-
     let map = this.state.nodes.map(el => (
       <Node
-        onClick={handleAddNode}
-        onMove={handleMoveNode}
+        onClick={this.handleAddNode}
+        onMove={this.handleMoveNode}
         key={el.id}
         id={el.id}
       />
@@ -57,8 +96,7 @@ class App extends Component {
       <div>
         <h1>Hello world</h1>
         {map}
-        {/* <Node onClick={handleAddNode} onMove={handleMoveNode} id={0} /> */}
-        {/* <button onClick={handleAddNode}>Add node</button> */}
+        <Branches tree={this.state.tree} />
       </div>
     )
   }
