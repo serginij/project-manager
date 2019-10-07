@@ -1,6 +1,9 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const dev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   entry: './src/index.js',
@@ -13,9 +16,32 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'linaria/loader',
+            options: {
+              sourceMap: dev
+            }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV !== 'production'
+            }
+          },
+          {
+            loader: 'css-loader',
+            options: { sourceMap: dev }
+          }
+        ]
       }
     ]
   },
@@ -30,6 +56,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './public/index.html',
       title: 'Project-manager'
-    })
+    }),
+    new MiniCssExtractPlugin({ filename: 'styles.css' })
   ]
 }
