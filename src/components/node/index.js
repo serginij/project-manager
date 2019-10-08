@@ -9,28 +9,20 @@ export const Node = props => {
 
   const handleDrop = event => {
     event.preventDefault()
-    // console.log(event.clientX)
     setDragging(false)
-    // props.onMove(props.id, { x: x, y: y - 50 })
   }
 
   const handleOnDrag = event => {
     event.preventDefault()
-    setX(event.clientX - 20)
-    setY(event.clientY - 25)
-    // props.onMove(props.id, { x: x + 20, y: y - 50 })
-    // setX(event.clientX)
-    // setY(event.clientY)
+    const { x, y, width, height } = event.target.getBoundingClientRect()
 
-    props.onMove(props.id, { x: x + 20, y: y + 20 })
+    setX(event.clientX - width / 2)
+    setY(event.clientY - height / 2)
+    props.onMove(props.id, { x: x + width / 2, y: y + height / 2 })
   }
 
   const handleDragStart = () => {
-    // console.log(event.target.style)
-    // const falseImg = new Image()
-    // event.dataTransfer.setDragImage(falseImg, x + 50, y + 25)
     setDragging(true)
-    // console.log(dragging)
   }
 
   return (
@@ -40,8 +32,8 @@ export const Node = props => {
           id: props.id,
           x: x + 100,
           y: y + 100,
-          startX: x + 20,
-          startY: y + 20
+          startX: x,
+          startY: y
         })
       }
       x={x}
@@ -60,9 +52,7 @@ export const Node = props => {
 const Container = styled.div`
   background-color: white;
   border-radius: 20%;
-  /* width: 50px; */
   widht: auto;
-  /* height: 50px; */
   padding: 1em;
   height: auto;
   position: absolute;

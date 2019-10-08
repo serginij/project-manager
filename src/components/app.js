@@ -25,10 +25,13 @@ class App extends Component {
   }
 
   handleAddNode = (id, data, tree = this.state.tree) => {
-    let newTree = tree
+    //fix moment with clonning deep object
+    let newTree = JSON.parse(JSON.stringify(tree))
+
     data.id = this.state.counter
     this.insertNode(id, data, newTree)
-    // console.log(newTree)
+    newTree.test = 'hey, I was modified'
+    console.log(newTree, tree)
     this.setState(prevState => ({
       tree: newTree,
       nodes: [
@@ -56,15 +59,10 @@ class App extends Component {
     let newTree = this.state.tree
     this.updateNode(newTree, id, { id: id, x: coords.x, y: coords.y })
 
-    // console.log(index)
-    this.setState(
-      {
-        nodes: newNodes,
-        tree: newTree
-      }
-      // () => console.log(this.state.nodes)
-    )
-    // console.log(id, coords)
+    this.setState({
+      nodes: newNodes,
+      tree: newTree
+    })
   }
 
   updateNode = (tree, id, data) => {
