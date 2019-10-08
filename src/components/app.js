@@ -8,15 +8,15 @@ class App extends Component {
     nodes: [
       {
         id: 0,
-        x: 0,
-        y: 0
+        x: window.innerWidth / 2 - 20,
+        y: window.innerHeight / 2 - 20
       }
     ],
     tree: {
       data: {
         id: 0,
-        x: 0,
-        y: 0
+        x: window.innerWidth / 2 - 20,
+        y: window.innerHeight / 2 - 20
       },
       level: 1,
       children: []
@@ -28,10 +28,13 @@ class App extends Component {
     let newTree = tree
     data.id = this.state.counter
     this.insertNode(id, data, newTree)
-    console.log(newTree)
+    // console.log(newTree)
     this.setState(prevState => ({
       tree: newTree,
-      nodes: [...prevState.nodes, { id: prevState.counter, x: 0, y: 0 }],
+      nodes: [
+        ...prevState.nodes,
+        { id: prevState.counter, x: data.x, y: data.y }
+      ],
       counter: prevState.counter + 1
     }))
   }
@@ -58,8 +61,8 @@ class App extends Component {
       {
         nodes: newNodes,
         tree: newTree
-      },
-      () => console.log(this.state.nodes)
+      }
+      // () => console.log(this.state.nodes)
     )
     // console.log(id, coords)
   }
@@ -89,14 +92,16 @@ class App extends Component {
         onMove={this.handleMoveNode}
         key={el.id}
         id={el.id}
+        x={el.x}
+        y={el.y}
       />
     ))
 
     return (
       <div>
-        <h1>Hello world</h1>
-        {map}
+        {/* <h1>Hello world</h1> */}
         <Branches tree={this.state.tree} />
+        {map}
       </div>
     )
   }
