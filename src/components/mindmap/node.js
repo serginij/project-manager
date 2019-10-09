@@ -27,15 +27,16 @@ export const Node = props => {
 
   return (
     <Container
-      onClick={() =>
+      onClick={event => {
+        const { x, y, width, height } = event.target.getBoundingClientRect()
         props.onClick(props.id, {
           id: props.id,
           x: x + 100,
           y: y + 100,
-          startX: x,
-          startY: y
+          startX: x + width / 2,
+          startY: y + height / 2
         })
-      }
+      }}
       x={x}
       y={y}
       draggable
