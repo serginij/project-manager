@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import { Node } from './node'
 import { Branches } from './branches'
+import { EditableNode } from './editable-node'
 
 class MindMap extends Component {
   state = {
@@ -30,8 +30,7 @@ class MindMap extends Component {
 
     data.id = this.state.counter
     this.insertNode(id, data, newTree)
-    newTree.test = 'hey, I was modified'
-    console.log(newTree, tree)
+
     this.setState(prevState => ({
       tree: newTree,
       nodes: [
@@ -85,7 +84,7 @@ class MindMap extends Component {
 
   render() {
     let map = this.state.nodes.map(el => (
-      <Node
+      <EditableNode
         onClick={this.handleAddNode}
         onMove={this.handleMoveNode}
         key={el.id}
@@ -97,7 +96,6 @@ class MindMap extends Component {
 
     return (
       <div>
-        {/* <h1>Hello world</h1> */}
         <Branches tree={this.state.tree} />
         {map}
       </div>

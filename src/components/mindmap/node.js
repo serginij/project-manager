@@ -45,7 +45,7 @@ export const Node = props => {
       onDragStart={handleDragStart}
       dragging={dragging}
     >
-      {props.id ? `Simple node ${props.id}` : 'Root'}
+      {props.children}
     </Container>
   )
 }
