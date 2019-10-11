@@ -42,6 +42,14 @@ module.exports = {
             options: { sourceMap: dev }
           }
         ]
+      },
+      {
+        test: /\.(gif|svg|jpg|png)$/i,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       }
     ]
   },
