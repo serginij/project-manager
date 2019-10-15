@@ -1,0 +1,67 @@
+import React, { useState } from 'react'
+
+import { styled } from 'linaria/react'
+
+export const Node = props => {
+  const [x, setX] = useState(props.x)
+  const [y, setY] = useState(props.y)
+  const [dragging, setDragging] = useState(false)
+
+  const handleDrop = event => {
+    event.preventDefault()
+    setDragging(false)
+  }
+
+  const handleOnDrag = event => {
+    event.preventDefault()
+
+    let newX = event.clientX - 30
+    let newY = event.clientY - 16
+    setX(newX)
+    setY(newY)
+    props.onMove(props.id, { x: newX, y: newY })
+  }
+
+  const handleDragStart = () => {
+    setDragging(true)
+  }
+
+  const handleAdd = event => {
+    const { x, y, width, height } = event.target.getBoundingClientRect()
+    props.onClick(props.id, {
+      id: props.id,
+      x: x + 100,
+      y: y + 100,
+      startX: x + width / 2,
+      startY: y + height / 2
+    })
+  }
+
+  return (
+    <Container
+      onClick={handleAdd}
+      x={x}
+      y={y}
+      draggable
+      onDragOver={handleOnDrag}
+      onDrop={handleDrop}
+      onDragStart={handleDragStart}
+      dragging={dragging}
+    >
+      {props.children}
+    </Container>
+  )
+}
+
+const Container = styled.div`
+  background-color: white;
+  border-radius: 20%;
+  widht: auto;
+  padding: 1em;
+  height: auto;
+  position: absolute;
+  left: ${props => props.x + 'px'};
+  top: ${props => props.y + 'px'};
+  opacity: ${props => (props.dragging ? '0.01' : '1')};
+  cursor: grab;
+`

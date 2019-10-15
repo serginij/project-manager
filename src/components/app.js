@@ -1,3 +1,9 @@
 import React from 'react'
 
-export const App = () => <h1>Hello world</h1>
+import MindMap from '@components/mindmap'
+
+export const App = () => (
+  <div>
+    <MindMap />
+  </div>
+)
