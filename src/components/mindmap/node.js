@@ -14,29 +14,32 @@ export const Node = props => {
 
   const handleOnDrag = event => {
     event.preventDefault()
-    const { x, y, width, height } = event.target.getBoundingClientRect()
 
-    setX(event.clientX - width / 2)
-    setY(event.clientY - height / 2)
-    props.onMove(props.id, { x: x + width / 2, y: y + height / 2 })
+    let newX = event.clientX - 30
+    let newY = event.clientY - 16
+    setX(newX)
+    setY(newY)
+    props.onMove(props.id, { x: newX, y: newY })
   }
 
   const handleDragStart = () => {
     setDragging(true)
   }
 
+  const handleAdd = event => {
+    const { x, y, width, height } = event.target.getBoundingClientRect()
+    props.onClick(props.id, {
+      id: props.id,
+      x: x + 100,
+      y: y + 100,
+      startX: x + width / 2,
+      startY: y + height / 2
+    })
+  }
+
   return (
     <Container
-      onClick={event => {
-        const { x, y, width, height } = event.target.getBoundingClientRect()
-        props.onClick(props.id, {
-          id: props.id,
-          x: x + 100,
-          y: y + 100,
-          startX: x + width / 2,
-          startY: y + height / 2
-        })
-      }}
+      onClick={handleAdd}
       x={x}
       y={y}
       draggable

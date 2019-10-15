@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import cloneDeep from 'lodash.clonedeep'
 
 import { Branches } from './branches'
 import { EditableNode } from './editable-node'
@@ -25,8 +26,7 @@ class MindMap extends Component {
   }
 
   handleAddNode = (id, data, tree = this.state.tree) => {
-    //fix moment with clonning deep object
-    let newTree = JSON.parse(JSON.stringify(tree))
+    let newTree = cloneDeep(tree)
 
     data.id = this.state.counter
     this.insertNode(id, data, newTree)
@@ -50,7 +50,7 @@ class MindMap extends Component {
   }
 
   handleMoveNode = (id, coords) => {
-    let newNodes = this.state.nodes
+    let newNodes = cloneDeep(this.state.nodes)
     let index = newNodes.indexOf(newNodes.find(el => el.id === id))
     newNodes[index].x = coords.x
     newNodes[index].y = coords.y
@@ -83,21 +83,21 @@ class MindMap extends Component {
   }
 
   render() {
-    let map = this.state.nodes.map(el => (
+    let nodes = this.state.nodes.map(node => (
       <EditableNode
         onClick={this.handleAddNode}
         onMove={this.handleMoveNode}
-        key={el.id}
-        id={el.id}
-        x={el.x}
-        y={el.y}
+        key={node.id}
+        id={node.id}
+        x={node.x}
+        y={node.y}
       />
     ))
 
     return (
       <div>
         <Branches tree={this.state.tree} />
-        {map}
+        {nodes}
       </div>
     )
   }
