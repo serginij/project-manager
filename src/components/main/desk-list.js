@@ -9,7 +9,7 @@ export const DeskList = ({ title, desks }) => {
     : null
 
   return (
-    <div width="70%">
+    <div>
       <h3>{title}</h3>
       <List>
         {deskList}
@@ -24,6 +24,6 @@ const List = styled.ul`
   flex-direction: row;
   flex-wrap: wrap;
   list-style: none;
-  width: 80%;
+  /* width: 70%; */
   padding: 0;
 `
