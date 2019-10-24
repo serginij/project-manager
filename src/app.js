@@ -6,15 +6,16 @@ import { Routes } from './routes'
 import { history } from './lib/routing'
 import { configureStore } from './store'
 
-import { Header } from '@components/header'
+import { CommonContent } from './ui/common-content'
 
 const store = configureStore()
 
 export const App = () => (
   <Provider store={store}>
     <Router history={history}>
-      <Header />
-      <Routes />
+      <CommonContent>
+        <Routes />
+      </CommonContent>
     </Router>
   </Provider>
 )

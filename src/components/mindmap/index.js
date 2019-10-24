@@ -95,7 +95,7 @@ class MindMap extends Component {
     ))
 
     return (
-      <div>
+      <div style={{ marginTop: '-60px' }}>
         <Branches tree={this.state.tree} />
         {nodes}
       </div>
