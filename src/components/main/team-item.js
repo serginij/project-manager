@@ -1,9 +1,13 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
-export const TeamItem = ({ name }) => (
+import { StyledLink } from '../../ui/styled-link'
+
+export const TeamItem = ({ name, id }) => (
   <Item key>
-    <Name>{name}</Name>
+    <StyledLink to={`/teams/${id}`}>
+      <Name>{name}</Name>
+    </StyledLink>
   </Item>
 )
 

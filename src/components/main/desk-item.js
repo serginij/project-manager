@@ -1,9 +1,13 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
-export const DeskItem = ({ name }) => (
+import { StyledLink } from '../../ui/styled-link'
+
+export const DeskItem = ({ name, id }) => (
   <DeskIcon key>
-    <Name>{name}</Name>
+    <StyledLink to={`/desks/${id}`}>
+      <Name>{name}</Name>
+    </StyledLink>
   </DeskIcon>
 )
 

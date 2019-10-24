@@ -5,7 +5,9 @@ import { DeskItem } from './desk-item'
 
 export const DeskList = ({ title, desks }) => {
   let deskList = desks
-    ? desks.map((desk, index) => <DeskItem key={index} name={desk.name} />)
+    ? desks.map(desk => (
+        <DeskItem name={desk.name} key={desk.id} id={desk.id} />
+      ))
     : null
 
   return (
@@ -24,6 +26,6 @@ const List = styled.ul`
   flex-direction: row;
   flex-wrap: wrap;
   list-style: none;
-  /* width: 70%; */
+  align-items: center;
   padding: 0;
 `

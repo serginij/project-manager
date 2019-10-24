@@ -5,7 +5,9 @@ import { TeamItem } from './team-item'
 
 export const TeamList = ({ title, teams }) => {
   let deskList = teams
-    ? teams.map((desk, index) => <TeamItem key={index} name={desk.name} />)
+    ? teams.map(team => (
+        <TeamItem name={team.name} key={team.id} id={team.id} />
+      ))
     : null
 
   return (
