@@ -2,21 +2,25 @@ import { createSymbiote } from 'redux-symbiote'
 
 const initialState = {
   loading: false,
-  desks: [
-    {
+  desks: {
+    '123': {
       name: 'One',
-      id: 123
+      id: '123',
+      columns: []
     },
-    {
+    '143': {
       name: 'Two',
-      id: 143
+      id: '143',
+      columns: []
     },
-    {
+    '334': {
       name: 'Three',
-      id: 334
+      id: '334',
+      columns: []
     }
-  ],
-  error: null
+  },
+  error: null,
+  currentDesk: null
 }
 
 const symbiotes = {
@@ -24,6 +28,39 @@ const symbiotes = {
     start: state => ({ ...state, loading: true }),
     fail: (state, error) => ({ ...state, loading: false, error: error }),
     done: (state, desks) => ({ ...state, loading: false, teams: desks })
+  },
+  addDesk: (state, desk) => ({
+    ...state,
+    desks: {
+      ...state.desks,
+      [desk.id]: { name: desk.name, id: desk.id, columns: [] }
+    }
+  }),
+  setCurrentDesk: (state, deskId) => ({ ...state, currentDesk: deskId }),
+  addColumn: (state, deskId, columnId) => ({
+    ...state,
+    desks: {
+      ...state.desks,
+      [deskId]: {
+        ...state.desks[deskId],
+        columns: [...state.desks[deskId].columns, columnId]
+      }
+    }
+  }),
+  deleteColumn: (state, deskId, columnId) => {
+    const filteredColumns = state.desks[deskId].columns.filter(
+      id => id !== columnId
+    )
+    return {
+      ...state,
+      desks: {
+        ...state.desks,
+        [deskId]: {
+          ...state.desks[deskId],
+          columns: filteredColumns
+        }
+      }
+    }
   }
 }
 

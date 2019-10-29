@@ -11,4 +11,7 @@ export const CommonContent = ({ children }) => (
 
 const Wrapper = styled.div`
   margin-top: 60px;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: scroll;
 `
