@@ -2,8 +2,11 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { AddForm } from '../../../ui/addForm'
+import { AddForm } from '@ui/addForm'
+import { CloseButton } from '@ui/close-button'
+
 import { addCard } from '@symbiotes/helpers'
+import { desksActions } from '@symbiotes/desks'
 
 import { CardsList } from '../cards/cards-list'
 
@@ -15,15 +18,19 @@ export const Column = ({ columnId }) => {
   const dispatch = useDispatch()
 
   const handleAddCard = name => dispatch(addCard(name, columnId))
+  const handleDeleteColumn = () => dispatch(desksActions.deleteColumn(columnId))
 
   return (
     <ColumnWrapper>
-      <Name>{name}</Name>
-      <CardsList cardsById={cards} />
+      <ColumnHeader>
+        <Name>{name}</Name>
+        <CloseButton onClick={handleDeleteColumn}>×</CloseButton>
+      </ColumnHeader>
+      <CardsList cardsById={cards} columnId={columnId} />
       <AddForm
         onAdd={handleAddCard}
         buttonText="Добавить карточку"
-        inputText="Добавить еще одинy карточку"
+        inputText="Добавить еще однy карточку"
         placeholder="Название карточки"
         type="card"
       />
@@ -47,8 +54,15 @@ const Name = styled.h3`
   width: 100%;
   box-sizing: border-box;
   text-align: left;
-  padding: 0 12px;
+  /* padding: 0 12px; */
   &:last-child {
     padding-bottom: 0;
   }
+`
+
+const ColumnHeader = styled.header`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 12px;
 `

@@ -1,6 +1,8 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
+import { CloseButton } from './close-button'
+
 export const AddForm = ({
   onAdd,
   placeholder,
@@ -131,16 +133,6 @@ const CloseForm = styled.div`
   justify-content: space-between;
   cursor: default;
   height: 2rem;
-`
-
-const CloseButton = styled.button`
-  font: inherit;
-  font-size: 2em;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background-color: rgba(0, 125, 215, 0);
 `
 
 const TextArea = styled.textarea`

@@ -57,7 +57,8 @@ module.exports = {
     alias: {
       '@components': path.resolve(__dirname, '../src/components/'),
       '@lib': path.resolve(__dirname, '../src/lib'),
-      '@symbiotes': path.resolve(__dirname, '../src/symbiotes')
+      '@symbiotes': path.resolve(__dirname, '../src/symbiotes'),
+      '@ui': path.resolve(__dirname, '../src/ui')
     },
     extensions: ['.js']
   },

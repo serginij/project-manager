@@ -47,16 +47,16 @@ const symbiotes = {
       }
     }
   }),
-  deleteColumn: (state, deskId, columnId) => {
-    const filteredColumns = state.desks[deskId].columns.filter(
+  deleteColumn: (state, columnId) => {
+    const filteredColumns = state.desks[state.currentDesk].columns.filter(
       id => id !== columnId
     )
     return {
       ...state,
       desks: {
         ...state.desks,
-        [deskId]: {
-          ...state.desks[deskId],
+        [state.currentDesk]: {
+          ...state.desks[state.currentDesk],
           columns: filteredColumns
         }
       }

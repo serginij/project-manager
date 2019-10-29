@@ -18,9 +18,11 @@ const Wrapper = styled.ul`
   /* pading-bottom: ${props => props.isDraggingOver && '40px'}; */
 `
 
-export const CardsList = ({ cardsById }) => {
+export const CardsList = ({ cardsById, columnId }) => {
   const { cards } = useSelector(state => state.cards)
-  const cardsList = cardsById.map(id => <Card key={id} text={cards[id].name} />)
+  const cardsList = cardsById.map(id => (
+    <Card key={id} text={cards[id].name} columnId={columnId} id={id} />
+  ))
 
   return <Wrapper>{cardsList}</Wrapper>
 }
