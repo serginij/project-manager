@@ -18,10 +18,35 @@ const symbiotes = {
       ...state.columns,
       [column.id]: { name: column.name, _id: column.id, cards: [] }
     }
-  })
+  }),
+  addCard: (state, columnId, cardId) => ({
+    ...state,
+    columns: {
+      ...state.columns,
+      [columnId]: {
+        ...state.columns[columnId],
+        cards: [...state.columns[columnId].cards, cardId]
+      }
+    }
+  }),
+  deleteCard: (state, columnId, cardId) => {
+    const filteredCards = state.columns[columnId].cards.filter(
+      id => id !== cardId
+    )
+    return {
+      ...state,
+      columns: {
+        ...state.columns,
+        [columnId]: {
+          ...state.columns[columnId],
+          cards: filteredCards
+        }
+      }
+    }
+  }
 }
 
 export const {
   actions: columnsActions,
   reducer: columnsReducer
-} = createSymbiote(initialState, symbiotes, '@@teams')
+} = createSymbiote(initialState, symbiotes, '@@columns')
