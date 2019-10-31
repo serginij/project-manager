@@ -18,6 +18,13 @@ const symbiotes = {
       ...state.cards,
       [card.id]: { name: card.name, _id: card.id, checkList: [] }
     }
+  }),
+  editCard: (state, card) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [card.id]: { ...state.cards[card.id], name: card.name }
+    }
   })
 }
 

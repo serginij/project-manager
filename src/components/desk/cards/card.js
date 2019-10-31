@@ -3,11 +3,16 @@ import { styled } from 'linaria/react'
 import { useDispatch } from 'react-redux'
 
 import { columnsActions } from '@symbiotes/columns'
+import { cardsActions } from '@symbiotes/cards'
 
 import { CloseButton } from '@ui/close-button'
+import { AddButton } from '@ui/add-button'
 
 export const Card = ({ text, columnId, id }) => {
   const [visible, setVisible] = useState(true)
+  const [edit, setEdit] = useState(false)
+  const [value, setValue] = useState(text)
+
   const handleHover = () => {
     setVisible(!visible)
   }
@@ -17,13 +22,44 @@ export const Card = ({ text, columnId, id }) => {
   const handleDeleteCard = () =>
     dispatch(columnsActions.deleteCard(columnId, id))
 
+  const handleEditCard = card => dispatch(cardsActions.editCard(card))
+
+  const handleClick = () => {
+    setEdit(!edit)
+  }
+
+  const handleChange = e => {
+    setValue(e.target.value)
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log('changed', value)
+    handleEditCard({ name: value, id: id })
+    handleClick()
+  }
+
   return (
-    <Wrapper onMouseEnter={handleHover} onMouseLeave={handleHover}>
-      <Text>{text}</Text>
-      <DeleteButton hidden={visible} onClick={handleDeleteCard}>
-        ×
-      </DeleteButton>
-    </Wrapper>
+    <>
+      {edit ? (
+        <Popup>
+          <Input type="text" value={value} onChange={handleChange} />
+          <AddButton onClick={handleSubmit}>save</AddButton>
+          <CancelButton onClick={handleClick}>cancel</CancelButton>
+        </Popup>
+      ) : (
+        <Wrapper
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHover}
+          onClick={handleClick}
+        >
+          <Text>{text}</Text>
+          <DeleteButton hidden={visible} onClick={handleDeleteCard}>
+            ×
+          </DeleteButton>
+        </Wrapper>
+      )}
+    </>
   )
 }
 
@@ -53,4 +89,27 @@ const Text = styled.p`
 
 const DeleteButton = styled(CloseButton)`
   visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
+`
+
+const Popup = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+`
+
+const Input = styled.input`
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  font-size: 1em;
+  min-height: 2.5rem;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  word-wrap: break-word;
+`
+
+const CancelButton = styled(AddButton)`
+  background-color: #cccccc;
 `

@@ -2,6 +2,7 @@ import React from 'react'
 import { styled } from 'linaria/react'
 
 import { CloseButton } from './close-button'
+import { AddButton } from './add-button';
 
 export const AddForm = ({
   onAdd,
@@ -85,17 +86,6 @@ const Input = styled.input`
   border: none;
   margin-bottom: 8px;
   padding: 8px 0 8px 12px;
-  font: inherit;
-`
-
-const AddButton = styled.button`
-  /* width: 50%; */
-  height: 2rem;
-  background: #39c071;
-  border-radius: 3px;
-  color: #ffffff;
-  font-weight: bold;
-  cursor: pointer;
   font: inherit;
 `
 
