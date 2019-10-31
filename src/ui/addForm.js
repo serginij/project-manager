@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from 'linaria/react'
 
 import { CloseButton } from './close-button'
-import { AddButton } from './add-button';
+import { AddButton } from './add-button'
 
 export const AddForm = ({
   onAdd,
