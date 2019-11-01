@@ -2,19 +2,20 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { useDispatch } from 'react-redux'
 
-import { desksActions } from '@symbiotes/desks'
+// import { desksActions } from '@symbiotes/desks'
+import { getDesk } from '@symbiotes/effects'
+import { StyledLink } from '@ui/styled-link'
 
 import { DeskItem } from './desk-item'
 
 export const DeskList = ({ title, desks }) => {
   const dispatch = useDispatch()
 
-  const addDesk = desk => dispatch(desksActions.addDesk(desk))
-  const selectDesk = id => dispatch(desksActions.setCurrentDesk(id))
-
-  const handleClick = () => {
-    console.log('clicked')
-    addDesk({ name: 'Test', id: Math.floor(Math.random() * 500) })
+  const handleClick = id => {
+    // console.log('clicked')
+    // addDesk({ name: 'Test', id: Math.floor(Math.random() * 500) })
+    dispatch(getDesk(id))
+    // .then(selectDesk(id))
   }
 
   let deskList = desks
@@ -23,7 +24,7 @@ export const DeskList = ({ title, desks }) => {
           name={desk.name}
           key={desk.id}
           id={desk.id}
-          onClick={() => selectDesk(desk.id)}
+          onClick={() => handleClick(desk.id)}
         />
       ))
     : null
@@ -33,7 +34,8 @@ export const DeskList = ({ title, desks }) => {
       <h3>{title}</h3>
       <List>
         {deskList}
-        <DeskItem name="Создать доску" key="add" onClick={handleClick} />
+        {/* <DeskItem name="Создать доску" key="add" to="/desks/create" /> */}
+        <StyledLink to="/create-desk">Создать доску</StyledLink>
       </List>
     </div>
   )

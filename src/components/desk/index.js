@@ -2,7 +2,8 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { styled } from 'linaria/react'
 
-import { addColumn } from '@symbiotes/helpers'
+// import { addColumn as createColumn } from '@symbiotes/helpers'
+import { addColumn } from '@symbiotes/effects'
 
 import { AddForm } from '../../ui/addForm'
 import { ColumnsList } from './columns/columns-list'
@@ -11,9 +12,10 @@ export const Desk = () => {
   const { currentDesk } = useSelector(state => state.desks)
 
   const dispatch = useDispatch()
+  // const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
   const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
 
-  return (
+  return currentDesk ? (
     <>
       <h2>Desk template</h2>
       <DeskWrapper>
@@ -27,7 +29,7 @@ export const Desk = () => {
         />
       </DeskWrapper>
     </>
-  )
+  ) : null
 }
 
 const DeskWrapper = styled.div`

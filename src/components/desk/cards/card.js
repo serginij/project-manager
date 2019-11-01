@@ -26,6 +26,7 @@ export const Card = ({ text, columnId, id }) => {
 
   const handleClick = () => {
     setEdit(!edit)
+    setVisible(true)
   }
 
   const handleChange = e => {
@@ -34,7 +35,7 @@ export const Card = ({ text, columnId, id }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('changed', value)
+    // console.log('changed', value)
     handleEditCard({ name: value, id: id })
     handleClick()
   }
@@ -112,4 +113,5 @@ const Input = styled.input`
 
 const CancelButton = styled(AddButton)`
   background-color: #cccccc;
+  cursor: pointer;
 `

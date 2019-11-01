@@ -10,13 +10,15 @@ export const Main = () => {
   let { desks } = useSelector(state => state.desks)
   desks = Object.values(desks)
 
+  // const {  }
+
   return (
     <Container>
       <TeamList teams={desks} />
       <div style={{ width: '70%' }}>
         <DeskList title="Team 1" desks={desks} />
-        <DeskList title="Team 2" desks={desks} />
-        <DeskList title="Team 3" desks={desks} />
+        {/* <DeskList title="Team 2" desks={desks} />
+        <DeskList title="Team 3" desks={desks} /> */}
       </div>
     </Container>
   )

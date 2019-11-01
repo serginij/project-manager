@@ -10,7 +10,7 @@ const symbiotes = {
   getCards: {
     start: state => ({ ...state, loading: true }),
     fail: (state, error) => ({ ...state, loading: false, error: error }),
-    done: (state, cards) => ({ ...state, loading: false, columns: cards })
+    done: (state, cards) => ({ ...state, loading: false, cards: cards })
   },
   addCard: (state, card) => ({
     ...state,

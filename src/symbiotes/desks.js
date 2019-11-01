@@ -27,13 +27,20 @@ const symbiotes = {
   getDesks: {
     start: state => ({ ...state, loading: true }),
     fail: (state, error) => ({ ...state, loading: false, error: error }),
-    done: (state, desks) => ({ ...state, loading: false, teams: desks })
+    done: (state, desks) => ({ ...state, loading: false, desks: desks })
   },
   addDesk: (state, desk) => ({
     ...state,
     desks: {
       ...state.desks,
       [desk.id]: { name: desk.name, id: desk.id, columns: [] }
+    }
+  }),
+  updateDesk: (state, desk) => ({
+    ...state,
+    desks: {
+      ...state.desks,
+      [desk.id]: desk
     }
   }),
   setCurrentDesk: (state, deskId) => ({ ...state, currentDesk: deskId }),
