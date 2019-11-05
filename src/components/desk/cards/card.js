@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { useDispatch } from 'react-redux'
 
-import { columnsActions } from '@symbiotes/columns'
-import { cardsActions } from '@symbiotes/cards'
+import { deleteCard, updateCard } from '@symbiotes/effects'
 
 import { CloseButton } from '@ui/close-button'
 import { AddButton } from '@ui/add-button'
@@ -19,10 +18,10 @@ export const Card = ({ text, columnId, id }) => {
 
   const dispatch = useDispatch()
 
-  const handleDeleteCard = () =>
-    dispatch(columnsActions.deleteCard(columnId, id))
+  const handleDeleteCard = () => dispatch(deleteCard(columnId, id))
 
-  const handleEditCard = card => dispatch(cardsActions.editCard(card))
+  const handleEditCard = card =>
+    dispatch(updateCard(card.id, columnId, card.name))
 
   const handleClick = () => {
     setEdit(!edit)
@@ -35,7 +34,6 @@ export const Card = ({ text, columnId, id }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    // console.log('changed', value)
     handleEditCard({ name: value, id: id })
     handleClick()
   }

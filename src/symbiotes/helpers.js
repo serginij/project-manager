@@ -5,23 +5,20 @@ import { teamsActions } from '@symbiotes/teams'
 
 export const addColumn = (name, deskId, columnId) => {
   return dispatch => {
-    // let id = Math.floor(Math.random() * 500)
     dispatch(columnsActions.addColumn({ name: name, id: columnId }))
     dispatch(desksActions.addColumn(deskId, columnId))
   }
 }
 
-export const addCard = (name, columnId) => {
+export const addCard = (name, columnId, cardId) => {
   return dispatch => {
-    let id = Math.floor(Math.random() * 500)
-    dispatch(cardsActions.addCard({ name: name, id: id }))
-    dispatch(columnsActions.addCard(columnId, id))
+    dispatch(cardsActions.addCard({ name: name, id: cardId }))
+    dispatch(columnsActions.addCard(columnId, cardId))
   }
 }
 
 export const addDesk = (name, teamId, deskId) => {
   return dispatch => {
-    // let id = Math.floor(Math.random() * 500)
     dispatch(desksActions.addDesk({ name: name, id: deskId }))
     dispatch(teamsActions.addDesk(teamId, deskId))
   }

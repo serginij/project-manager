@@ -25,7 +25,7 @@ const symbiotes = {
       ...state.teams,
       [teamId]: {
         ...state.teams[teamId],
-        cards: [...state.teams[teamId].cards, deskId]
+        desks: [...state.teams[teamId].desks, deskId]
       }
     }
   })

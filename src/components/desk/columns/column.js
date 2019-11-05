@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AddForm } from '@ui/addForm'
 import { CloseButton } from '@ui/close-button'
 
-import { addCard } from '@symbiotes/helpers'
-import { desksActions } from '@symbiotes/desks'
+import { deleteColumn, addCard } from '@symbiotes/effects'
 
 import { CardsList } from '../cards/cards-list'
 
@@ -18,7 +17,7 @@ export const Column = ({ columnId }) => {
   const dispatch = useDispatch()
 
   const handleAddCard = name => dispatch(addCard(name, columnId))
-  const handleDeleteColumn = () => dispatch(desksActions.deleteColumn(columnId))
+  const handleDeleteColumn = () => dispatch(deleteColumn(columnId))
 
   return (
     <ColumnWrapper>
