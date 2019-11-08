@@ -10,26 +10,29 @@ import { ColumnsList } from './columns/columns-list'
 
 export const Desk = () => {
   const { currentDesk } = useSelector(state => state.desks)
+  const desk = useSelector(state => state.desks.desks[currentDesk])
 
   const dispatch = useDispatch()
   // const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
   const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
 
-  return currentDesk ? (
-    <>
-      <h2>Desk template</h2>
-      <DeskWrapper>
-        <ColumnsList deskId={currentDesk} />
-        <AddForm
-          onAdd={handleAddColumn}
-          buttonText="Добавить столбец"
-          inputText="Добавить еще один столбец"
-          placeholder="Название столбца"
-          type="column"
-        />
-      </DeskWrapper>
-    </>
-  ) : null
+  return (
+    currentDesk && (
+      <>
+        <h2>{desk.name}</h2>
+        <DeskWrapper>
+          <ColumnsList deskId={currentDesk} />
+          <AddForm
+            onAdd={handleAddColumn}
+            buttonText="Добавить столбец"
+            inputText="Добавить еще один столбец"
+            placeholder="Название столбца"
+            type="column"
+          />
+        </DeskWrapper>
+      </>
+    )
+  )
 }
 
 const DeskWrapper = styled.div`

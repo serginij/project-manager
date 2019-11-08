@@ -4,6 +4,15 @@ import { styled } from 'linaria/react'
 
 import { Card } from './card'
 
+export const CardsList = ({ cardsById, columnId }) => {
+  const { cards } = useSelector(state => state.cards)
+  const cardsList = cardsById.map(id => (
+    <Card key={id} text={cards[id].name} columnId={columnId} id={id} />
+  ))
+
+  return <Wrapper>{cardsList}</Wrapper>
+}
+
 const Wrapper = styled.ul`
   display: flex;
   flex-direction: column;
@@ -14,15 +23,4 @@ const Wrapper = styled.ul`
   padding: 0 12px;
   overflow-y: scroll;
   overflow-x: hidden;
-
-  /* pading-bottom: ${props => props.isDraggingOver && '40px'}; */
 `
-
-export const CardsList = ({ cardsById, columnId }) => {
-  const { cards } = useSelector(state => state.cards)
-  const cardsList = cardsById.map(id => (
-    <Card key={id} text={cards[id].name} columnId={columnId} id={id} />
-  ))
-
-  return <Wrapper>{cardsList}</Wrapper>
-}

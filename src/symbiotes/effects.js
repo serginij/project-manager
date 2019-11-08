@@ -2,6 +2,8 @@ import { teamsActions } from '@symbiotes/teams'
 import { desksActions } from '@symbiotes/desks'
 import { request, post, del, update } from '@lib/request'
 
+import { history } from '@lib/routing'
+
 import {
   addDesk as createDesk,
   addColumn as createColumn,
@@ -19,10 +21,12 @@ export const fetchTeams = () => {
         // console.log('effects.js: fetchTeams res', res)
         dispatch(teamsActions.getTeams.done(res.teams))
         dispatch(desksActions.getDesks.done(res.desks))
+        console.log(res.status)
       })
       .catch(err => {
-        console.log('effects.js: fetchTeams error', err)
+        console.log('effects.js: fetchTeams error', err.json())
         dispatch(teamsActions.getTeams.fail(err))
+        if (err === 401) history.push('/auth')
       })
   }
 }

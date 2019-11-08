@@ -5,17 +5,17 @@ import { useDispatch } from 'react-redux'
 import { addDesk } from '@symbiotes/effects'
 
 export const CreateDesk = props => {
-  const [value, setValue] = useState('')
+  const [name, setName] = useState('')
 
   const dispatch = useDispatch()
 
   const handleChange = e => {
-    setValue(e.target.value)
+    setName(e.target.value)
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch(addDesk(value)).then(props.history.push('/'))
+    dispatch(addDesk(name)).then(props.history.push('/'))
   }
 
   return (
@@ -24,7 +24,7 @@ export const CreateDesk = props => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
           Desk name
-          <input type="text" id="name" value={value} onChange={handleChange} />
+          <input type="text" id="name" value={name} onChange={handleChange} />
         </label>
         <button>Add</button>
       </form>

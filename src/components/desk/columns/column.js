@@ -12,8 +12,6 @@ import { CardsList } from '../cards/cards-list'
 export const Column = ({ columnId }) => {
   const { cards, name } = useSelector(state => state.columns.columns[columnId])
 
-  console.log(cards)
-
   const dispatch = useDispatch()
 
   const handleAddCard = name => dispatch(addCard(name, columnId))
