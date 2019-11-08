@@ -7,7 +7,8 @@
     "paths": {
       "@components/*": ["./components/*"],
       "@lib/*": ["./lib/*"],
-      "@symbiotes/*": ["./symbiotes/*"]
+      "@symbiotes/*": ["./symbiotes/*"],
+      "@ui/*": ["./ui/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

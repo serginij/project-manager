@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 import { TeamItem } from './team-item'
 
 export const TeamList = ({ title, teams }) => {
-  let deskList = teams
+  let teamList = teams
     ? teams.map(team => (
         <TeamItem name={team.name} key={team.id} id={team.id} />
       ))
@@ -14,7 +14,7 @@ export const TeamList = ({ title, teams }) => {
     <div style={{ width: '30%' }}>
       <h3>{title}</h3>
       <List>
-        {deskList}
+        {teamList}
         <TeamItem name="Создать команду" key="add" />
       </List>
     </div>

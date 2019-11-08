@@ -7,16 +7,18 @@ import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
 
 export const Main = () => {
-  const { desks } = useSelector(state => state.desks)
+  let { teams } = useSelector(state => state.teams)
+
+  const teamList = Object.values(teams)
+
+  let desksList = teamList.map(team => {
+    return <DeskList key={team.id} title={team.name} desksById={team.desks} />
+  })
 
   return (
     <Container>
-      <TeamList teams={desks} />
-      <div>
-        <DeskList title="Team 1" desks={desks} />
-        <DeskList title="Team 2" desks={desks} />
-        <DeskList title="Team 3" desks={desks} />
-      </div>
+      <TeamList teams={teamList} />
+      <div style={{ width: '70%' }}>{desksList}</div>
     </Container>
   )
 }

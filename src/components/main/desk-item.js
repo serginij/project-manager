@@ -3,8 +3,8 @@ import { styled } from 'linaria/react'
 
 import { StyledLink } from '../../ui/styled-link'
 
-export const DeskItem = ({ name, id }) => (
-  <DeskIcon key>
+export const DeskItem = ({ name, id, onClick }) => (
+  <DeskIcon key onClick={onClick}>
     <StyledLink to={`/desks/${id}`}>
       <Name>{name}</Name>
     </StyledLink>
