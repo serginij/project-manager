@@ -19,11 +19,12 @@ export const post = (url, data, auth) =>
     .then(response => response.json())
     .catch(error => error)
 
-export const del = (url, data) =>
+export const del = (url, data, auth) =>
   fetch(url, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer' + auth
     },
     body: JSON.stringify(data)
   })

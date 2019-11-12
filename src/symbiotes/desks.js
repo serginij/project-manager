@@ -2,23 +2,7 @@ import { createSymbiote } from 'redux-symbiote'
 
 const initialState = {
   loading: false,
-  desks: {
-    '123': {
-      name: 'One',
-      id: '123',
-      columns: []
-    },
-    '143': {
-      name: 'Two',
-      id: '143',
-      columns: []
-    },
-    '334': {
-      name: 'Three',
-      id: '334',
-      columns: []
-    }
-  },
+  desks: {},
   error: null,
   currentDesk: null
 }

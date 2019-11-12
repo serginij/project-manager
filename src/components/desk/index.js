@@ -2,7 +2,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { styled } from 'linaria/react'
 
-// import { addColumn as createColumn } from '@symbiotes/helpers'
 import { addColumn } from '@symbiotes/effects'
 
 import { AddForm } from '../../ui/addForm'
@@ -13,7 +12,6 @@ export const Desk = () => {
   const desk = useSelector(state => state.desks.desks[currentDesk])
 
   const dispatch = useDispatch()
-  // const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
   const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
 
   return (

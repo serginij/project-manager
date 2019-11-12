@@ -31,9 +31,9 @@ export const storeToken = token => {
 
 export const getToken = () => {
   const token = sessionStorage.getItem('token')
-  console.log(token)
-  if (token.length) {
-    return dispatch => {
+
+  return dispatch => {
+    if (token) {
       dispatch(authActions.login(token))
     }
   }

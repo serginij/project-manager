@@ -21,21 +21,19 @@ export const fetchTeams = token => {
 
     console.log('fetchTeams', token)
 
-    return (
-      request('http://localhost:3000/teams', {}, token)
-        // .then(response => console.log(response))
-        .then(res => {
-          // console.log('effects.js: fetchTeams res', res)
+    return request('http://localhost:3000/teams', {}, token)
+      .then(res => {
+        if (res.status === 200) {
           dispatch(teamsActions.getTeams.done(res.teams))
           dispatch(desksActions.getDesks.done(res.desks))
-          console.log(res.status)
-        })
-        .catch(err => {
-          console.log('effects.js: fetchTeams error', err)
-          dispatch(teamsActions.getTeams.fail(err))
-          history.push('/auth')
-        })
-    )
+        }
+        console.log(res.status)
+      })
+      .catch(err => {
+        console.log('effects.js: fetchTeams error', err)
+        dispatch(teamsActions.getTeams.fail(err))
+        history.push('/auth')
+      })
   }
 }
 

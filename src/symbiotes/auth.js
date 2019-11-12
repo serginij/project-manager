@@ -2,7 +2,7 @@ import { createSymbiote } from 'redux-symbiote'
 
 const initialState = {
   loading: false,
-  token: {},
+  token: '',
   basePath: '/auth',
   error: null
 }

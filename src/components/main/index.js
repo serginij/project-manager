@@ -9,22 +9,22 @@ import { getToken } from '@symbiotes/helpers'
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
 
-export const Main = () => {
+export const Main = props => {
   const { teams } = useSelector(state => state.teams)
   const { token } = useSelector(state => state.auth)
 
   const dispatch = useDispatch()
-
   const getTeams = useCallback(token => dispatch(fetchTeams(token)), [dispatch])
-  // const getAuth = () => getToken()
 
   useEffect(() => {
     dispatch(getToken())
-    token.length && getTeams(token)
-    // getAuth()
-    // getTeams(token)
-    // console.log(token)
-  }, [dispatch, getTeams, token])
+
+    if (!token.length) {
+      props.history.push('/auth')
+    } else {
+      getTeams(token)
+    }
+  }, [dispatch, getTeams, props.history, token])
 
   const teamList = Object.values(teams)
 
