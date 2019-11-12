@@ -1,5 +1,7 @@
 import { teamsActions } from '@symbiotes/teams'
 import { desksActions } from '@symbiotes/desks'
+import { authActions } from '@symbiotes/auth'
+
 import { request, post, del, update } from '@lib/request'
 
 import { history } from '@lib/routing'
@@ -12,22 +14,27 @@ import {
 import { columnsActions } from './columns'
 import { cardsActions } from './cards'
 
-export const fetchTeams = () => {
+export const fetchTeams = token => {
   return dispatch => {
     dispatch(teamsActions.getTeams.start())
 
-    return request('http://localhost:3000/teams')
-      .then(res => {
-        // console.log('effects.js: fetchTeams res', res)
-        dispatch(teamsActions.getTeams.done(res.teams))
-        dispatch(desksActions.getDesks.done(res.desks))
-        console.log(res.status)
-      })
-      .catch(err => {
-        console.log('effects.js: fetchTeams error', err.json())
-        dispatch(teamsActions.getTeams.fail(err))
-        if (err === 401) history.push('/auth')
-      })
+    console.log('fetchTeams', token)
+
+    return (
+      request('http://localhost:3000/teams', {}, token)
+        // .then(response => console.log(response))
+        .then(res => {
+          // console.log('effects.js: fetchTeams res', res)
+          dispatch(teamsActions.getTeams.done(res.teams))
+          dispatch(desksActions.getDesks.done(res.desks))
+          console.log(res.status)
+        })
+        .catch(err => {
+          console.log('effects.js: fetchTeams error', err)
+          dispatch(teamsActions.getTeams.fail(err))
+          history.push('/auth')
+        })
+    )
   }
 }
 
@@ -110,6 +117,33 @@ export const updateCard = (cardId, columnId, name) => {
     })
       .then(() => {
         dispatch(cardsActions.editCard({ name: name, id: cardId }))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const login = (username, password) => {
+  return dispatch => {
+    return post('http://localhost:3000/login', {
+      username,
+      password
+    })
+      .then(res => {
+        dispatch(authActions.login(res.token))
+        history.push('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
+
+export const signup = (username, password) => {
+  return dispatch => {
+    return post('http://localhost:3000/signup', { username, password })
+      .then(res => {
+        dispatch(authActions.login(res.token))
+        history.push('/')
       })
       .catch(err => console.log(err))
   }

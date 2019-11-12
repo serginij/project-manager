@@ -1,27 +1,13 @@
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { styled } from 'linaria/react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { fetchTeams } from '@symbiotes/effects'
 
 import user from '../../assets/user.svg'
 
 export const Header = () => {
-  const { teams } = useSelector(state => state.teams)
-
-  const dispatch = useDispatch()
-
-  const getTeams = useCallback(() => dispatch(fetchTeams()), [dispatch])
-
   const handleClick = () => {
-    console.log(teams)
+    console.log('clicked')
   }
-
-  useEffect(() => {
-    getTeams()
-  }, [getTeams])
-
   return (
     <StyledHeader>
       <StyledLink to="/">Home</StyledLink>
