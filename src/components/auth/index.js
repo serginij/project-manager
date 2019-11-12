@@ -23,7 +23,6 @@ export const Auth = () => {
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
-    // console.log(e.target.name, e.target.value)
   }
 
   const handleSubmit = e => {
@@ -56,9 +55,9 @@ export const Auth = () => {
         </Switch>
         <Button>{type}</Button>
       </Form>
-      <ResetPassword>
+      <p>
         <StyledLink to="/resetpwd">Reset Password</StyledLink>
-      </ResetPassword>
+      </p>
     </Wrapper>
   )
 }
@@ -92,8 +91,4 @@ const StyledInput = styled(Input)`
 const Button = styled(AddButton)`
   font-size: 1.2rem;
   height: 2.5em;
-`
-
-const ResetPassword = styled.p`
-  margin-top: 10px;
 `

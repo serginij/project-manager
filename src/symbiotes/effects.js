@@ -9,7 +9,8 @@ import { history } from '@lib/routing'
 import {
   addDesk as createDesk,
   addColumn as createColumn,
-  addCard as createCard
+  addCard as createCard,
+  storeToken
 } from './helpers'
 import { columnsActions } from './columns'
 import { cardsActions } from './cards'
@@ -130,6 +131,7 @@ export const login = (username, password) => {
     })
       .then(res => {
         dispatch(authActions.login(res.token))
+        storeToken(res.token)
         history.push('/')
       })
       .catch(err => {

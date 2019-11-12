@@ -2,6 +2,7 @@ import { desksActions } from '@symbiotes/desks'
 import { columnsActions } from '@symbiotes/columns'
 import { cardsActions } from '@symbiotes/cards'
 import { teamsActions } from '@symbiotes/teams'
+import { authActions } from '@symbiotes/auth'
 
 export const addColumn = (name, deskId, columnId) => {
   return dispatch => {
@@ -21,5 +22,19 @@ export const addDesk = (name, teamId, deskId) => {
   return dispatch => {
     dispatch(desksActions.addDesk({ name: name, id: deskId }))
     dispatch(teamsActions.addDesk(teamId, deskId))
+  }
+}
+
+export const storeToken = token => {
+  sessionStorage.setItem('token', token)
+}
+
+export const getToken = () => {
+  const token = sessionStorage.getItem('token')
+  console.log(token)
+  if (token.length) {
+    return dispatch => {
+      dispatch(authActions.login(token))
+    }
   }
 }

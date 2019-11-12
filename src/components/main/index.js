@@ -4,6 +4,7 @@ import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchTeams } from '@symbiotes/effects'
+import { getToken } from '@symbiotes/helpers'
 
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
@@ -15,11 +16,15 @@ export const Main = () => {
   const dispatch = useDispatch()
 
   const getTeams = useCallback(token => dispatch(fetchTeams(token)), [dispatch])
+  // const getAuth = () => getToken()
 
   useEffect(() => {
-    getTeams(token)
-    console.log(token)
-  }, [getTeams, token])
+    dispatch(getToken())
+    token.length && getTeams(token)
+    // getAuth()
+    // getTeams(token)
+    // console.log(token)
+  }, [dispatch, getTeams, token])
 
   const teamList = Object.values(teams)
 
