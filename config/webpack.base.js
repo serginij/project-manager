@@ -53,6 +53,9 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    historyApiFallback: true
+  },
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, '../src/components/'),

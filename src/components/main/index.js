@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { styled } from 'linaria/react'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { fetchTeams } from '@symbiotes/effects'
+import { getToken } from '@symbiotes/helpers'
 
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
 
-export const Main = () => {
-  let { teams } = useSelector(state => state.teams)
+export const Main = props => {
+  const { teams } = useSelector(state => state.teams)
+  const { token } = useSelector(state => state.auth)
+
+  const dispatch = useDispatch()
+  const getTeams = useCallback(token => dispatch(fetchTeams(token)), [dispatch])
+
+  useEffect(() => {
+    dispatch(getToken())
+
+    if (!token.length) {
+      props.history.push('/auth')
+    } else {
+      getTeams(token)
+    }
+  }, [dispatch, getTeams, props.history, token])
 
   const teamList = Object.values(teams)
 
