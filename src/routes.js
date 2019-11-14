@@ -5,6 +5,7 @@ import MindMap from '@components/mindmap'
 import { Desk } from '@components/desk'
 import { Team } from '@components/team'
 import { CreateDesk } from '@components/desk/create-desk'
+import { CreateTeam } from '@components/team/create-team'
 import { Auth } from '@components/auth'
 
 export const Routes = () =>
@@ -32,6 +33,11 @@ export const Routes = () =>
     {
       component: CreateDesk,
       path: '/create-desk',
+      exact: true
+    },
+    {
+      component: CreateTeam,
+      path: '/create-team',
       exact: true
     },
     {

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { addDesk } from '@symbiotes/effects'
 
 export const CreateDesk = props => {
   const [name, setName] = useState('')
+  const { currentTeam } = useSelector(state => state.teams)
 
   const dispatch = useDispatch()
 
@@ -15,7 +16,7 @@ export const CreateDesk = props => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch(addDesk(name)).then(props.history.push('/'))
+    dispatch(addDesk(name, currentTeam)).then(props.history.push('/'))
   }
 
   return (

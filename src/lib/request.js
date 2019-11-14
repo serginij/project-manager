@@ -1,4 +1,4 @@
-export const request = (url, options, auth) =>
+export const get = (url, options, auth) =>
   fetch(url, {
     ...options,
     headers: {

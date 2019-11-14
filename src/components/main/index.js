@@ -29,7 +29,14 @@ export const Main = props => {
   const teamList = Object.values(teams)
 
   let desksList = teamList.map(team => {
-    return <DeskList key={team.id} title={team.name} desksById={team.desks} />
+    return (
+      <DeskList
+        teamId={team.id}
+        key={team.id}
+        title={team.name}
+        desksById={team.desks}
+      />
+    )
   })
 
   return (
