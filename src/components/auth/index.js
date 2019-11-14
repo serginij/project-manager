@@ -4,9 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import { login, signup } from '@symbiotes/effects'
 
-import { Input } from '@ui/input'
-import { AddButton } from '@ui/add-button'
-import { StyledLink } from '@ui/styled-link'
+import { Input, AddButton, StyledLink } from '@ui'
 
 export const Auth = () => {
   const [type, setType] = useState('Login')

@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import { deleteCard, updateCard } from '@symbiotes/effects'
 
-import { CloseButton } from '@ui/close-button'
-import { AddButton } from '@ui/add-button'
+import { CloseButton, AddButton } from '@ui'
 
 export const Card = ({ text, columnId, id }) => {
   const [visible, setVisible] = useState(true)

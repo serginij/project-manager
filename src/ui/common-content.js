@@ -14,4 +14,5 @@ const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
   overflow-x: scroll;
+  background-color: #fafbfc;
 `
