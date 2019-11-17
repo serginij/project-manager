@@ -19,11 +19,11 @@ export const Main = props => {
   useEffect(() => {
     dispatch(getToken())
 
-    if (!token.length) {
-      props.history.push('/auth')
-    } else {
-      getTeams(token)
-    }
+    // if (!token.length) {
+    //   props.history.push('/auth')
+    // } else {
+    getTeams(token)
+    // }
   }, [dispatch, getTeams, props.history, token])
 
   const teamList = Object.values(teams)

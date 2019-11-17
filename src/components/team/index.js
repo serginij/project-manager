@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { updateTeam, findUser } from '@symbiotes/effects'
-import { teamsActions } from '@symbiotes/teams'
+import { updateTeam, findUser, addTeamUser } from '@symbiotes/effects'
+import { Input, AddButton, TextArea, FindUser } from '@ui'
 
-import { Input, AddButton, TextArea } from '@ui'
+import { UserList } from './user-list'
 
 export const Team = () => {
   const team = useSelector(state => state.teams.teams[state.teams.currentTeam])
@@ -13,8 +13,7 @@ export const Team = () => {
 
   const [data, setData] = useState({
     name: team.name,
-    desc: team.desc,
-    find: ''
+    desc: team.desc
   })
 
   const { token } = useSelector(state => state.auth)
@@ -30,17 +29,8 @@ export const Team = () => {
     dispatch(updateTeam(data.name, data.desc, team.id, token))
   }
 
-  const searchUser = e => {
-    e.preventDefault()
-    handleChange(e)
-    dispatch(findUser(e.target.value))
-  }
-
-  let users = findList.map(user => (
-    <UserItem key={user.id}>
-      <p>{user.username}</p>
-    </UserItem>
-  ))
+  const searchUser = username => dispatch(findUser(username))
+  const addUser = user => dispatch(addTeamUser(user, team.id, token))
 
   return (
     <Wrapper>
@@ -64,19 +54,8 @@ export const Team = () => {
         />
         <Button>Сохранить</Button>
       </form>
-      <form onSubmit={searchUser}>
-        <Input
-          type="text"
-          placeholder="username"
-          value={data.find}
-          name="find"
-          onChange={searchUser}
-        />
-        {/* <AddButton>Find</AddButton> */}
-      </form>
-      <UserList onMouseLeave={() => dispatch(teamsActions.findUsers([]))}>
-        {users}
-      </UserList>
+      <FindUser findList={findList} onSearch={searchUser} onSelect={addUser} />
+      <UserList users={team.users} />
     </Wrapper>
   )
 }
@@ -105,28 +84,4 @@ const Button = styled(AddButton)`
   font-size: 1.2rem;
   height: 2.5em;
   width: 100%;
-`
-
-const UserList = styled.ul`
-  list-style: none;
-  width: 100%;
-  padding: 0%;
-  margin: -8px 0 0 0;
-  box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
-    0 0 0 1px rgba(9, 30, 66, 0.08);
-`
-
-const UserItem = styled.li`
-  width: 100%;
-  background-color: white;
-  /* margin: 8px 0; */
-  box-sizing: border-box;
-  padding: 8px 0 8px 12px;
-  cursor: pointer;
-  :hover {
-    background-color: #fafafa;
-  }
-  p {
-    margin: 0;
-  }
 `

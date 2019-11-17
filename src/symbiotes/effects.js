@@ -25,12 +25,10 @@ export const fetchTeams = token => {
       .then(res => {
         dispatch(teamsActions.getTeams.done(res.teams))
         dispatch(desksActions.getDesks.done(res.desks))
-
         console.log(res)
       })
       .catch(err => {
         console.log('effects.js: fetchTeams error', err)
-        dispatch(teamsActions.getTeams.fail(err))
         history.push('/auth')
       })
   }
@@ -163,18 +161,17 @@ export const addTeam = (name, desc, token) => {
 export const updateTeam = (name, desc, teamId, token) => {
   console.log('effects.js: updateTeam', name, desc, teamId, token)
   return dispatch => {
-    return update(
-      `http://localhost:3000/teams/${teamId}`,
-      { name, desc },
-      token
+    return (
+      update(`http://localhost:3000/teams/${teamId}`, { name, desc }, token)
+        // .then(handleErrors)
+        .then(() => {
+          dispatch(
+            teamsActions.updateTeam({ name: name, desc: desc, id: teamId })
+          )
+          history.push('/')
+        })
+        .catch(err => console.log(err))
     )
-      .then(() => {
-        dispatch(
-          teamsActions.updateTeam({ name: name, desc: desc, id: teamId })
-        )
-        history.push('/')
-      })
-      .catch(err => console.log(err))
   }
 }
 
@@ -191,4 +188,49 @@ export const findUser = username => {
       dispatch(teamsActions.findUsers([]))
     }
   }
+}
+
+export const addTeamUser = (user, teamId, token) => {
+  return dispatch => {
+    return (
+      post(
+        `http://localhost:3000/teams/${teamId}/users`,
+        { userId: user.id },
+        token
+      )
+        // .then(handleErrors)
+        .then(res => {
+          dispatch(
+            teamsActions.addUser(teamId, {
+              id: user.id,
+              username: user.username,
+              is_admin: res.is_admin
+            })
+          )
+        })
+        .catch(err => console.log(err))
+    )
+  }
+}
+
+export const deleteTeamUser = (userId, teamId, token) => dispatch => {
+  return (
+    del(`http://localhost:3000/teams/${teamId}/users/${userId}`, {}, token)
+      // .then(handleErrors)
+      .then(() => dispatch(teamsActions.deleteUser(teamId, userId)))
+      .catch(err => console.log(err))
+  )
+}
+
+export const updateTeamUser = (userId, teamId, isAdmin, token) => dispatch => {
+  return (
+    update(
+      `http://localhost:3000/teams/${teamId}/users/${userId}`,
+      { isAdmin },
+      token
+    )
+      // .then(handleErrors)
+      .then(() => dispatch(teamsActions.updateUser(teamId, userId, isAdmin)))
+      .catch(err => console.log(err))
+  )
 }

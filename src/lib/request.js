@@ -1,3 +1,11 @@
+export const handleErrors = response => {
+  // console.log('handleErrors', response)
+  if (!response.ok) {
+    throw Error(response.message)
+  }
+  return response
+}
+
 export const get = (url, options, auth) =>
   fetch(url, {
     ...options,
@@ -5,7 +13,9 @@ export const get = (url, options, auth) =>
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + auth
     }
-  }).then(response => response.json())
+  })
+    .then(response => response.json())
+    .then(handleErrors)
 
 export const post = (url, data, auth) =>
   fetch(url, {
@@ -17,7 +27,8 @@ export const post = (url, data, auth) =>
     body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .catch(error => error)
+    .then(handleErrors)
+// .catch(error => error)
 
 export const del = (url, data, auth) =>
   fetch(url, {
@@ -29,7 +40,8 @@ export const del = (url, data, auth) =>
     body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .catch(error => console.log(error))
+    .then(handleErrors)
+// .catch(error => console.log(error))
 
 export const update = (url, data, auth) =>
   fetch(url, {
@@ -41,4 +53,5 @@ export const update = (url, data, auth) =>
     body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .catch(error => console.log(error))
+    .then(handleErrors)
+// .catch(error => console.log(error))
