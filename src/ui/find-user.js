@@ -44,6 +44,7 @@ export const FindUser = ({ findList, onSearch, onSelect }) => {
   return (
     <Wrapper>
       <form>
+        <Title>Users</Title>
         <Input
           type="text"
           value={value}
@@ -67,7 +68,6 @@ export const FindUser = ({ findList, onSearch, onSelect }) => {
 const Wrapper = styled.div`
   width: 100%;
   margin: auto;
-  margin-top: 5%;
   align-items: center;
   text-align: center;
 `
@@ -83,6 +83,7 @@ const FindList = styled.ul`
   margin: -8px 0 0 0;
   box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
     0 0 0 1px rgba(9, 30, 66, 0.08);
+  width: 100%;
 `
 
 const UserItem = styled.li`
@@ -97,4 +98,8 @@ const UserItem = styled.li`
   p {
     margin: 0;
   }
+`
+
+const Title = styled.h3`
+  text-align: left;
 `

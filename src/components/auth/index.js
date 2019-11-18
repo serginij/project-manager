@@ -67,6 +67,8 @@ const Wrapper = styled.div`
   text-align: center;
   vertical-align: middle;
   margin-top: 10%;
+  min-width: 270px;
+  max-width: 500px;
 `
 
 const Form = styled.form`

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-
 import { useSelector, useDispatch } from 'react-redux'
+import { styled } from 'linaria/react'
+
+import { Input, AddButton, FormTitle } from '@ui'
 
 import { addDesk } from '@symbiotes/effects'
 
@@ -20,15 +22,38 @@ export const CreateDesk = props => {
   }
 
   return (
-    <div>
+    <Wrapper>
       <h2>Create desk</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">
-          Desk name
-          <input type="text" id="name" value={name} onChange={handleChange} />
-        </label>
-        <button>Add</button>
+        <FormTitle>Desk name</FormTitle>
+        <StyledInput
+          type="text"
+          id="name"
+          placeholder="desk name"
+          value={name}
+          onChange={handleChange}
+        />
+        <Button>Add</Button>
       </form>
-    </div>
+    </Wrapper>
   )
 }
+const Wrapper = styled.div`
+  width: 30%;
+  margin: auto;
+  margin-top: 10%;
+  align-items: center;
+  text-align: center;
+`
+
+const StyledInput = styled(Input)`
+  font-size: 1.2rem;
+  height: 2.2em;
+  margin-bottom: 20px;
+`
+
+const Button = styled(AddButton)`
+  font-size: 1.2rem;
+  height: 2.2em;
+  width: 100%;
+`

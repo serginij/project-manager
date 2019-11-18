@@ -36,7 +36,7 @@ export const Team = () => {
     <Wrapper>
       <h2>Edit team</h2>
       <form onSubmit={handleSubmit}>
-        <h3>Name</h3>
+        <Title>Name</Title>
         <StyledInput
           type="text"
           placeholder="Team name"
@@ -44,7 +44,7 @@ export const Team = () => {
           onChange={handleChange}
           name="name"
         />
-        <h3>Description</h3>
+        <Title>Description</Title>
         <StyledTextArea
           type="text"
           placeholder="Team description"
@@ -52,10 +52,14 @@ export const Team = () => {
           onChange={handleChange}
           name="desc"
         />
+        <FindUser
+          findList={findList}
+          onSearch={searchUser}
+          onSelect={addUser}
+        />
+        <UserList users={team.users} token={token} />
         <Button>Сохранить</Button>
       </form>
-      <FindUser findList={findList} onSearch={searchUser} onSelect={addUser} />
-      <UserList users={team.users} />
     </Wrapper>
   )
 }
@@ -64,24 +68,28 @@ const Wrapper = styled.div`
   width: 30%;
   margin: auto;
   margin-top: 5%;
-  align-items: center;
   text-align: center;
+  min-width: 270px;
+  max-width: 500px;
 `
 
 const StyledInput = styled(Input)`
-  font-size: 1.2rem;
+  font-size: 1rem;
   height: 2.5em;
   margin-bottom: 20px;
 `
 
 const StyledTextArea = styled(TextArea)`
-  font-size: 1.2rem;
+  font-size: 1rem;
   height: 5em;
-  margin-bottom: 20px;
 `
 
 const Button = styled(AddButton)`
-  font-size: 1.2rem;
-  height: 2.5em;
-  width: 100%;
+  font-size: 1rem;
+  height: 2.2em;
+  width: 40%;
+  margin-top: 20px;
+`
+const Title = styled.h3`
+  text-align: left;
 `

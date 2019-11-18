@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 
 import { deleteTeamUser, updateTeamUser } from '@symbiotes/effects'
 
-export const UserList = ({ users }) => {
+export const UserList = ({ users, token }) => {
   let list = users.map(user => (
     <UserItem key={user.id}>
       <h4>{user.username}</h4>
@@ -21,7 +21,7 @@ export const UserList = ({ users }) => {
   const dispatch = useDispatch()
 
   const handleDeleteUser = userId => {
-    dispatch(deleteTeamUser(userId, currentTeam))
+    dispatch(deleteTeamUser(userId, currentTeam, token))
   }
 
   const handleUpdateUser = (userId, isAdmin) => {

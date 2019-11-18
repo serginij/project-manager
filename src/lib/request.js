@@ -35,7 +35,7 @@ export const del = (url, data, auth) =>
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer' + auth
+      Authorization: 'Bearer ' + auth
     },
     body: JSON.stringify(data)
   })
