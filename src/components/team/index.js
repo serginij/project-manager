@@ -3,7 +3,7 @@ import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { updateTeam, findUser, addTeamUser } from '@symbiotes/effects'
-import { Input, AddButton, TextArea, FindUser } from '@ui'
+import { Input, AddButton, TextArea, FindUser, FormTitle } from '@ui'
 
 import { UserList } from './user-list'
 
@@ -36,7 +36,7 @@ export const Team = () => {
     <Wrapper>
       <h2>Edit team</h2>
       <form onSubmit={handleSubmit}>
-        <Title>Name</Title>
+        <FormTitle>Name</FormTitle>
         <StyledInput
           type="text"
           placeholder="Team name"
@@ -44,7 +44,7 @@ export const Team = () => {
           onChange={handleChange}
           name="name"
         />
-        <Title>Description</Title>
+        <FormTitle>Description</FormTitle>
         <StyledTextArea
           type="text"
           placeholder="Team description"
@@ -89,7 +89,4 @@ const Button = styled(AddButton)`
   height: 2.2em;
   width: 40%;
   margin-top: 20px;
-`
-const Title = styled.h3`
-  text-align: left;
 `

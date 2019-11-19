@@ -1,5 +1,4 @@
 export const handleErrors = response => {
-  // console.log('handleErrors', response)
   if (!response.ok) {
     throw Error(response.message)
   }
@@ -28,7 +27,6 @@ export const post = (url, data, auth) =>
   })
     .then(response => response.json())
     .then(handleErrors)
-// .catch(error => error)
 
 export const del = (url, data, auth) =>
   fetch(url, {
@@ -41,7 +39,6 @@ export const del = (url, data, auth) =>
   })
     .then(response => response.json())
     .then(handleErrors)
-// .catch(error => console.log(error))
 
 export const update = (url, data, auth) =>
   fetch(url, {
@@ -54,4 +51,3 @@ export const update = (url, data, auth) =>
   })
     .then(response => response.json())
     .then(handleErrors)
-// .catch(error => console.log(error))

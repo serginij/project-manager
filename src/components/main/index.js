@@ -9,7 +9,7 @@ import { getToken } from '@symbiotes/helpers'
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
 
-export const Main = props => {
+export const Main = () => {
   const { teams } = useSelector(state => state.teams)
   const { token } = useSelector(state => state.auth)
 
@@ -18,13 +18,10 @@ export const Main = props => {
 
   useEffect(() => {
     dispatch(getToken())
-
-    // if (!token.length) {
-    //   props.history.push('/auth')
-    // } else {
-    getTeams(token)
-    // }
-  }, [dispatch, getTeams, props.history, token])
+    if (token.length) {
+      getTeams(token)
+    }
+  }, [dispatch, getTeams, token])
 
   const teamList = Object.values(teams)
 

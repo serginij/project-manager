@@ -6,14 +6,12 @@ import { StyledLink } from '@ui'
 import { TeamItem } from './team-item'
 
 export const TeamList = ({ teams }) => {
-  let teamList = teams
-    ? teams.map(team => (
-        <TeamItem name={team.name} key={team.id} id={team.id} />
-      ))
-    : null
+  let teamList =
+    teams &&
+    teams.map(team => <TeamItem name={team.name} key={team.id} id={team.id} />)
 
   return (
-    <div style={{ width: '30%', minWidth: '200px' }}>
+    <Wrapper>
       <Teams>
         <ListHeader>
           <h3>Команды</h3>
@@ -23,9 +21,14 @@ export const TeamList = ({ teams }) => {
         </ListHeader>
         <List>{teamList}</List>
       </Teams>
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  width: 30%;
+  min-width: 200px;
+`
 
 const List = styled.ul`
   display: flex;
