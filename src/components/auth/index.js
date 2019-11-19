@@ -4,9 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import { login, signup } from '@symbiotes/effects'
 
-import { Input } from '@ui/input'
-import { AddButton } from '@ui/add-button'
-import { StyledLink } from '@ui/styled-link'
+import { Input, AddButton, StyledLink } from '@ui'
 
 export const Auth = () => {
   const [type, setType] = useState('Login')
@@ -69,6 +67,8 @@ const Wrapper = styled.div`
   text-align: center;
   vertical-align: middle;
   margin-top: 10%;
+  min-width: 270px;
+  max-width: 500px;
 `
 
 const Form = styled.form`

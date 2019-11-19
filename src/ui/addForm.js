@@ -4,6 +4,7 @@ import { styled } from 'linaria/react'
 import { CloseButton } from './close-button'
 import { AddButton } from './add-button'
 import { Input } from './input'
+import { TextArea } from './text-area'
 
 export const AddForm = ({
   onAdd,
@@ -112,18 +113,4 @@ const CloseForm = styled.div`
   justify-content: space-between;
   cursor: default;
   height: 2rem;
-`
-
-const TextArea = styled.textarea`
-  width: 100%;
-  box-sizing: border-box;
-  height: 4rem;
-  border-radius: 3px;
-  box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
-  background: #fff;
-  border: none;
-  margin: -4px 0 8px 0;
-  padding: 8px 0 8px 12px;
-  resize: none;
-  font: inherit;
 `

@@ -3,7 +3,9 @@ import { createSymbiote } from 'redux-symbiote'
 const initialState = {
   loading: false,
   teams: {},
-  error: null
+  error: null,
+  currentTeam: null,
+  findList: []
 }
 
 const symbiotes = {
@@ -16,7 +18,7 @@ const symbiotes = {
     ...state,
     teams: {
       ...state.teams,
-      [team.id]: { name: team.name, _id: team.id, desks: [] }
+      [team.id]: { name: team.name, id: team.id, desks: [], desc: team.desc }
     }
   }),
   addDesk: (state, teamId, deskId) => ({
@@ -28,7 +30,59 @@ const symbiotes = {
         desks: [...state.teams[teamId].desks, deskId]
       }
     }
-  })
+  }),
+  selectTeam: (state, teamId) => ({ ...state, currentTeam: teamId }),
+  updateTeam: (state, team) => ({
+    ...state,
+    teams: {
+      ...state.teams,
+      [team.id]: {
+        ...state.teams[team.id],
+        name: team.name,
+        desc: team.desc
+      }
+    }
+  }),
+  findUsers: (state, users) => ({ ...state, findList: users }),
+  addUser: (state, teamId, user) => ({
+    ...state,
+    teams: {
+      ...state.teams,
+      [teamId]: {
+        ...state.teams[teamId],
+        users: [...state.teams[teamId].users, user]
+      }
+    }
+  }),
+  deleteUser: (state, teamId, userId) => ({
+    ...state,
+    teams: {
+      ...state.teams,
+      [teamId]: {
+        ...state.teams[teamId],
+        users: state.teams[teamId].users.filter(user => user.id !== userId)
+      }
+    }
+  }),
+  updateUser: (state, teamId, userId, isAdmin) => {
+    let users = state.teams[teamId].users.map(user => {
+      if (user.id === userId) {
+        console.log(user)
+        user.is_admin = isAdmin
+      }
+      return user
+    })
+    return {
+      ...state,
+      teams: {
+        ...state.teams,
+        [teamId]: {
+          ...state.teams[teamId],
+          users: users
+        }
+      }
+    }
+  }
 }
 
 export const { actions: teamsActions, reducer: teamsReducer } = createSymbiote(

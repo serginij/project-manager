@@ -3,14 +3,16 @@ import { styled } from 'linaria/react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getDesk } from '@symbiotes/effects'
-import { StyledLink } from '@ui/styled-link'
+import { teamsActions } from '@symbiotes/teams'
+import { StyledLink } from '@ui'
 
 import { DeskItem } from './desk-item'
 
-export const DeskList = ({ title, desksById }) => {
+export const DeskList = ({ title, desksById, teamId }) => {
   const { desks } = useSelector(state => state.desks)
 
   const dispatch = useDispatch()
+  const setTeam = id => dispatch(teamsActions.selectTeam(id))
 
   const handleClick = id => {
     dispatch(getDesk(id))
@@ -37,7 +39,9 @@ export const DeskList = ({ title, desksById }) => {
       <h3>{title}</h3>
       <List>
         {deskList}
-        <StyledLink to="/create-desk">Создать доску</StyledLink>
+        <AddDesk onClick={() => setTeam(teamId)}>
+          <StyledLink to="/create-desk">Создать доску</StyledLink>
+        </AddDesk>
       </List>
     </div>
   )
@@ -50,4 +54,24 @@ const List = styled.ul`
   list-style: none;
   align-items: center;
   padding: 0;
+`
+
+const AddDesk = styled.div`
+  display: flex;
+  cursor: pointer;
+  max-width: 48%;
+  min-width: 160px;
+  min-height: 100px;
+  margin: 2% 8px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 6px -6px #777;
+  }
 `

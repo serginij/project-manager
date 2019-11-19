@@ -2,8 +2,7 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { AddForm } from '@ui/addForm'
-import { CloseButton } from '@ui/close-button'
+import { AddForm, CloseButton } from '@ui'
 
 import { deleteColumn, addCard } from '@symbiotes/effects'
 

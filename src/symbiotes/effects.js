@@ -2,7 +2,7 @@ import { teamsActions } from '@symbiotes/teams'
 import { desksActions } from '@symbiotes/desks'
 import { authActions } from '@symbiotes/auth'
 
-import { request, post, del, update } from '@lib/request'
+import { get, post, del, update } from '@lib/request'
 
 import { history } from '@lib/routing'
 
@@ -19,40 +19,34 @@ export const fetchTeams = token => {
   return dispatch => {
     dispatch(teamsActions.getTeams.start())
 
-    console.log('fetchTeams', token)
-
-    return request('http://localhost:3000/teams', {}, token)
+    return get('http://localhost:3000/teams', {}, token)
       .then(res => {
-        if (res.status === 200) {
-          dispatch(teamsActions.getTeams.done(res.teams))
-          dispatch(desksActions.getDesks.done(res.desks))
-        }
-        console.log(res.status)
+        dispatch(teamsActions.getTeams.done(res.teams))
+        dispatch(desksActions.getDesks.done(res.desks))
       })
       .catch(err => {
         console.log('effects.js: fetchTeams error', err)
-        dispatch(teamsActions.getTeams.fail(err))
         history.push('/auth')
       })
   }
 }
 
-export const addDesk = name => {
+export const addDesk = (name, teamId) => {
   return dispatch => {
-    return post('http://localhost:3000/desks', { teamId: 3, name: name }).then(
-      res => {
-        console.log(res)
-        dispatch(createDesk(name, 3, res.id))
-      }
-    )
+    return post('http://localhost:3000/desks', {
+      teamId: teamId,
+      name: name
+    }).then(res => {
+      console.log(res)
+      dispatch(createDesk(name, teamId, res.id))
+    })
   }
 }
 
 export const getDesk = id => {
   return dispatch => {
-    return request(`http://localhost:3000/desks/${id}`)
+    return get(`http://localhost:3000/desks/${id}`)
       .then(res => {
-        console.log(res)
         dispatch(desksActions.updateDesk(res.desk))
         dispatch(columnsActions.getColumns.done(res.columns))
         dispatch(cardsActions.getCards.done(res.cards))
@@ -69,7 +63,6 @@ export const addColumn = (name, deskId) => {
       deskId: deskId
     })
       .then(res => {
-        console.log(res)
         dispatch(createColumn(name, deskId, res.id))
       })
       .catch(err => console.log(err))
@@ -78,8 +71,7 @@ export const addColumn = (name, deskId) => {
 
 export const deleteColumn = columnId => {
   return dispatch => {
-    return del(`http://localhost:3000/desks/columns/${columnId}`).then(res => {
-      console.log('effects.js: deleteColumn res', res)
+    return del(`http://localhost:3000/desks/columns/${columnId}`).then(() => {
       dispatch(desksActions.deleteColumn(columnId))
     })
   }
@@ -92,7 +84,6 @@ export const addCard = (name, columnId) => {
       columnId: columnId
     })
       .then(res => {
-        console.log(res)
         dispatch(createCard(name, columnId, res.id))
       })
       .catch(err => console.log(err))
@@ -101,8 +92,7 @@ export const addCard = (name, columnId) => {
 
 export const deleteCard = (columnId, cardId) => {
   return dispatch => {
-    return del(`http://localhost:3000/desks/cards/${cardId}`).then(res => {
-      console.log('effects.js: deleteCard res', res)
+    return del(`http://localhost:3000/desks/cards/${cardId}`).then(() => {
       dispatch(columnsActions.deleteCard(columnId, cardId))
     })
   }
@@ -147,4 +137,84 @@ export const signup = (username, password) => {
       })
       .catch(err => console.log(err))
   }
+}
+
+export const addTeam = (name, desc, token) => {
+  return dispatch => {
+    return post('http://localhost:3000/teams', { name, desc }, token)
+      .then(res => {
+        dispatch(teamsActions.addTeam({ name: name, desc: desc, id: res.id }))
+        history.push('/')
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const updateTeam = (name, desc, teamId, token) => {
+  console.log('effects.js: updateTeam', name, desc, teamId, token)
+  return dispatch => {
+    return update(
+      `http://localhost:3000/teams/${teamId}`,
+      { name, desc },
+      token
+    )
+      .then(() => {
+        dispatch(
+          teamsActions.updateTeam({ name: name, desc: desc, id: teamId })
+        )
+        history.push('/')
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const findUser = username => {
+  return dispatch => {
+    if (username.length) {
+      return get(`http://localhost:3000/user/find/${username}`)
+        .then(res => {
+          dispatch(teamsActions.findUsers(res.users))
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+    } else {
+      dispatch(teamsActions.findUsers([]))
+    }
+  }
+}
+
+export const addTeamUser = (user, teamId, token) => {
+  return dispatch => {
+    return post(
+      `http://localhost:3000/teams/${teamId}/users`,
+      { userId: user.id },
+      token
+    )
+      .then(res => {
+        dispatch(
+          teamsActions.addUser(teamId, {
+            id: user.id,
+            username: user.username,
+            is_admin: res.is_admin
+          })
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteTeamUser = (userId, teamId, token) => dispatch => {
+  return del(`http://localhost:3000/teams/${teamId}/users/${userId}`, {}, token)
+    .then(() => dispatch(teamsActions.deleteUser(teamId, userId)))
+    .catch(err => console.log(err))
+}
+
+export const updateTeamUser = (userId, teamId, isAdmin, token) => dispatch => {
+  return update(
+    `http://localhost:3000/teams/${teamId}/users/${userId}`,
+    { isAdmin },
+    token
+  )
+    .then(() => dispatch(teamsActions.updateUser(teamId, userId, isAdmin)))
+    .catch(err => console.log(err))
 }

@@ -1,11 +1,20 @@
-export const request = (url, options, auth) =>
+export const handleErrors = response => {
+  if (!response.ok) {
+    throw Error(response.message)
+  }
+  return response
+}
+
+export const get = (url, options, auth) =>
   fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + auth
     }
-  }).then(response => response.json())
+  })
+    .then(response => response.json())
+    .then(handleErrors)
 
 export const post = (url, data, auth) =>
   fetch(url, {
@@ -17,19 +26,19 @@ export const post = (url, data, auth) =>
     body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .catch(error => error)
+    .then(handleErrors)
 
 export const del = (url, data, auth) =>
   fetch(url, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer' + auth
+      Authorization: 'Bearer ' + auth
     },
     body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .catch(error => console.log(error))
+    .then(handleErrors)
 
 export const update = (url, data, auth) =>
   fetch(url, {
@@ -41,4 +50,4 @@ export const update = (url, data, auth) =>
     body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .catch(error => console.log(error))
+    .then(handleErrors)
