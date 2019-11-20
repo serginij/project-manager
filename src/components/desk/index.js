@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 
 import { addColumn } from '@symbiotes/effects'
 
-import { AddForm } from '../../ui/addForm'
+import { AddForm, Button, StyledLink } from '@ui'
 import { ColumnsList } from './columns/columns-list'
 
 export const Desk = () => {
@@ -17,7 +17,12 @@ export const Desk = () => {
   return (
     currentDesk && (
       <>
-        <h2>{desk.name}</h2>
+        <DeskHeader>
+          <h2>{desk.name}</h2>
+          <StyledLink to={`/desk/settings/${currentDesk}`}>
+            <Button>Настройки</Button>
+          </StyledLink>
+        </DeskHeader>
         <DeskWrapper>
           <ColumnsList deskId={currentDesk} />
           <AddForm
@@ -38,4 +43,12 @@ const DeskWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   box-sizing: border-box;
+  margin: 0 20px;
+`
+
+const DeskHeader = styled.header`
+  display: flex;
+  margin: 0 20px;
+  justify-content: space-between;
+  align-items: center;
 `

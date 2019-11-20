@@ -18,9 +18,7 @@ export const Main = () => {
 
   useEffect(() => {
     dispatch(getToken())
-    if (token.length) {
-      getTeams(token)
-    }
+    getTeams(token)
   }, [dispatch, getTeams, token])
 
   const teamList = Object.values(teams)

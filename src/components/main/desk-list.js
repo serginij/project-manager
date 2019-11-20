@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getDesk } from '@symbiotes/effects'
 import { teamsActions } from '@symbiotes/teams'
-import { StyledLink } from '@ui'
+import { StyledLink, Spinner } from '@ui'
 
 import { DeskItem } from './desk-item'
 
@@ -18,21 +18,23 @@ export const DeskList = ({ title, desksById, teamId }) => {
     dispatch(getDesk(id))
   }
 
-  let deskList = desksById
-    ? desksById.map(deskId => {
-        if (desks[deskId]) {
-          let { id, name } = desks[deskId]
-          return (
-            <DeskItem
-              name={name}
-              key={id}
-              id={id}
-              onClick={() => handleClick(id)}
-            />
-          )
-        }
-      })
-    : null
+  let deskList = desksById ? (
+    desksById.map(deskId => {
+      if (desks[deskId]) {
+        let { id, name } = desks[deskId]
+        return (
+          <DeskItem
+            name={name}
+            key={id}
+            id={id}
+            onClick={() => handleClick(id)}
+          />
+        )
+      }
+    })
+  ) : (
+    <Spinner />
+  )
 
   return (
     <div>

@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { styled } from 'linaria/react'
 
+import { Button } from '@ui'
+
 import { deleteTeamUser, updateTeamUser } from '@symbiotes/effects'
 
 export const UserList = ({ users, token }) => {
@@ -39,15 +41,4 @@ const UserItem = styled.div`
   border-bottom: 1px solid rgba(9, 30, 66, 0.13);
   min-height: 40px;
   width: 100%;
-`
-
-const Button = styled.button`
-  padding: 6px 12px;
-  background-color: rgba(9, 30, 66, 0.04);
-  border-radius: 3px;
-  margin-right: 8px;
-  border: none;
-  color: black;
-  font-size: 12px;
-  cursor: pointer;
 `

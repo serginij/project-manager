@@ -2,14 +2,18 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { updateTeam, findUser, addTeamUser } from '@symbiotes/effects'
-import { Input, AddButton, TextArea, FindUser, FormTitle } from '@ui'
-
-import { UserList } from './user-list'
+import {
+  updateTeam,
+  findUser,
+  addTeamUser,
+  deleteTeamUser,
+  updateTeamUser
+} from '@symbiotes/effects'
+import { Input, AddButton, TextArea, FindUser, FormTitle, UserList } from '@ui'
 
 export const Team = () => {
   const team = useSelector(state => state.teams.teams[state.teams.currentTeam])
-  const { findList } = useSelector(state => state.teams)
+  const { findList, currentTeam } = useSelector(state => state.teams)
 
   const [data, setData] = useState({
     name: team.name,
@@ -31,6 +35,14 @@ export const Team = () => {
 
   const searchUser = username => dispatch(findUser(username))
   const addUser = user => dispatch(addTeamUser(user, team.id, token))
+
+  const deleteUser = userId => {
+    dispatch(deleteTeamUser(userId, currentTeam, token))
+  }
+
+  const updateUser = (userId, isAdmin) => {
+    dispatch(updateTeamUser(userId, currentTeam, !isAdmin))
+  }
 
   return (
     <Wrapper>
@@ -57,7 +69,11 @@ export const Team = () => {
           onSearch={searchUser}
           onSelect={addUser}
         />
-        <UserList users={team.users} token={token} />
+        <UserList
+          users={team.users}
+          deleteUser={deleteUser}
+          updateUser={updateUser}
+        />
         <Button>Сохранить</Button>
       </form>
     </Wrapper>

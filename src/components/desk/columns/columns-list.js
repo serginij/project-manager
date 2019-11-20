@@ -1,14 +1,19 @@
 import React from 'react'
 import { styled } from 'linaria/react'
-
 import { useSelector } from 'react-redux'
+
+import { Spinner } from '@ui'
 
 import { Column } from './column'
 
 export const ColumnsList = ({ deskId }) => {
   const allColumns = useSelector(state => state.desks.desks[deskId].columns)
 
-  const columns = allColumns.map(id => <Column key={id} columnId={id} />)
+  const columns = allColumns ? (
+    allColumns.map(id => <Column key={id} columnId={id} />)
+  ) : (
+    <Spinner />
+  )
   return <Wrapper>{columns}</Wrapper>
 }
 
