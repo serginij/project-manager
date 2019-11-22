@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { addTeam } from '@symbiotes/effects'
@@ -22,28 +23,32 @@ export const CreateTeam = props => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch(addTeam(data.name, data.desc, token)).then(props.history.push('/'))
+    dispatch(addTeam(data.name, data.desc, token)).then(() =>
+      props.history.push('/')
+    )
   }
 
   return (
     <Wrapper>
       <h2>Create team</h2>
       <form onSubmit={handleSubmit}>
-        <StyledInput
+        <Input
+          className={styledInput}
           type="text"
           placeholder="Team name"
           value={data.name}
           onChange={handleChange}
           name="name"
         />
-        <StyledTextArea
+        <TextArea
+          className={styledTextArea}
           type="text"
           placeholder="Team description"
           value={data.desc}
           onChange={handleChange}
           name="desc"
         />
-        <Button>Создать</Button>
+        <AddButton className={button}>Создать</AddButton>
       </form>
     </Wrapper>
   )
@@ -57,19 +62,19 @@ const Wrapper = styled.div`
   text-align: center;
 `
 
-const StyledInput = styled(Input)`
+const styledInput = css`
   font-size: 1.2rem;
   height: 2.5em;
   margin-bottom: 20px;
 `
 
-const StyledTextArea = styled(TextArea)`
+const styledTextArea = css`
   font-size: 1.2rem;
   height: 5em;
   margin-bottom: 20px;
 `
 
-const Button = styled(AddButton)`
+const button = css`
   font-size: 1.2rem;
   height: 2.5em;
   width: 100%;

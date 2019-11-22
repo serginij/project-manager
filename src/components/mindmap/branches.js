@@ -12,8 +12,8 @@ export const Branches = ({ tree }) => {
     ctx.bezierCurveTo(
       startX,
       startY,
-      x + (x - startX) / 1.5,
-      startY + (y - startY) / 1.5,
+      x + (x - startX) / 3,
+      startY + (y - startY) / 2,
       x,
       y
     )

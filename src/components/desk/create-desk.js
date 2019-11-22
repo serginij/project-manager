@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 
 import { Input, AddButton, FormTitle } from '@ui'
 
@@ -26,14 +27,15 @@ export const CreateDesk = props => {
       <h2>Create desk</h2>
       <form onSubmit={handleSubmit}>
         <FormTitle>Desk name</FormTitle>
-        <StyledInput
+        <Input
+          className={styledInput}
           type="text"
           id="name"
           placeholder="desk name"
           value={name}
           onChange={handleChange}
         />
-        <Button>Add</Button>
+        <AddButton className={button}>Add</AddButton>
       </form>
     </Wrapper>
   )
@@ -46,13 +48,13 @@ const Wrapper = styled.div`
   text-align: center;
 `
 
-const StyledInput = styled(Input)`
+const styledInput = css`
   font-size: 1.2rem;
   height: 2.2em;
   margin-bottom: 20px;
 `
 
-const Button = styled(AddButton)`
+const button = css`
   font-size: 1.2rem;
   height: 2.2em;
   width: 100%;

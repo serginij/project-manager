@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { useDispatch } from 'react-redux'
 
 import { login, signup } from '@symbiotes/effects'
@@ -34,14 +35,16 @@ export const Auth = () => {
     <Wrapper>
       <h1>{type}</h1>
       <Form onSubmit={handleSubmit}>
-        <StyledInput
+        <Input
+          className={styledInput}
           name="usr"
           placeholder="Username"
           type="text"
           value={data.usr}
           onChange={handleChange}
         />
-        <StyledInput
+        <Input
+          className={styledInput}
           name="pwd"
           placeholder="Password"
           type="password"
@@ -51,7 +54,7 @@ export const Auth = () => {
         <Switch onClick={handleSwitch}>
           {type === 'Login' ? 'Signup' : 'Login'}
         </Switch>
-        <Button>{type}</Button>
+        <AddButton className={button}>{type}</AddButton>
       </Form>
       <p>
         <StyledLink to="/resetpwd">Reset Password</StyledLink>
@@ -82,13 +85,13 @@ const Switch = styled.p`
   cursor: pointer;
 `
 
-const StyledInput = styled(Input)`
+const styledInput = css`
   font-size: 1.2rem;
   height: 2.5em;
   margin-bottom: 20px;
 `
 
-const Button = styled(AddButton)`
+const button = css`
   font-size: 1.2rem;
   height: 2.5em;
 `
