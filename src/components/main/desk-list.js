@@ -8,7 +8,7 @@ import { StyledLink, Spinner } from '@ui'
 
 import { DeskItem } from './desk-item'
 
-export const DeskList = ({ title, desksById, teamId }) => {
+export const DeskList = ({ title, desksById, teamId, isAdmin }) => {
   const { desks } = useSelector(state => state.desks)
 
   const dispatch = useDispatch()
@@ -41,9 +41,11 @@ export const DeskList = ({ title, desksById, teamId }) => {
       <h3>{title}</h3>
       <List>
         {deskList}
-        <AddDesk onClick={() => setTeam(teamId)}>
-          <StyledLink to="/create-desk">Создать доску</StyledLink>
-        </AddDesk>
+        {isAdmin && (
+          <AddDesk onClick={() => setTeam(teamId)}>
+            <StyledLink to="/create-desk">Создать доску</StyledLink>
+          </AddDesk>
+        )}
       </List>
     </div>
   )

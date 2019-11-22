@@ -10,6 +10,9 @@ import { ColumnsList } from './columns/columns-list'
 export const Desk = () => {
   const { currentDesk } = useSelector(state => state.desks)
   const desk = useSelector(state => state.desks.desks[currentDesk])
+  const { teams } = useSelector(state => state.teams)
+
+  let isAdmin = desk && teams && teams[desk.team_id].isAdmin
 
   const dispatch = useDispatch()
   const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
@@ -19,9 +22,13 @@ export const Desk = () => {
       <>
         <DeskHeader>
           <h2>{desk.name}</h2>
-          <StyledLink to={`/desk/settings/${currentDesk}`}>
-            <Button>Настройки</Button>
-          </StyledLink>
+          {isAdmin && (
+            <Button>
+              <StyledLink to={`/desk/settings/${currentDesk}`}>
+                Настройки
+              </StyledLink>
+            </Button>
+          )}
         </DeskHeader>
         <DeskWrapper>
           <ColumnsList deskId={currentDesk} />

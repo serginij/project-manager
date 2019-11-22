@@ -8,7 +8,14 @@ import { TeamItem } from './team-item'
 export const TeamList = ({ teams }) => {
   let teamList =
     teams &&
-    teams.map(team => <TeamItem name={team.name} key={team.id} id={team.id} />)
+    teams.map(team => (
+      <TeamItem
+        isAdmin={team.isAdmin}
+        name={team.name}
+        key={team.id}
+        id={team.id}
+      />
+    ))
 
   return (
     <Wrapper>

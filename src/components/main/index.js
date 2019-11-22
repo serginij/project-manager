@@ -30,6 +30,7 @@ export const Main = () => {
         key={team.id}
         title={team.name}
         desksById={team.desks}
+        isAdmin={team.isAdmin}
       />
     )
   })
