@@ -8,6 +8,7 @@ import { CreateDesk } from '@components/desk/create-desk'
 import { CreateTeam } from '@components/team/create-team'
 import { Auth } from '@components/auth'
 import { DeskSettings } from '@components/desk/desk-settings'
+import { TeamSettings } from '@components/team/team-settings'
 
 export const Routes = () =>
   renderRoutes([
@@ -49,6 +50,11 @@ export const Routes = () =>
     {
       component: DeskSettings,
       path: '/desk/settings/:deskId',
+      exact: false
+    },
+    {
+      component: TeamSettings,
+      path: '/team/settings/:teamId',
       exact: false
     }
   ])
