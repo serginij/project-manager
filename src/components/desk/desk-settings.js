@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { updateDesk, findTeamUser, addDeskUser } from '@symbiotes/effects'
-import { Input, AddButton, FindUser, FormTitle } from '@ui'
-
-// import { UserList } from './user-list'
+import {
+  updateDesk,
+  findTeamUser,
+  addDeskUser,
+  deleteDeskUser
+} from '@symbiotes/effects'
+import { Input, AddButton, FindUser, FormTitle, UserList } from '@ui'
 
 export const DeskSettings = () => {
   const desk = useSelector(state => state.desks.desks[state.desks.currentDesk])
@@ -30,13 +34,17 @@ export const DeskSettings = () => {
 
   const searchUser = username => dispatch(findTeamUser(desk.team_id, username))
   const addUser = user => dispatch(addDeskUser(user, desk.id, token))
+  const deleteUser = userId => {
+    dispatch(deleteDeskUser(userId, desk.id, token))
+  }
 
   return (
     <Wrapper>
       <h2>Edit desk</h2>
       <form onSubmit={handleSubmit}>
         <FormTitle>Name</FormTitle>
-        <StyledInput
+        <Input
+          className={styledInput}
           type="text"
           placeholder="Team name"
           value={data.name}
@@ -48,8 +56,8 @@ export const DeskSettings = () => {
           onSearch={searchUser}
           onSelect={addUser}
         />
-        {/* <UserList users={desk.users} token={token} /> */}
-        <Button>Сохранить</Button>
+        <UserList users={desk.users} deleteUser={deleteUser} />
+        <AddButton className={button}>Сохранить</AddButton>
       </form>
     </Wrapper>
   )
@@ -64,13 +72,13 @@ const Wrapper = styled.div`
   max-width: 500px;
 `
 
-const StyledInput = styled(Input)`
+const styledInput = css`
   font-size: 1rem;
   height: 2.5em;
   margin-bottom: 20px;
 `
 
-const Button = styled(AddButton)`
+const button = css`
   font-size: 1rem;
   height: 2.2em;
   width: 40%;

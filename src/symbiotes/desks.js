@@ -25,7 +25,10 @@ const symbiotes = {
     ...state,
     desks: {
       ...state.desks,
-      [desk.id]: desk
+      [desk.id]: {
+        ...state.desks[desk.id],
+        ...desk
+      }
     }
   }),
   setCurrentDesk: (state, deskId) => ({ ...state, currentDesk: deskId }),
