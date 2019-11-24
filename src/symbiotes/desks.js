@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   desks: {},
   error: null,
-  currentDesk: null
+  currentDesk: null,
+  findList: []
 }
 
 const symbiotes = {
@@ -24,7 +25,10 @@ const symbiotes = {
     ...state,
     desks: {
       ...state.desks,
-      [desk.id]: desk
+      [desk.id]: {
+        ...state.desks[desk.id],
+        ...desk
+      }
     }
   }),
   setCurrentDesk: (state, deskId) => ({ ...state, currentDesk: deskId }),
@@ -52,7 +56,28 @@ const symbiotes = {
         }
       }
     }
-  }
+  },
+  findUsers: (state, users) => ({ ...state, findList: users }),
+  addUser: (state, deskId, user) => ({
+    ...state,
+    desks: {
+      ...state.desks,
+      [deskId]: {
+        ...state.desks[deskId],
+        users: [...state.desks[deskId].users, user]
+      }
+    }
+  }),
+  deleteUser: (state, deskId, userId) => ({
+    ...state,
+    desks: {
+      ...state.desks,
+      [deskId]: {
+        ...state.desks[deskId],
+        users: state.desks[deskId].users.filter(user => user.id !== userId)
+      }
+    }
+  })
 }
 
 export const { actions: desksActions, reducer: desksReducer } = createSymbiote(

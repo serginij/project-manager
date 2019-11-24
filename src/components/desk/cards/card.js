@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { useDispatch } from 'react-redux'
 
 import { deleteCard, updateCard } from '@symbiotes/effects'
@@ -43,7 +44,9 @@ export const Card = ({ text, columnId, id }) => {
         <Popup>
           <Input type="text" value={value} onChange={handleChange} />
           <AddButton onClick={handleSubmit}>save</AddButton>
-          <CancelButton onClick={handleClick}>cancel</CancelButton>
+          <CloseButton className={cancelButton} onClick={handleClick}>
+            cancel
+          </CloseButton>
         </Popup>
       ) : (
         <Wrapper
@@ -52,9 +55,9 @@ export const Card = ({ text, columnId, id }) => {
           onClick={handleClick}
         >
           <Text>{text}</Text>
-          <DeleteButton hidden={visible} onClick={handleDeleteCard}>
+          <CloseButton hidden={visible} onClick={handleDeleteCard}>
             ×
-          </DeleteButton>
+          </CloseButton>
         </Wrapper>
       )}
     </>
@@ -85,10 +88,6 @@ const Text = styled.p`
   margin: 0;
 `
 
-const DeleteButton = styled(CloseButton)`
-  visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
-`
-
 const Popup = styled.div`
   width: 100%;
   box-sizing: border-box;
@@ -108,7 +107,7 @@ const Input = styled.input`
   word-wrap: break-word;
 `
 
-const CancelButton = styled(AddButton)`
+const cancelButton = css`
   background-color: #cccccc;
   cursor: pointer;
 `

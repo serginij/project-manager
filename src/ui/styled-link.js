@@ -1,12 +1,14 @@
 import React from 'react'
-import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { Link } from 'react-router-dom'
 
 export const StyledLink = ({ children, to }) => (
-  <LinkTo to={to}>{children}</LinkTo>
+  <Link className={linkTo} to={to}>
+    {children}
+  </Link>
 )
 
-const LinkTo = styled(Link)`
+const linkTo = css`
   color: black;
   width: 100%;
   height: 100%;

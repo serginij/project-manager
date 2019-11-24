@@ -9,6 +9,7 @@ export const CloseButton = styled.button`
   padding: 0;
   background-color: rgba(0, 125, 215, 0);
   color: #6b808c;
+  visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
   &:hover {
     color: black;
   }

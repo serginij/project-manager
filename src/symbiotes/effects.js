@@ -218,3 +218,55 @@ export const updateTeamUser = (userId, teamId, isAdmin, token) => dispatch => {
     .then(() => dispatch(teamsActions.updateUser(teamId, userId, isAdmin)))
     .catch(err => console.log(err))
 }
+
+export const findTeamUser = (teamId, username) => {
+  return dispatch => {
+    if (username.length) {
+      return get(`http://localhost:3000/teams/${teamId}/user/find/${username}`)
+        .then(res => {
+          dispatch(desksActions.findUsers(res.users))
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+    } else {
+      dispatch(teamsActions.findUsers([]))
+    }
+  }
+}
+
+export const addDeskUser = (user, deskId, token) => {
+  return dispatch => {
+    return post(
+      `http://localhost:3000/desks/${deskId}/users`,
+      { userId: user.id },
+      token
+    )
+      .then(() => {
+        dispatch(
+          desksActions.addUser(deskId, {
+            id: user.id,
+            username: user.username
+          })
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteDeskUser = (userId, deskId, token) => dispatch => {
+  return del(`http://localhost:3000/desks/${deskId}/users/${userId}`, {}, token)
+    .then(() => dispatch(teamsActions.deleteUser(deskId, userId)))
+    .catch(err => console.log(err))
+}
+
+export const updateDesk = (name, deskId, token) => {
+  console.log('effects.js: updateDesk', name, deskId, token)
+  return dispatch => {
+    return update(`http://localhost:3000/desks/${deskId}`, { name }, token)
+      .then(() => {
+        dispatch(desksActions.updateDesk({ name: name, id: deskId }))
+        history.push('/')
+      })
+      .catch(err => console.log(err))
+  }
+}

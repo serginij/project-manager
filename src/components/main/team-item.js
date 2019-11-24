@@ -6,14 +6,16 @@ import { teamsActions } from '@symbiotes/teams'
 
 import { StyledLink } from '../../ui/styled-link'
 
-export const TeamItem = ({ name, id }) => {
+export const TeamItem = ({ name, id, isAdmin }) => {
   const dispatch = useDispatch()
 
   const setTeam = id => dispatch(teamsActions.selectTeam(id))
 
+  const link = isAdmin ? `/team/settings/${id}` : `/teams/${id}`
+
   return (
     <Item onClick={() => setTeam(id)} key>
-      <StyledLink to={`/teams/${id}`}>
+      <StyledLink to={link}>
         <Name>{name}</Name>
       </StyledLink>
     </Item>

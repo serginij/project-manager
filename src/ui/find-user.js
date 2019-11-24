@@ -83,7 +83,7 @@ const FindList = styled.ul`
   margin: -8px 0 0 0;
   box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
     0 0 0 1px rgba(9, 30, 66, 0.08);
-  width: 100%;
+  /* width: 100%; */
 `
 
 const UserItem = styled.li`

@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { Link } from 'react-router-dom'
 
 import user from '../../assets/user.svg'
@@ -10,8 +11,12 @@ export const Header = () => {
   }
   return (
     <StyledHeader>
-      <StyledLink to="/">Home</StyledLink>
-      <StyledLink to="/mindmap">MindMap</StyledLink>
+      <Link className={styledLink} to="/">
+        Home
+      </Link>
+      <Link className={styledLink} to="/mindmap">
+        MindMap
+      </Link>
       <Avatar src={user} alt="avatar" onClick={handleClick} />
     </StyledHeader>
   )
@@ -39,7 +44,7 @@ const Avatar = styled.img`
   cursor: pointer;
 `
 
-const StyledLink = styled(Link)`
+const styledLink = css`
   color: white;
   text-decoration: none;
 `

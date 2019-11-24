@@ -4,12 +4,15 @@ import { styled } from 'linaria/react'
 
 import { addColumn } from '@symbiotes/effects'
 
-import { AddForm } from '../../ui/addForm'
+import { AddForm, Button, StyledLink } from '@ui'
 import { ColumnsList } from './columns/columns-list'
 
 export const Desk = () => {
   const { currentDesk } = useSelector(state => state.desks)
   const desk = useSelector(state => state.desks.desks[currentDesk])
+  const { teams } = useSelector(state => state.teams)
+
+  let isAdmin = desk && teams && teams[desk.team_id].isAdmin
 
   const dispatch = useDispatch()
   const handleAddColumn = name => dispatch(addColumn(name, currentDesk))
@@ -17,7 +20,16 @@ export const Desk = () => {
   return (
     currentDesk && (
       <>
-        <h2>{desk.name}</h2>
+        <DeskHeader>
+          <h2>{desk.name}</h2>
+          {isAdmin && (
+            <Button>
+              <StyledLink to={`/desk/settings/${currentDesk}`}>
+                Настройки
+              </StyledLink>
+            </Button>
+          )}
+        </DeskHeader>
         <DeskWrapper>
           <ColumnsList deskId={currentDesk} />
           <AddForm
@@ -38,4 +50,12 @@ const DeskWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   box-sizing: border-box;
+  margin: 0 20px;
+`
+
+const DeskHeader = styled.header`
+  display: flex;
+  margin: 0 20px;
+  justify-content: space-between;
+  align-items: center;
 `

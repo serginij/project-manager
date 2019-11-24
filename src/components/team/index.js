@@ -1,65 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { styled } from 'linaria/react'
-import { useSelector, useDispatch } from 'react-redux'
+import { css } from 'linaria'
+import { useSelector } from 'react-redux'
 
-import { updateTeam, findUser, addTeamUser } from '@symbiotes/effects'
-import { Input, AddButton, TextArea, FindUser, FormTitle } from '@ui'
-
-import { UserList } from './user-list'
+import { TextArea, FormTitle, UserList } from '@ui'
 
 export const Team = () => {
   const team = useSelector(state => state.teams.teams[state.teams.currentTeam])
-  const { findList } = useSelector(state => state.teams)
-
-  const [data, setData] = useState({
-    name: team.name,
-    desc: team.desc
-  })
-
-  const { token } = useSelector(state => state.auth)
-
-  const dispatch = useDispatch()
-
-  const handleChange = e => {
-    setData({ ...data, [e.target.name]: e.target.value })
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    dispatch(updateTeam(data.name, data.desc, team.id, token))
-  }
-
-  const searchUser = username => dispatch(findUser(username))
-  const addUser = user => dispatch(addTeamUser(user, team.id, token))
 
   return (
     <Wrapper>
-      <h2>Edit team</h2>
-      <form onSubmit={handleSubmit}>
-        <FormTitle>Name</FormTitle>
-        <StyledInput
-          type="text"
-          placeholder="Team name"
-          value={data.name}
-          onChange={handleChange}
-          name="name"
-        />
-        <FormTitle>Description</FormTitle>
-        <StyledTextArea
-          type="text"
-          placeholder="Team description"
-          value={data.desc}
-          onChange={handleChange}
-          name="desc"
-        />
-        <FindUser
-          findList={findList}
-          onSearch={searchUser}
-          onSelect={addUser}
-        />
-        <UserList users={team.users} token={token} />
-        <Button>Сохранить</Button>
-      </form>
+      <h2>{team.name} team info</h2>
+      <FormTitle>Description</FormTitle>
+      <TextArea
+        className={styledTextArea}
+        type="text"
+        placeholder="Team description"
+        value={team.desc}
+        name="desc"
+        disabled
+      />
+      <FormTitle>Users</FormTitle>
+      <UserList users={team.users} showRole />
     </Wrapper>
   )
 }
@@ -73,20 +35,7 @@ const Wrapper = styled.div`
   max-width: 500px;
 `
 
-const StyledInput = styled(Input)`
-  font-size: 1rem;
-  height: 2.5em;
-  margin-bottom: 20px;
-`
-
-const StyledTextArea = styled(TextArea)`
+const styledTextArea = css`
   font-size: 1rem;
   height: 5em;
-`
-
-const Button = styled(AddButton)`
-  font-size: 1rem;
-  height: 2.2em;
-  width: 40%;
-  margin-top: 20px;
 `

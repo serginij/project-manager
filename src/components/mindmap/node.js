@@ -14,12 +14,12 @@ export const Node = props => {
 
   const handleOnDrag = event => {
     event.preventDefault()
-
+    const { width, height } = event.target.getBoundingClientRect()
     let newX = event.clientX - 30
     let newY = event.clientY - 16
     setX(newX)
     setY(newY)
-    props.onMove(props.id, { x: newX, y: newY })
+    props.onMove(props.id, { x: newX + width / 2, y: newY + height / 2 })
   }
 
   const handleDragStart = () => {
