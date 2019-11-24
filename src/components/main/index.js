@@ -38,7 +38,7 @@ export const Main = () => {
   return (
     <Container>
       <TeamList teams={teamList} />
-      <div style={{ width: '70%' }}>{desksList}</div>
+      <div className="desks">{desksList}</div>
     </Container>
   )
 }
@@ -46,4 +46,23 @@ export const Main = () => {
 const Container = styled.div`
   display: flex;
   margin-top: 60px;
+  justify-content: space-evenly;
+  .desks {
+    width: 70%;
+  }
+  @media (max-width: 850px) {
+    .desks {
+      width: 60%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+
+    .desks {
+      width: 80%;
+    }
+  }
 `

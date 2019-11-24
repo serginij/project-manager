@@ -12,11 +12,11 @@ export const Header = () => {
   return (
     <StyledHeader>
       <Link className={styledLink} to="/">
-        Home
+        Главная
       </Link>
-      <Link className={styledLink} to="/mindmap">
+      {/* <Link className={styledLink} to="/mindmap">
         MindMap
-      </Link>
+      </Link> */}
       <Avatar src={user} alt="avatar" onClick={handleClick} />
     </StyledHeader>
   )

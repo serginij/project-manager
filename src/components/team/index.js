@@ -10,17 +10,17 @@ export const Team = () => {
 
   return (
     <Wrapper>
-      <h2>{team.name} team info</h2>
-      <FormTitle>Description</FormTitle>
+      <h2>{team.name} информация team info</h2>
+      <FormTitle>Описание</FormTitle>
       <TextArea
         className={styledTextArea}
         type="text"
-        placeholder="Team description"
+        placeholder="Описание"
         value={team.desc}
         name="desc"
         disabled
       />
-      <FormTitle>Users</FormTitle>
+      <FormTitle>Пользователи</FormTitle>
       <UserList users={team.users} showRole />
     </Wrapper>
   )

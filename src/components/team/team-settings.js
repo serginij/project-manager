@@ -47,22 +47,22 @@ export const TeamSettings = () => {
 
   return (
     <Wrapper>
-      <h2>Edit team</h2>
+      <h2>Изменение команды</h2>
       <form onSubmit={handleSubmit}>
-        <FormTitle>Name</FormTitle>
+        <FormTitle>Название</FormTitle>
         <Input
           className={styledInput}
           type="text"
-          placeholder="Team name"
+          placeholder="Название команды"
           value={data.name}
           onChange={handleChange}
           name="name"
         />
-        <FormTitle>Description</FormTitle>
+        <FormTitle>Описание</FormTitle>
         <TextArea
           className={styledTextArea}
           type="text"
-          placeholder="Team description"
+          placeholder="Описание команды"
           value={data.desc}
           onChange={handleChange}
           name="desc"

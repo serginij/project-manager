@@ -29,6 +29,16 @@ const DeskIcon = styled.li`
     transform: translateY(-8px);
     box-shadow: 0 10px 6px -6px #777;
   }
+
+  @media (max-width: 600px) {
+    min-height: 90px;
+    min-width: 130px;
+  }
+
+  @media (max-width: 400px) {
+    min-height: 70px;
+    min-width: 120px;
+  }
 `
 
 const Name = styled.p``

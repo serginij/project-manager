@@ -35,6 +35,10 @@ export const TeamList = ({ teams }) => {
 const Wrapper = styled.div`
   width: 30%;
   min-width: 200px;
+
+  @media (max-width: 600px) {
+    width: 80%;
+  }
 `
 
 const List = styled.ul`
@@ -51,6 +55,11 @@ const Teams = styled.aside`
   width: 50%;
   min-width: 200px;
   margin: auto;
+
+  @media (max-width: 600px) {
+    width: 80%;
+    margin: 0;
+  }
 `
 
 const AddTeam = styled.button`

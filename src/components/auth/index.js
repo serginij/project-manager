@@ -5,10 +5,10 @@ import { useDispatch } from 'react-redux'
 
 import { login, signup } from '@symbiotes/effects'
 
-import { Input, AddButton, StyledLink } from '@ui'
+import { Input, AddButton } from '@ui'
 
 export const Auth = () => {
-  const [type, setType] = useState('Login')
+  const [type, setType] = useState('Вход')
   const [data, setData] = useState({
     usr: '',
     pwd: ''
@@ -17,7 +17,7 @@ export const Auth = () => {
   const dispatch = useDispatch()
 
   const handleSwitch = () => {
-    type === 'Login' ? setType('Signup') : setType('Login')
+    type === 'Вход' ? setType('Регистрация') : setType('Вход')
   }
 
   const handleChange = e => {
@@ -26,7 +26,7 @@ export const Auth = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    type === 'Login'
+    type === 'Вход'
       ? dispatch(login(data.usr, data.pwd))
       : dispatch(signup(data.usr, data.pwd))
   }
@@ -38,7 +38,7 @@ export const Auth = () => {
         <Input
           className={styledInput}
           name="usr"
-          placeholder="Username"
+          placeholder="Логин"
           type="text"
           value={data.usr}
           onChange={handleChange}
@@ -46,19 +46,19 @@ export const Auth = () => {
         <Input
           className={styledInput}
           name="pwd"
-          placeholder="Password"
+          placeholder="Пароль"
           type="password"
           value={data.pwd}
           onChange={handleChange}
         />
         <Switch onClick={handleSwitch}>
-          {type === 'Login' ? 'Signup' : 'Login'}
+          {type === 'Вход' ? 'Регистрация' : 'Вход'}
         </Switch>
         <AddButton className={button}>{type}</AddButton>
       </Form>
-      <p>
+      {/* <p>
         <StyledLink to="/resetpwd">Reset Password</StyledLink>
-      </p>
+      </p> */}
     </Wrapper>
   )
 }

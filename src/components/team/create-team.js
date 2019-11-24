@@ -60,6 +60,8 @@ const Wrapper = styled.div`
   margin-top: 10%;
   align-items: center;
   text-align: center;
+  min-width: 270px;
+  max-width: 500px;
 `
 
 const styledInput = css`

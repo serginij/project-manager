@@ -42,11 +42,11 @@ export const DeskSettings = () => {
     <Wrapper>
       <h2>Edit desk</h2>
       <form onSubmit={handleSubmit}>
-        <FormTitle>Name</FormTitle>
+        <FormTitle>Название</FormTitle>
         <Input
           className={styledInput}
           type="text"
-          placeholder="Team name"
+          placeholder="Название"
           value={data.name}
           onChange={handleChange}
           name="name"

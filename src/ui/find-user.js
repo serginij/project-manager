@@ -44,12 +44,12 @@ export const FindUser = ({ findList, onSearch, onSelect }) => {
   return (
     <Wrapper>
       <form>
-        <Title>Users</Title>
+        <Title>Пользователи</Title>
         <Input
           type="text"
           value={value}
           onChange={searchUser}
-          placeholder="username"
+          placeholder="логин"
         />
       </form>
       <FindList
