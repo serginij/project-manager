@@ -40,7 +40,7 @@ export const DeskSettings = () => {
 
   return (
     <Wrapper>
-      <h2>Edit desk</h2>
+      <h2>Настройки доски</h2>
       <form onSubmit={handleSubmit}>
         <FormTitle>Название</FormTitle>
         <Input

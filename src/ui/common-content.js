@@ -3,10 +3,10 @@ import { styled } from 'linaria/react'
 import { Header } from '@components/header'
 
 export const CommonContent = ({ children }) => (
-  <>
+  <div style={{ fontFamily: 'sans-serif' }}>
     <Header />
     <Wrapper>{children}</Wrapper>
-  </>
+  </div>
 )
 
 const Wrapper = styled.div`

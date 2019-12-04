@@ -48,11 +48,11 @@ const Container = styled.div`
   margin-top: 60px;
   justify-content: space-evenly;
   .desks {
-    width: 70%;
+    width: 60%;
   }
   @media (max-width: 850px) {
     .desks {
-      width: 60%;
+      width: 50%;
     }
   }
 

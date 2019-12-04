@@ -44,6 +44,7 @@ const ColumnWrapper = styled.li`
   margin-right: 12px;
   min-width: 300px;
   border-radius: 3px;
+  max-height: 80vh;
 `
 const Name = styled.h3`
   font-weight: bold;

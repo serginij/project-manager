@@ -11,12 +11,14 @@ export const Header = () => {
   }
   return (
     <StyledHeader>
-      <Link className={styledLink} to="/">
-        Главная
-      </Link>
-      {/* <Link className={styledLink} to="/mindmap">
-        MindMap
-      </Link> */}
+      <NavBar>
+        <Link className={styledLink} to="/">
+          Главная
+        </Link>
+        {/* <Link className={styledLink} to="/mindmap">
+          MindMap
+        </Link> */}
+      </NavBar>
       <Avatar src={user} alt="avatar" onClick={handleClick} />
     </StyledHeader>
   )
@@ -29,10 +31,10 @@ const StyledHeader = styled.header`
   height: 50px;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 10px 50px;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   background-color: darkslateblue;
 `
@@ -42,6 +44,12 @@ const Avatar = styled.img`
   height: 30px;
   border-radius: 50%;
   cursor: pointer;
+`
+
+const NavBar = styled.nav`
+  display: flex;
+  justify-content: space-evenly;
+  min-width: 10%;
 `
 
 const styledLink = css`

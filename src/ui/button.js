@@ -8,6 +8,6 @@ export const Button = styled.button`
   height: fit-content;
   border: none;
   color: black;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
 `

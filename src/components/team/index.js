@@ -10,7 +10,7 @@ export const Team = () => {
 
   return (
     <Wrapper>
-      <h2>{team.name} информация team info</h2>
+      <h2>Информация о команде {team.name}</h2>
       <FormTitle>Описание</FormTitle>
       <TextArea
         className={styledTextArea}

@@ -42,7 +42,7 @@ export const TeamSettings = () => {
   }
 
   const updateUser = (userId, isAdmin) => {
-    dispatch(updateTeamUser(userId, currentTeam, !isAdmin))
+    dispatch(updateTeamUser(userId, currentTeam, !isAdmin, token))
   }
 
   return (

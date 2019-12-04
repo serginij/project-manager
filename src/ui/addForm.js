@@ -90,18 +90,20 @@ const OpenForm = styled.button`
   width: 100%;
   box-sizing: border-box;
   height: 2.5rem;
-  padding: 8px;
-  padding-left: 35px;
+  padding: 0;
+  padding-left: 40px;
   color: #6b808c;
   position: relative;
   cursor: pointer;
   font: inherit;
+  font-size: 15px;
   &::before {
     content: '+';
     left: 12px;
     /* top: 8px; */
     font-size: 2em;
     font-weight: 300;
+    height: 100%;
     position: absolute;
   }
 `
