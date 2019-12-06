@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
 import { styled } from 'linaria/react'
-
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchTeams } from '@symbiotes/effects'
@@ -8,6 +7,8 @@ import { getToken } from '@symbiotes/helpers'
 
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
+
+import { Spinner } from '@ui'
 
 export const Main = () => {
   const { teams } = useSelector(state => state.teams)
@@ -18,22 +19,26 @@ export const Main = () => {
 
   useEffect(() => {
     dispatch(getToken())
-    getTeams(token)
+    !!token && getTeams(token)
   }, [dispatch, getTeams, token])
 
   const teamList = Object.values(teams)
 
-  let desksList = teamList.map(team => {
-    return (
-      <DeskList
-        teamId={team.id}
-        key={team.id}
-        title={team.name}
-        desksById={team.desks}
-        isAdmin={team.isAdmin}
-      />
-    )
-  })
+  let desksList = teamList.length ? (
+    teamList.map(team => {
+      return (
+        <DeskList
+          teamId={team.id}
+          key={team.id}
+          title={team.name}
+          desksById={team.desks}
+          isAdmin={team.isAdmin}
+        />
+      )
+    })
+  ) : (
+    <Spinner />
+  )
 
   return (
     <Container>

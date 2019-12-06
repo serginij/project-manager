@@ -154,7 +154,8 @@ export const updateTeam = (name, desc, teamId, token) => {
   console.log('effects.js: updateTeam', name, desc, teamId, token)
   return dispatch => {
     return update(`/teams/${teamId}`, { name, desc }, token)
-      .then(() => {
+      .then(res => {
+        console.log('updateTeam status: ', res.ok)
         dispatch(
           teamsActions.updateTeam({ name: name, desc: desc, id: teamId })
         )

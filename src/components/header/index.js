@@ -2,10 +2,19 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import { logout as logoutAction } from '@symbiotes/helpers'
+
+import { Dropdown } from '@ui'
 
 import user from '../../assets/user.svg'
 
 export const Header = () => {
+  const dispatch = useDispatch()
+
+  const logout = () => dispatch(logoutAction())
+
   const handleClick = () => {
     console.log('clicked')
   }
@@ -19,7 +28,16 @@ export const Header = () => {
           MindMap
         </Link> */}
       </NavBar>
-      <Avatar src={user} alt="avatar" onClick={handleClick} />
+
+      <Dropdown
+        width={100}
+        x={0}
+        y={0}
+        list={[{ text: 'Выход', link: '/auth', action: logout }]}
+        align
+      >
+        <Avatar src={user} alt="avatar" onClick={handleClick} />
+      </Dropdown>
     </StyledHeader>
   )
 }
@@ -31,7 +49,7 @@ const StyledHeader = styled.header`
   height: 50px;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 50px;
+  padding: 10px 100px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

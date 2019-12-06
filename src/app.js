@@ -7,7 +7,7 @@ import { Routes } from './routes'
 import { history } from './lib/routing'
 import { configureStore } from './store'
 
-import { CommonContent } from './ui/common-content'
+import { CommonContent } from './ui'
 
 const store = configureStore()
 
