@@ -8,7 +8,6 @@ export const Dropdown = ({ children, width, list, align }) => {
   let [data, setData] = useState({ width: width })
 
   let listBody = list.map((el, index) => {
-    console.log(el, el.link ? el.link : el.text)
     return (
       <Item key={index} onClick={el.action}>
         {el.link ? <StyledLink to={el.link}>{el.text}</StyledLink> : el.text}
@@ -18,7 +17,6 @@ export const Dropdown = ({ children, width, list, align }) => {
 
   const handleClick = e => {
     let { x, y, width, height } = e.target.getBoundingClientRect()
-    // width = data.width ? data.width : width
     x = align ? x - data.width / 2 + width / 2 : x
     setData({
       x: x,

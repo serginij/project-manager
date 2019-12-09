@@ -71,14 +71,13 @@ const AddTeam = styled.button`
   padding: 0;
   background-color: rgba(0, 125, 215, 0);
   color: #6b808c;
-  &:hover {
-    color: black;
-  }
+  height: fit-content;
 `
 
 const ListHeader = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 `
