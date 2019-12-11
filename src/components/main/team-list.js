@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
-import { StyledLink } from '@ui'
+import { StyledLink, CloseButton } from '@ui'
 
 import { TeamItem } from './team-item'
 
@@ -22,9 +22,9 @@ export const TeamList = ({ teams }) => {
       <Teams>
         <ListHeader>
           <h3>Команды</h3>
-          <AddTeam>
+          <CloseButton>
             <StyledLink to="/create-team">+</StyledLink>
-          </AddTeam>
+          </CloseButton>
         </ListHeader>
         <List>{teamList}</List>
       </Teams>
@@ -60,18 +60,6 @@ const Teams = styled.aside`
     width: 80%;
     margin: 0;
   }
-`
-
-const AddTeam = styled.button`
-  font: inherit;
-  font-size: 2em;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background-color: rgba(0, 125, 215, 0);
-  color: #6b808c;
-  height: fit-content;
 `
 
 const ListHeader = styled.header`

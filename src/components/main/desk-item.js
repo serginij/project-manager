@@ -21,7 +21,7 @@ const DeskIcon = styled.li`
   text-align: center;
   align-items: center;
   justify-content: center;
-  background-color: #eeeeee;
+  background-color: var(--dark-gray);
   border-radius: 3px;
   transition: all 0.2s ease-in-out;
 

@@ -54,7 +54,7 @@ const StyledHeader = styled.header`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: darkslateblue;
+  background-color: #483d8b;
 `
 
 const Avatar = styled.img`

@@ -46,6 +46,6 @@ const button = css`
 `
 
 const delButton = css`
-  background-color: #e74c3c;
+  background-color: var(--red);
   color: white;
 `

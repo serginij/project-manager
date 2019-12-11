@@ -37,7 +37,7 @@ export const Column = ({ columnId }) => {
 const ColumnWrapper = styled.li`
   display: flex;
   flex-direction: column;
-  background-color: #dfe3e6;
+  background-color: var(--dark-gray);
   box-sizing: border-box;
   /* padding: 8px; */
   list-style: none;
