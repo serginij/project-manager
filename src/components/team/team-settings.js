@@ -8,9 +8,17 @@ import {
   findUser,
   addTeamUser,
   deleteTeamUser,
-  updateTeamUser
+  updateTeamUser,
+  deleteTeam as delTeam
 } from '@symbiotes/effects'
-import { Input, AddButton, TextArea, FindUser, FormTitle, UserList } from '@ui'
+import {
+  Input,
+  TextArea,
+  FindUser,
+  FormTitle,
+  UserList,
+  SaveCancelBlock
+} from '@ui'
 
 export const TeamSettings = () => {
   const team = useSelector(state => state.teams.teams[state.teams.currentTeam])
@@ -45,6 +53,8 @@ export const TeamSettings = () => {
     dispatch(updateTeamUser(userId, currentTeam, !isAdmin, token))
   }
 
+  const deleteTeam = () => dispatch(delTeam(team.id, token))
+
   return (
     <Wrapper>
       <h2>Изменение команды</h2>
@@ -77,7 +87,7 @@ export const TeamSettings = () => {
           deleteUser={deleteUser}
           updateUser={updateUser}
         />
-        <AddButton className={button}>Сохранить</AddButton>
+        <SaveCancelBlock handleCancel={deleteTeam} />
       </form>
     </Wrapper>
   )
@@ -101,11 +111,4 @@ const styledInput = css`
 const styledTextArea = css`
   font-size: 1rem;
   height: 5em;
-`
-
-const button = css`
-  font-size: 1rem;
-  height: 2.2em;
-  width: 40%;
-  margin-top: 20px;
 `

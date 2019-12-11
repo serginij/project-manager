@@ -54,7 +54,7 @@ export const Card = ({ text, columnId, id }) => {
       ) : (
         <Wrapper
           onMouseEnter={handleHover}
-          onMouseLeave={handleHover}
+          onMouseLeave={() => setVisible(true)}
           onClick={handleClick}
         >
           <Text>{text}</Text>
@@ -115,7 +115,6 @@ const Input = styled.input`
 
 const cancelButton = css`
   background-color: #e74c3c;
-  /* color: black; */
   margin-left: 12px;
   cursor: pointer;
 `

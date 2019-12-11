@@ -10,7 +10,8 @@ import {
   addDesk as createDesk,
   addColumn as createColumn,
   addCard as createCard,
-  storeToken
+  storeToken,
+  deleteDesk as delDesk
 } from './helpers'
 import { columnsActions } from './columns'
 import { cardsActions } from './cards'
@@ -250,6 +251,29 @@ export const updateDesk = (name, deskId, token) => {
     return update(`/desks/${deskId}`, { name }, token)
       .then(() => {
         dispatch(desksActions.updateDesk({ name: name, id: deskId }))
+        history.goBack()
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteDesk = (teamId, deskId, token) => {
+  return dispatch => {
+    return del(`/desks/${deskId}`, {}, token)
+      .then(() => {
+        console.log('effects.js: deleteDesk successful')
+        history.push('/')
+        dispatch(delDesk(teamId, deskId))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteTeam = (teamId, token) => {
+  return dispatch => {
+    return del(`/teams/${teamId}`, {}, token)
+      .then(() => {
+        dispatch(teamsActions.deleteTeam(teamId))
         history.goBack()
       })
       .catch(err => console.log(err))

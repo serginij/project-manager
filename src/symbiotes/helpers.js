@@ -47,3 +47,10 @@ export const logout = () => {
     dispatch(authActions.logout())
   }
 }
+
+export const deleteDesk = (teamId, deskId) => {
+  return dispatch => {
+    dispatch(teamsActions.deleteDesk(teamId, deskId))
+    dispatch(desksActions.deleteDesk(deskId))
+  }
+}
