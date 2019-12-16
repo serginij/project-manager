@@ -279,3 +279,13 @@ export const deleteTeam = (teamId, token) => {
       .catch(err => console.log(err))
   }
 }
+
+export const updateColumn = (id, name, token) => {
+  return dispatch => {
+    return update(`/desks/columns/${id}`, { name }, token)
+      .then(() => {
+        dispatch(columnsActions.updateColumn(id, name))
+      })
+      .catch(err => console.log('updateColumn', err))
+  }
+}
