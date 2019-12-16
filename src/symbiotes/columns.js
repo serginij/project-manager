@@ -43,7 +43,11 @@ const symbiotes = {
         }
       }
     }
-  }
+  },
+  updateColumn: (state, id, name) => ({
+    ...state,
+    columns: { ...state.columns, [id]: { ...state.columns[id], name: name } }
+  })
 }
 
 export const {
