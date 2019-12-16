@@ -24,18 +24,18 @@ export const CreateDesk = props => {
 
   return (
     <Wrapper>
-      <h2>Create desk</h2>
+      <h2>Создание доски</h2>
       <form onSubmit={handleSubmit}>
-        <FormTitle>Desk name</FormTitle>
+        <FormTitle>Название доски</FormTitle>
         <Input
           className={styledInput}
           type="text"
           id="name"
-          placeholder="desk name"
+          placeholder="Название"
           value={name}
           onChange={handleChange}
         />
-        <AddButton className={button}>Add</AddButton>
+        <AddButton className={button}>Создать</AddButton>
       </form>
     </Wrapper>
   )
@@ -46,6 +46,8 @@ const Wrapper = styled.div`
   margin-top: 10%;
   align-items: center;
   text-align: center;
+  min-width: 270px;
+  max-width: 500px;
 `
 
 const styledInput = css`

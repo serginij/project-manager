@@ -61,7 +61,7 @@ export const AddForm = ({
 }
 
 const Wrapper = styled.form`
-  background: #dfe3e6;
+  background: var(--dark-gray);
   max-width: 300px;
   width: 100%;
   box-sizing: border-box;
@@ -84,24 +84,26 @@ const OpenForm = styled.button`
   flex-shrink: 0;
   border: none;
   align-items: center;
-  background: #dfe3e6;
+  background: var(--dark-gray);
   border-radius: 3px;
   max-width: 300px;
   width: 100%;
   box-sizing: border-box;
   height: 2.5rem;
-  padding: 8px;
-  padding-left: 35px;
+  padding: 0;
+  padding-left: 40px;
   color: #6b808c;
   position: relative;
   cursor: pointer;
   font: inherit;
+  font-size: 15px;
   &::before {
     content: '+';
     left: 12px;
     /* top: 8px; */
     font-size: 2em;
     font-weight: 300;
+    height: 100%;
     position: absolute;
   }
 `

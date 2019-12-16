@@ -10,7 +10,8 @@ import {
   addDesk as createDesk,
   addColumn as createColumn,
   addCard as createCard,
-  storeToken
+  storeToken,
+  deleteDesk as delDesk
 } from './helpers'
 import { columnsActions } from './columns'
 import { cardsActions } from './cards'
@@ -19,7 +20,7 @@ export const fetchTeams = token => {
   return dispatch => {
     dispatch(teamsActions.getTeams.start())
 
-    return get('http://localhost:3000/teams', {}, token)
+    return get('/teams', {}, token)
       .then(res => {
         dispatch(teamsActions.getTeams.done(res.teams))
         dispatch(desksActions.getDesks.done(res.desks))
@@ -33,7 +34,7 @@ export const fetchTeams = token => {
 
 export const addDesk = (name, teamId) => {
   return dispatch => {
-    return post('http://localhost:3000/desks', {
+    return post('/desks', {
       teamId: teamId,
       name: name
     }).then(res => {
@@ -45,7 +46,7 @@ export const addDesk = (name, teamId) => {
 
 export const getDesk = id => {
   return dispatch => {
-    return get(`http://localhost:3000/desks/${id}`)
+    return get(`/desks/${id}`)
       .then(res => {
         dispatch(desksActions.updateDesk(res.desk))
         dispatch(columnsActions.getColumns.done(res.columns))
@@ -58,7 +59,7 @@ export const getDesk = id => {
 
 export const addColumn = (name, deskId) => {
   return dispatch => {
-    return post('http://localhost:3000/desks/columns', {
+    return post('/desks/columns', {
       name: name,
       deskId: deskId
     })
@@ -71,7 +72,7 @@ export const addColumn = (name, deskId) => {
 
 export const deleteColumn = columnId => {
   return dispatch => {
-    return del(`http://localhost:3000/desks/columns/${columnId}`).then(() => {
+    return del(`/desks/columns/${columnId}`).then(() => {
       dispatch(desksActions.deleteColumn(columnId))
     })
   }
@@ -79,7 +80,7 @@ export const deleteColumn = columnId => {
 
 export const addCard = (name, columnId) => {
   return dispatch => {
-    return post('http://localhost:3000/desks/cards', {
+    return post('/desks/cards', {
       name: name,
       columnId: columnId
     })
@@ -92,7 +93,7 @@ export const addCard = (name, columnId) => {
 
 export const deleteCard = (columnId, cardId) => {
   return dispatch => {
-    return del(`http://localhost:3000/desks/cards/${cardId}`).then(() => {
+    return del(`/desks/cards/${cardId}`).then(() => {
       dispatch(columnsActions.deleteCard(columnId, cardId))
     })
   }
@@ -100,7 +101,7 @@ export const deleteCard = (columnId, cardId) => {
 
 export const updateCard = (cardId, columnId, name) => {
   return dispatch => {
-    return update(`http://localhost:3000/desks/cards/${cardId}`, {
+    return update(`/desks/cards/${cardId}`, {
       name,
       columnId
     })
@@ -113,7 +114,7 @@ export const updateCard = (cardId, columnId, name) => {
 
 export const login = (username, password) => {
   return dispatch => {
-    return post('http://localhost:3000/login', {
+    return post('/login', {
       username,
       password
     })
@@ -130,7 +131,7 @@ export const login = (username, password) => {
 
 export const signup = (username, password) => {
   return dispatch => {
-    return post('http://localhost:3000/signup', { username, password })
+    return post('/signup', { username, password })
       .then(res => {
         dispatch(authActions.login(res.token))
         history.push('/')
@@ -141,7 +142,7 @@ export const signup = (username, password) => {
 
 export const addTeam = (name, desc, token) => {
   return dispatch => {
-    return post('http://localhost:3000/teams', { name, desc }, token)
+    return post('/teams', { name, desc }, token)
       .then(res => {
         dispatch(teamsActions.addTeam({ name: name, desc: desc, id: res.id }))
         history.push('/')
@@ -153,12 +154,9 @@ export const addTeam = (name, desc, token) => {
 export const updateTeam = (name, desc, teamId, token) => {
   console.log('effects.js: updateTeam', name, desc, teamId, token)
   return dispatch => {
-    return update(
-      `http://localhost:3000/teams/${teamId}`,
-      { name, desc },
-      token
-    )
-      .then(() => {
+    return update(`/teams/${teamId}`, { name, desc }, token)
+      .then(res => {
+        console.log('updateTeam status: ', res.ok)
         dispatch(
           teamsActions.updateTeam({ name: name, desc: desc, id: teamId })
         )
@@ -171,7 +169,7 @@ export const updateTeam = (name, desc, teamId, token) => {
 export const findUser = username => {
   return dispatch => {
     if (username.length) {
-      return get(`http://localhost:3000/user/find/${username}`)
+      return get(`/user/find/${username}`)
         .then(res => {
           dispatch(teamsActions.findUsers(res.users))
           console.log(res)
@@ -185,11 +183,7 @@ export const findUser = username => {
 
 export const addTeamUser = (user, teamId, token) => {
   return dispatch => {
-    return post(
-      `http://localhost:3000/teams/${teamId}/users`,
-      { userId: user.id },
-      token
-    )
+    return post(`/teams/${teamId}/users`, { userId: user.id }, token)
       .then(res => {
         dispatch(
           teamsActions.addUser(teamId, {
@@ -204,17 +198,13 @@ export const addTeamUser = (user, teamId, token) => {
 }
 
 export const deleteTeamUser = (userId, teamId, token) => dispatch => {
-  return del(`http://localhost:3000/teams/${teamId}/users/${userId}`, {}, token)
+  return del(`/teams/${teamId}/users/${userId}`, {}, token)
     .then(() => dispatch(teamsActions.deleteUser(teamId, userId)))
     .catch(err => console.log(err))
 }
 
 export const updateTeamUser = (userId, teamId, isAdmin, token) => dispatch => {
-  return update(
-    `http://localhost:3000/teams/${teamId}/users/${userId}`,
-    { isAdmin },
-    token
-  )
+  return update(`/teams/${teamId}/users/${userId}`, { isAdmin }, token)
     .then(() => dispatch(teamsActions.updateUser(teamId, userId, isAdmin)))
     .catch(err => console.log(err))
 }
@@ -222,7 +212,7 @@ export const updateTeamUser = (userId, teamId, isAdmin, token) => dispatch => {
 export const findTeamUser = (teamId, username) => {
   return dispatch => {
     if (username.length) {
-      return get(`http://localhost:3000/teams/${teamId}/user/find/${username}`)
+      return get(`/teams/${teamId}/user/find/${username}`)
         .then(res => {
           dispatch(desksActions.findUsers(res.users))
           console.log(res)
@@ -236,11 +226,7 @@ export const findTeamUser = (teamId, username) => {
 
 export const addDeskUser = (user, deskId, token) => {
   return dispatch => {
-    return post(
-      `http://localhost:3000/desks/${deskId}/users`,
-      { userId: user.id },
-      token
-    )
+    return post(`/desks/${deskId}/users`, { userId: user.id }, token)
       .then(() => {
         dispatch(
           desksActions.addUser(deskId, {
@@ -254,7 +240,7 @@ export const addDeskUser = (user, deskId, token) => {
 }
 
 export const deleteDeskUser = (userId, deskId, token) => dispatch => {
-  return del(`http://localhost:3000/desks/${deskId}/users/${userId}`, {}, token)
+  return del(`/desks/${deskId}/users/${userId}`, {}, token)
     .then(() => dispatch(teamsActions.deleteUser(deskId, userId)))
     .catch(err => console.log(err))
 }
@@ -262,10 +248,33 @@ export const deleteDeskUser = (userId, deskId, token) => dispatch => {
 export const updateDesk = (name, deskId, token) => {
   console.log('effects.js: updateDesk', name, deskId, token)
   return dispatch => {
-    return update(`http://localhost:3000/desks/${deskId}`, { name }, token)
+    return update(`/desks/${deskId}`, { name }, token)
       .then(() => {
         dispatch(desksActions.updateDesk({ name: name, id: deskId }))
+        history.goBack()
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteDesk = (teamId, deskId, token) => {
+  return dispatch => {
+    return del(`/desks/${deskId}`, {}, token)
+      .then(() => {
+        console.log('effects.js: deleteDesk successful')
         history.push('/')
+        dispatch(delDesk(teamId, deskId))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteTeam = (teamId, token) => {
+  return dispatch => {
+    return del(`/teams/${teamId}`, {}, token)
+      .then(() => {
+        dispatch(teamsActions.deleteTeam(teamId))
+        history.goBack()
       })
       .catch(err => console.log(err))
   }

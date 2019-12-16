@@ -21,6 +21,6 @@ const Wrapper = styled.ul`
   box-sizing: border-box;
   width: 100%;
   padding: 0 12px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   overflow-x: hidden;
 `

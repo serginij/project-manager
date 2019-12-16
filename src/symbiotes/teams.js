@@ -82,6 +82,23 @@ const symbiotes = {
         }
       }
     }
+  },
+  deleteTeam: (state, teamId) => {
+    let teams = state.teams
+    delete teams[teamId]
+    return { ...state, teams: teams }
+  },
+  deleteDesk: (state, teamId, deskId) => {
+    return {
+      ...state,
+      teams: {
+        ...state.teams,
+        [teamId]: {
+          ...state.teams[teamId],
+          desks: state.teams[teamId].desks.filter(id => id !== deskId)
+        }
+      }
+    }
   }
 }
 

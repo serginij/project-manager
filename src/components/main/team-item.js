@@ -35,7 +35,7 @@ const Item = styled.li`
   padding: 6px 8px;
 
   &:hover {
-    background-color: #eeeeee;
+    background-color: var(--dark-gray);
   }
 `
 

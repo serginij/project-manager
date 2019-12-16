@@ -8,9 +8,17 @@ import {
   findUser,
   addTeamUser,
   deleteTeamUser,
-  updateTeamUser
+  updateTeamUser,
+  deleteTeam as delTeam
 } from '@symbiotes/effects'
-import { Input, AddButton, TextArea, FindUser, FormTitle, UserList } from '@ui'
+import {
+  Input,
+  TextArea,
+  FindUser,
+  FormTitle,
+  UserList,
+  SaveCancelBlock
+} from '@ui'
 
 export const TeamSettings = () => {
   const team = useSelector(state => state.teams.teams[state.teams.currentTeam])
@@ -42,27 +50,29 @@ export const TeamSettings = () => {
   }
 
   const updateUser = (userId, isAdmin) => {
-    dispatch(updateTeamUser(userId, currentTeam, !isAdmin))
+    dispatch(updateTeamUser(userId, currentTeam, !isAdmin, token))
   }
+
+  const deleteTeam = () => dispatch(delTeam(team.id, token))
 
   return (
     <Wrapper>
-      <h2>Edit team</h2>
+      <h2>Изменение команды</h2>
       <form onSubmit={handleSubmit}>
-        <FormTitle>Name</FormTitle>
+        <FormTitle>Название</FormTitle>
         <Input
           className={styledInput}
           type="text"
-          placeholder="Team name"
+          placeholder="Название команды"
           value={data.name}
           onChange={handleChange}
           name="name"
         />
-        <FormTitle>Description</FormTitle>
+        <FormTitle>Описание</FormTitle>
         <TextArea
           className={styledTextArea}
           type="text"
-          placeholder="Team description"
+          placeholder="Описание команды"
           value={data.desc}
           onChange={handleChange}
           name="desc"
@@ -77,7 +87,7 @@ export const TeamSettings = () => {
           deleteUser={deleteUser}
           updateUser={updateUser}
         />
-        <AddButton className={button}>Сохранить</AddButton>
+        <SaveCancelBlock handleCancel={deleteTeam} />
       </form>
     </Wrapper>
   )
@@ -101,11 +111,4 @@ const styledInput = css`
 const styledTextArea = css`
   font-size: 1rem;
   height: 5em;
-`
-
-const button = css`
-  font-size: 1rem;
-  height: 2.2em;
-  width: 40%;
-  margin-top: 20px;
 `

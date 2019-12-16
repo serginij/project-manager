@@ -7,9 +7,10 @@ import {
   updateDesk,
   findTeamUser,
   addDeskUser,
-  deleteDeskUser
+  deleteDeskUser,
+  deleteDesk as delDesk
 } from '@symbiotes/effects'
-import { Input, AddButton, FindUser, FormTitle, UserList } from '@ui'
+import { Input, FindUser, FormTitle, UserList, SaveCancelBlock } from '@ui'
 
 export const DeskSettings = () => {
   const desk = useSelector(state => state.desks.desks[state.desks.currentDesk])
@@ -37,16 +38,17 @@ export const DeskSettings = () => {
   const deleteUser = userId => {
     dispatch(deleteDeskUser(userId, desk.id, token))
   }
+  const deleteDesk = () => dispatch(delDesk(desk.team_id, desk.id, token))
 
   return (
     <Wrapper>
-      <h2>Edit desk</h2>
+      <h2>Настройки доски</h2>
       <form onSubmit={handleSubmit}>
-        <FormTitle>Name</FormTitle>
+        <FormTitle>Название</FormTitle>
         <Input
           className={styledInput}
           type="text"
-          placeholder="Team name"
+          placeholder="Название"
           value={data.name}
           onChange={handleChange}
           name="name"
@@ -57,7 +59,7 @@ export const DeskSettings = () => {
           onSelect={addUser}
         />
         <UserList users={desk.users} deleteUser={deleteUser} />
-        <AddButton className={button}>Сохранить</AddButton>
+        <SaveCancelBlock handleCancel={deleteDesk} />
       </form>
     </Wrapper>
   )
@@ -76,11 +78,4 @@ const styledInput = css`
   font-size: 1rem;
   height: 2.5em;
   margin-bottom: 20px;
-`
-
-const button = css`
-  font-size: 1rem;
-  height: 2.2em;
-  width: 40%;
-  margin-top: 20px;
 `

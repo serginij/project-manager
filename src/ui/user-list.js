@@ -20,7 +20,9 @@ export const UserList = ({ users, deleteUser, updateUser, showRole }) => {
           </Button>
         )}
         {deleteUser && (
-          <Button onClick={() => deleteUser(user.id)}>Исключить</Button>
+          <Button className={delButton} onClick={() => deleteUser(user.id)}>
+            Исключить
+          </Button>
         )}
       </div>
     </UserItem>
@@ -41,4 +43,9 @@ const UserItem = styled.div`
 
 const button = css`
   cursor: initial;
+`
+
+const delButton = css`
+  background-color: var(--red);
+  color: white;
 `

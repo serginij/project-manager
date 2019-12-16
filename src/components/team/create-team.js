@@ -30,12 +30,12 @@ export const CreateTeam = props => {
 
   return (
     <Wrapper>
-      <h2>Create team</h2>
+      <h2>Создание команды</h2>
       <form onSubmit={handleSubmit}>
         <Input
           className={styledInput}
           type="text"
-          placeholder="Team name"
+          placeholder="Название команды"
           value={data.name}
           onChange={handleChange}
           name="name"
@@ -43,7 +43,7 @@ export const CreateTeam = props => {
         <TextArea
           className={styledTextArea}
           type="text"
-          placeholder="Team description"
+          placeholder="Описание"
           value={data.desc}
           onChange={handleChange}
           name="desc"
@@ -60,6 +60,8 @@ const Wrapper = styled.div`
   margin-top: 10%;
   align-items: center;
   text-align: center;
+  min-width: 270px;
+  max-width: 500px;
 `
 
 const styledInput = css`

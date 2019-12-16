@@ -18,7 +18,10 @@ export const Card = ({ text, columnId, id }) => {
 
   const dispatch = useDispatch()
 
-  const handleDeleteCard = () => dispatch(deleteCard(columnId, id))
+  const handleDeleteCard = e => {
+    e.stopPropagation()
+    dispatch(deleteCard(columnId, id))
+  }
 
   const handleEditCard = card =>
     dispatch(updateCard(card.id, columnId, card.name))
@@ -44,14 +47,14 @@ export const Card = ({ text, columnId, id }) => {
         <Popup>
           <Input type="text" value={value} onChange={handleChange} />
           <AddButton onClick={handleSubmit}>save</AddButton>
-          <CloseButton className={cancelButton} onClick={handleClick}>
+          <AddButton className={cancelButton} onClick={handleClick}>
             cancel
-          </CloseButton>
+          </AddButton>
         </Popup>
       ) : (
         <Wrapper
           onMouseEnter={handleHover}
-          onMouseLeave={handleHover}
+          onMouseLeave={() => setVisible(true)}
           onClick={handleClick}
         >
           <Text>{text}</Text>
@@ -78,6 +81,7 @@ const Wrapper = styled.li`
   padding: 0 12px;
   box-sizing: border-box;
   word-wrap: break-word;
+  max-width: 276px;
   &:last-child {
     margin-bottom: 0;
   }
@@ -86,10 +90,12 @@ const Wrapper = styled.li`
 const Text = styled.p`
   padding: 8px 0;
   margin: 0;
+  word-break: break-all;
 `
 
 const Popup = styled.div`
   width: 100%;
+  margin-bottom: 8px;
   box-sizing: border-box;
 `
 
@@ -108,6 +114,7 @@ const Input = styled.input`
 `
 
 const cancelButton = css`
-  background-color: #cccccc;
+  background-color: #e74c3c;
+  margin-left: 12px;
   cursor: pointer;
 `

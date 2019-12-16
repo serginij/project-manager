@@ -35,6 +35,22 @@ export const getToken = () => {
   return dispatch => {
     if (token) {
       dispatch(authActions.login(token))
+    } else {
+      dispatch(authActions.login('empty'))
     }
+  }
+}
+
+export const logout = () => {
+  sessionStorage.removeItem('token')
+  return dispatch => {
+    dispatch(authActions.logout())
+  }
+}
+
+export const deleteDesk = (teamId, deskId) => {
+  return dispatch => {
+    dispatch(teamsActions.deleteDesk(teamId, deskId))
+    dispatch(desksActions.deleteDesk(deskId))
   }
 }

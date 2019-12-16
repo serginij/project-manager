@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
 import { styled } from 'linaria/react'
-
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchTeams } from '@symbiotes/effects'
@@ -8,6 +7,8 @@ import { getToken } from '@symbiotes/helpers'
 
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
+
+import { Spinner } from '@ui'
 
 export const Main = () => {
   const { teams } = useSelector(state => state.teams)
@@ -18,27 +19,31 @@ export const Main = () => {
 
   useEffect(() => {
     dispatch(getToken())
-    getTeams(token)
+    !!token && getTeams(token)
   }, [dispatch, getTeams, token])
 
   const teamList = Object.values(teams)
 
-  let desksList = teamList.map(team => {
-    return (
-      <DeskList
-        teamId={team.id}
-        key={team.id}
-        title={team.name}
-        desksById={team.desks}
-        isAdmin={team.isAdmin}
-      />
-    )
-  })
+  let desksList = teamList.length ? (
+    teamList.map(team => {
+      return (
+        <DeskList
+          teamId={team.id}
+          key={team.id}
+          title={team.name}
+          desksById={team.desks}
+          isAdmin={team.isAdmin}
+        />
+      )
+    })
+  ) : (
+    <Spinner />
+  )
 
   return (
     <Container>
       <TeamList teams={teamList} />
-      <div style={{ width: '70%' }}>{desksList}</div>
+      <div className="desks">{desksList}</div>
     </Container>
   )
 }
@@ -46,4 +51,23 @@ export const Main = () => {
 const Container = styled.div`
   display: flex;
   margin-top: 60px;
+  justify-content: space-evenly;
+  .desks {
+    width: 60%;
+  }
+  @media (max-width: 850px) {
+    .desks {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+
+    .desks {
+      width: 80%;
+    }
+  }
 `

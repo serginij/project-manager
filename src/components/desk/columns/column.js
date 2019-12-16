@@ -37,13 +37,14 @@ export const Column = ({ columnId }) => {
 const ColumnWrapper = styled.li`
   display: flex;
   flex-direction: column;
-  background-color: #dfe3e6;
+  background-color: var(--dark-gray);
   box-sizing: border-box;
   /* padding: 8px; */
   list-style: none;
   margin-right: 12px;
   min-width: 300px;
   border-radius: 3px;
+  max-height: 80vh;
 `
 const Name = styled.h3`
   font-weight: bold;

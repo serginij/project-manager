@@ -43,15 +43,13 @@ export const FindUser = ({ findList, onSearch, onSelect }) => {
 
   return (
     <Wrapper>
-      <form>
-        <Title>Users</Title>
-        <Input
-          type="text"
-          value={value}
-          onChange={searchUser}
-          placeholder="username"
-        />
-      </form>
+      <Title>Пользователи</Title>
+      <Input
+        type="text"
+        value={value}
+        onChange={searchUser}
+        placeholder="логин"
+      />
       <FindList
         x={params.x}
         y={params.y}
@@ -83,7 +81,6 @@ const FindList = styled.ul`
   margin: -8px 0 0 0;
   box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
     0 0 0 1px rgba(9, 30, 66, 0.08);
-  /* width: 100%; */
 `
 
 const UserItem = styled.li`

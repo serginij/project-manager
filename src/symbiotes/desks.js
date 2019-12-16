@@ -77,7 +77,12 @@ const symbiotes = {
         users: state.desks[deskId].users.filter(user => user.id !== userId)
       }
     }
-  })
+  }),
+  deleteDesk: (state, deskId) => {
+    let desks = state.desks
+    delete desks[deskId]
+    return { ...state, teams: desks }
+  }
 }
 
 export const { actions: desksActions, reducer: desksReducer } = createSymbiote(

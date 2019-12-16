@@ -70,12 +70,22 @@ const AddDesk = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
-  background-color: #eeeeee;
+  background-color: var(--dark-gray);
   border-radius: 3px;
   transition: all 0.2s ease-in-out;
 
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 10px 6px -6px #777;
+  }
+
+  @media (max-width: 600px) {
+    min-height: 90px;
+    min-width: 130px;
+  }
+
+  @media (max-width: 400px) {
+    min-height: 70px;
+    min-width: 120px;
   }
 `
