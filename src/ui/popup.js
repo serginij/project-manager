@@ -36,4 +36,5 @@ const Content = styled.section`
   width: ${props => props.width}%;
   background-color: white;
   z-index: 2;
+  border-radius: 3px;
 `
