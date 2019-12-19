@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   token: '',
   basePath: '/auth',
-  error: null
+  error: null,
+  hidden: false
 }
 
 const symbiotes = {
@@ -13,7 +14,8 @@ const symbiotes = {
     ...state,
     token: '',
     basePath: '/auth'
-  })
+  }),
+  setHidden: (state, hidden) => ({ ...state, hidden: hidden })
 }
 
 export const { actions: authActions, reducer: authReducer } = createSymbiote(
