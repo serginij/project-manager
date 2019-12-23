@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   --gray: #fafbfc;
   --light-gray: rgba(9, 30, 66, 0.04);
   --dark-gray: #ebecf0;
+  --gray-background: #f4f5f6;
   --green: #27ae60;
   --red: #e74c3c;
   --primary-color: #483d8b;

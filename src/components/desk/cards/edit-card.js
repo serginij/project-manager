@@ -2,6 +2,8 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
+import { CommentsList } from '@components/comments/comments-list'
+
 import { Popup, ToggleInput, CloseButton, TextArea } from '@ui/'
 
 export const EditCard = ({ onClick }) => {
@@ -33,6 +35,7 @@ export const EditCard = ({ onClick }) => {
         <Content>
           <h4>Описание</h4>
           <TextArea placeholder="Информация о задаче" />
+          <CommentsList />
         </Content>
         <Aside>
           <h4>Информация</h4>
@@ -49,7 +52,7 @@ export const EditCard = ({ onClick }) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: var(--gray);
+  background-color: var(--gray-background);
   display: flex;
   border-radius: 3px;
 `
@@ -58,7 +61,7 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: var(--gray);
+  background-color: var(--gray-background);
   border-radius: 3px;
 `
 
