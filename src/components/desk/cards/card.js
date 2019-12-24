@@ -53,8 +53,8 @@ export const Card = ({ text, columnId, id }) => {
         <CloseButton hidden={visible} onClick={handleDeleteCard}>
           ×
         </CloseButton>
-        {edit && <EditCard onClick={handleClick} />}
       </Wrapper>
+      {edit && <EditCard cardId={id} onClick={handleClick} />}
     </>
   )
 }
@@ -74,6 +74,7 @@ const Wrapper = styled.li`
   box-sizing: border-box;
   word-wrap: break-word;
   max-width: 276px;
+  cursor: pointer;
   &:last-child {
     margin-bottom: 0;
   }

@@ -289,3 +289,23 @@ export const updateColumn = (id, name, token) => {
       .catch(err => console.log('updateColumn', err))
   }
 }
+
+export const addComment = (text, cardId, token) => {
+  return dispatch => {
+    return post(`/cards/${cardId}/comments`, { text }, token)
+      .then(res => {
+        dispatch(
+          cardsActions.addComment(
+            {
+              text,
+              card_id: cardId,
+              user_id: res.user_id,
+              id: res.id
+            },
+            cardId
+          )
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}

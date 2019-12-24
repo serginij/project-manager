@@ -1,13 +1,14 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
+import { useSelector } from 'react-redux'
 
 import { CommentsList } from '@components/comments/comments-list'
+import { Popup, ToggleInput, CloseButton, DynamicTextarea } from '@ui/'
 
-import { Popup, ToggleInput, CloseButton, TextArea } from '@ui/'
-
-export const EditCard = ({ onClick }) => {
+export const EditCard = ({ onClick, cardId }) => {
   let width = 50
+  const card = useSelector(state => state.cards.cards[cardId])
 
   if (window.matchMedia('(max-width: 730px)').matches) {
     width = 95
@@ -25,7 +26,7 @@ export const EditCard = ({ onClick }) => {
     <Popup width={width} onClick={onClick}>
       <Header>
         <ToggleInput text="Edit">
-          <Name>Edit</Name>
+          <Name>{card.name}</Name>
         </ToggleInput>
         <CloseButton className={closeButton} onClick={onClick}>
           ×
@@ -34,8 +35,12 @@ export const EditCard = ({ onClick }) => {
       <Wrapper>
         <Content>
           <h4>Описание</h4>
-          <TextArea placeholder="Информация о задаче" />
-          <CommentsList />
+          <DynamicTextarea
+            minRows={3}
+            maxRows={6}
+            placeholder="Информация о задаче"
+          />
+          <CommentsList cardId={cardId} comments={card.comments} />
         </Content>
         <Aside>
           <h4>Информация</h4>

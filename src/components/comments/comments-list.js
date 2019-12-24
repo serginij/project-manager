@@ -2,29 +2,23 @@ import React from 'react'
 import { styled } from 'linaria/react'
 
 import { Comment } from './comment'
+import { AddComment } from './add-comment'
 
-export const CommentsList = () => {
-  let testComments = [
-    { name: 'Andy', date: new Date(Date.now()), text: 'Hey there' },
-    {
-      name: 'Woodie',
-      date: new Date(Date.now() - 100000000),
-      text: 'Testing comments section'
-    }
-  ]
-
-  let comments = testComments.map(comment => (
+export const CommentsList = ({ cardId, comments }) => {
+  let commentsList = comments.map(comment => (
     <Comment
-      key={comment.date}
+      key={comment.id}
       text={comment.text}
       date={comment.date}
       name={comment.name}
+      canEdit
     />
   ))
   return (
     <Wrapper>
       <h4>Комментарии</h4>
-      <List>{comments}</List>
+      <AddComment cardId={cardId} />
+      <List>{commentsList}</List>
     </Wrapper>
   )
 }
@@ -36,5 +30,5 @@ const Wrapper = styled.div`
 
 const List = styled.ul`
   width: 100%;
-  pading: ;
+  padding: 0;
 `
