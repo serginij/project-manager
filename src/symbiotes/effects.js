@@ -291,8 +291,9 @@ export const updateColumn = (id, name, token) => {
 }
 
 export const addComment = (text, cardId, token) => {
+  let date = new Date()
   return dispatch => {
-    return post(`/cards/${cardId}/comments`, { text }, token)
+    return post(`/cards/${cardId}/comments`, { text, date: date }, token)
       .then(res => {
         dispatch(
           cardsActions.addComment(
@@ -300,11 +301,33 @@ export const addComment = (text, cardId, token) => {
               text,
               card_id: cardId,
               user_id: res.user_id,
-              id: res.id
+              id: res.id,
+              date: date,
+              username: res.username
             },
             cardId
           )
         )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteComment = (cardId, commentId, token) => {
+  return dispatch => {
+    return del(`/comments/${commentId}`, {}, token)
+      .then(() => {
+        dispatch(cardsActions.deleteComment(cardId, commentId))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const updateComment = (cardId, commentId, text, token) => {
+  return dispatch => {
+    return update(`/comments/${commentId}`, { text }, token)
+      .then(() => {
+        dispatch(cardsActions.updateComment(cardId, commentId, text))
       })
       .catch(err => console.log(err))
   }

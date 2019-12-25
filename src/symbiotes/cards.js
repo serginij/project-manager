@@ -35,7 +35,37 @@ const symbiotes = {
         comments: [...state.cards[cardId].comments, comment]
       }
     }
-  })
+  }),
+  deleteComment: (state, cardId, commentId) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [cardId]: {
+        ...state.cards[cardId],
+        comments: state.cards[cardId].comments.filter(
+          comment => comment.id !== commentId
+        )
+      }
+    }
+  }),
+  updateComment: (state, cardId, commentId, text) => {
+    let comments = state.cards[cardId].comments.map(comment => {
+      if (comment.id === commentId) {
+        comment.text = text
+      }
+      return comment
+    })
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: {
+          ...state.cards[cardId],
+          comments: comments
+        }
+      }
+    }
+  }
 }
 
 export const { actions: cardsActions, reducer: cardsReducer } = createSymbiote(

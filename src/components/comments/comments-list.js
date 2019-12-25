@@ -10,7 +10,9 @@ export const CommentsList = ({ cardId, comments }) => {
       key={comment.id}
       text={comment.text}
       date={comment.date}
-      name={comment.name}
+      name={comment.username}
+      commentId={comment.id}
+      cardId={cardId}
       canEdit
     />
   ))

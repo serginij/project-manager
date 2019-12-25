@@ -4,9 +4,15 @@ import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { AddButton, CloseButton, DynamicTextarea } from '@ui'
-import { addComment } from '@symbiotes/effects'
+import { addComment, updateComment } from '@symbiotes/effects'
 
-export const AddComment = ({ edit, value = '', onCancel, cardId }) => {
+export const AddComment = ({
+  edit,
+  value = '',
+  onCancel,
+  cardId,
+  commentId
+}) => {
   let [open, setOpen] = useState(edit)
   let [text, setText] = useState(value)
 
@@ -17,6 +23,12 @@ export const AddComment = ({ edit, value = '', onCancel, cardId }) => {
   let handleAddComment = () => {
     setOpen(false)
     dispatch(addComment(text, cardId, token))
+    setText('')
+  }
+
+  let handleUpdateComment = () => {
+    setOpen(false)
+    dispatch(updateComment(cardId, commentId, text, token))
     setText('')
   }
 
@@ -46,7 +58,7 @@ export const AddComment = ({ edit, value = '', onCancel, cardId }) => {
         <ButtonsBlock>
           <AddButton
             disabled={text.trim() == '' ? true : false}
-            onClick={handleAddComment}
+            onClick={edit ? handleUpdateComment : handleAddComment}
             className={styledButton}
           >
             Сохранить

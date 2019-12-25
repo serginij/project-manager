@@ -1,25 +1,48 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
-import { AddComment } from './add-comment'
+import { useSelector, useDispatch } from 'react-redux'
 
-export const Comment = ({ name, text, canEdit = false }) => {
-  // let month = date.toLocaleString('ru', { month: 'short' }).slice(0, 3)
-  // let day = parseInt(date.getDate())
-  // let year = date.getFullYear()
-  // let time = date.toLocaleString('ru', { hour: 'numeric', minute: 'numeric' })
-  // let formattedDate = day + ' ' + month + ' ' + year + 'г. в ' + time
+import { AddComment } from './add-comment'
+import { deleteComment } from '@symbiotes/effects'
+
+export const Comment = ({
+  name,
+  date,
+  text,
+  canEdit = false,
+  commentId,
+  cardId
+}) => {
+  date = new Date(date)
+  let month = date.toLocaleString('ru', { month: 'short' }).slice(0, 3)
+  let day = parseInt(date.getDate())
+  let year = date.getFullYear()
+  let time = date.toLocaleString('ru', { hour: 'numeric', minute: 'numeric' })
+  let formattedDate = day + ' ' + month + ' ' + year + 'г. в ' + time
 
   let [edit, setEdit] = useState(false)
+
+  let { token } = useSelector(state => state.auth)
+
+  let dispatch = useDispatch()
+
+  let handleDeleteComment = () =>
+    dispatch(deleteComment(cardId, commentId, token))
 
   return (
     <CommentItem>
       <CommentData>
         <Author>{name}</Author>
-        {/* <Text>{formattedDate}</Text> */}
+        <Text>{formattedDate}</Text>
       </CommentData>
       {edit ? (
-        <AddComment edit value={text} onCancel={() => setEdit(false)} />
+        <AddComment
+          edit
+          value={text}
+          onCancel={() => setEdit(false)}
+          commentId={commentId}
+        />
       ) : (
         <>
           <Content>{text}</Content>
@@ -28,7 +51,9 @@ export const Comment = ({ name, text, canEdit = false }) => {
               <Text className={editControl} onClick={() => setEdit(true)}>
                 Изменить
               </Text>
-              <Text className={editControl}>Удалить</Text>
+              <Text className={editControl} onClick={handleDeleteComment}>
+                Удалить
+              </Text>
             </EditBlock>
           )}
         </>
