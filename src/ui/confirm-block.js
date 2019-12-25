@@ -10,12 +10,14 @@ export const ConfirmBlock = ({
   children,
   onConfirm,
   title,
-  buttonText
+  buttonText,
+  style
 }) => {
   let [visible, setVisible] = useState(false)
   let [data, setData] = useState({ width: width })
 
   const handleClick = e => {
+    e.stopPropagation()
     let { x, y, width, height } = e.target.getBoundingClientRect()
     // x = align ? x - data.width / 2 + width / 2 : x
     setData({
@@ -26,11 +28,15 @@ export const ConfirmBlock = ({
     setVisible(!visible)
   }
 
-  const hanldeClose = () => setVisible(close)
+  const hanldeClose = () => {
+    setVisible(close)
+  }
 
   return (
     <>
-      <WrapButton onClick={handleClick}>{children}</WrapButton>
+      <WrapButton type="button" onClick={handleClick} className={style}>
+        {children}
+      </WrapButton>
       <BackDrop visible={visible} onClick={hanldeClose}>
         <Wrapper
           visible={visible}
@@ -41,7 +47,11 @@ export const ConfirmBlock = ({
         >
           <Header>
             <Name>{title}</Name>
-            <CloseButton onClick={hanldeClose} className={cancelButton}>
+            <CloseButton
+              type="button"
+              onClick={hanldeClose}
+              className={cancelButton}
+            >
               ×
             </CloseButton>
           </Header>
@@ -89,6 +99,7 @@ const Wrapper = styled.div`
   padding-top: 0;
   font-size: 14px;
   box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
+  z-index: 1;
   background-color: white;
 `
 

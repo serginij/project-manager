@@ -2,10 +2,8 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { AddForm, CloseButton, ToggleInput } from '@ui'
-
+import { AddForm, CloseButton, ToggleInput, ConfirmBlock } from '@ui'
 import { deleteColumn, addCard, updateColumn } from '@symbiotes/effects'
-
 import { CardsList } from '../cards/cards-list'
 
 export const Column = ({ columnId }) => {
@@ -24,7 +22,13 @@ export const Column = ({ columnId }) => {
     <ColumnWrapper>
       <ColumnHeader>
         <ToggleInput onSubmit={handleUpdateColumn} text={name} />
-        <CloseButton onClick={handleDeleteColumn}>×</CloseButton>
+        <ConfirmBlock
+          onConfirm={handleDeleteColumn}
+          title="Удаление столбца"
+          buttonText="Удалить столбец"
+        >
+          <CloseButton>×</CloseButton>
+        </ConfirmBlock>
       </ColumnHeader>
       <CardsList cardsById={cards} columnId={columnId} />
       <AddForm

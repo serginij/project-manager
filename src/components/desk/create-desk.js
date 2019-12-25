@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
-import { Input, AddButton, FormTitle } from '@ui'
+import { Input, AddButton, FormTitle, FormWrapper as Wrapper } from '@ui'
 
 import { addDesk } from '@symbiotes/effects'
 
@@ -40,15 +39,6 @@ export const CreateDesk = props => {
     </Wrapper>
   )
 }
-const Wrapper = styled.div`
-  width: 30%;
-  margin: auto;
-  margin-top: 10%;
-  align-items: center;
-  text-align: center;
-  min-width: 270px;
-  max-width: 500px;
-`
 
 const styledInput = css`
   font-size: 1.2rem;

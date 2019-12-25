@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
-// import { css } from 'linaria'
 import { useDispatch } from 'react-redux'
 
 import { deleteCard } from '@symbiotes/effects'
 
-import { CloseButton } from '@ui'
+import { CloseButton, ConfirmBlock } from '@ui'
 import { EditCard } from './edit-card'
 
 export const Card = ({ text, columnId, id }) => {
   const [visible, setVisible] = useState(true)
   const [edit, setEdit] = useState(false)
-  // const [value, setValue] = useState(text)
 
   const handleHover = () => {
     setVisible(!visible)
@@ -24,23 +22,10 @@ export const Card = ({ text, columnId, id }) => {
     dispatch(deleteCard(columnId, id))
   }
 
-  // const handleEditCard = card =>
-  //   dispatch(updateCard(card.id, columnId, card.name))
-
   const handleClick = () => {
     setEdit(!edit)
     setVisible(true)
   }
-
-  // const handleChange = e => {
-  //   setValue(e.target.value)
-  // }
-
-  // const handleSubmit = e => {
-  //   e.preventDefault()
-  //   handleEditCard({ name: value, id: id })
-  //   handleClick()
-  // }
 
   return (
     <>
@@ -50,9 +35,14 @@ export const Card = ({ text, columnId, id }) => {
         onClick={handleClick}
       >
         <Text>{text}</Text>
-        <CloseButton hidden={visible} onClick={handleDeleteCard}>
-          ×
-        </CloseButton>
+        <ConfirmBlock
+          onClick={e => e.stopPropagation()}
+          onConfirm={handleDeleteCard}
+          title="Удаление столбца"
+          buttonText="Удалить столбец"
+        >
+          <CloseButton hidden={visible}>×</CloseButton>
+        </ConfirmBlock>
       </Wrapper>
       {edit && <EditCard cardId={id} onClick={handleClick} />}
     </>
@@ -85,29 +75,3 @@ const Text = styled.p`
   margin: 0;
   word-break: break-all;
 `
-
-// const Edit = styled.div`
-//   width: 100%;
-//   margin-bottom: 8px;
-//   box-sizing: border-box;
-// `
-
-// const Input = styled.input`
-//   display: block;
-//   width: 100%;
-//   background: #ffffff;
-//   font-size: 1em;
-//   min-height: 2.5rem;
-//   border: none;
-//   border-radius: 3px;
-//   margin-bottom: 8px;
-//   box-sizing: border-box;
-//   padding: 0 12px;
-//   word-wrap: break-word;
-// `
-
-// const cancelButton = css`
-//   background-color: #e74c3c;
-//   margin-left: 12px;
-//   cursor: pointer;
-// `

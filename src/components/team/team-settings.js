@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -17,7 +16,8 @@ import {
   FindUser,
   FormTitle,
   UserList,
-  SaveCancelBlock
+  SaveCancelBlock,
+  FormWrapper as Wrapper
 } from '@ui'
 
 export const TeamSettings = () => {
@@ -87,20 +87,15 @@ export const TeamSettings = () => {
           deleteUser={deleteUser}
           updateUser={updateUser}
         />
-        <SaveCancelBlock handleCancel={deleteTeam} />
+        <SaveCancelBlock
+          handleCancel={deleteTeam}
+          title="Удаление команды"
+          buttonText="Удалить команду"
+        />
       </form>
     </Wrapper>
   )
 }
-
-const Wrapper = styled.div`
-  width: 30%;
-  margin: auto;
-  margin-top: 5%;
-  text-align: center;
-  min-width: 270px;
-  max-width: 500px;
-`
 
 const styledInput = css`
   font-size: 1rem;

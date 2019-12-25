@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { addTeam } from '@symbiotes/effects'
 
-import { Input, AddButton, TextArea } from '@ui'
+import { Input, AddButton, TextArea, FormWrapper as Wrapper } from '@ui'
 
 export const CreateTeam = props => {
   const [data, setData] = useState({
@@ -53,16 +52,6 @@ export const CreateTeam = props => {
     </Wrapper>
   )
 }
-
-const Wrapper = styled.div`
-  width: 30%;
-  margin: auto;
-  margin-top: 10%;
-  align-items: center;
-  text-align: center;
-  min-width: 270px;
-  max-width: 500px;
-`
 
 const styledInput = css`
   font-size: 1.2rem;

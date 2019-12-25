@@ -21,6 +21,9 @@ export const EditCard = ({ onClick, cardId }) => {
   if (window.matchMedia('(max-width: 1050px)').matches) {
     width = 80
   }
+  if (window.matchMedia('(max-width: 750px)').matches) {
+    width = 90
+  }
 
   return (
     <Popup width={width} onClick={onClick}>
@@ -60,6 +63,9 @@ const Wrapper = styled.div`
   background-color: var(--gray-background);
   display: flex;
   border-radius: 3px;
+  @media (max-width: 650px) {
+    flex-direction: column;
+  }
 `
 
 const Header = styled.header`
@@ -76,6 +82,9 @@ const Content = styled.section`
   flex-direction: column;
   box-sizing: border-box;
   padding: 0 18px;
+  @media (max-width: 650px) {
+    width: 90%;
+  }
 `
 
 const Aside = styled.aside`
@@ -84,6 +93,11 @@ const Aside = styled.aside`
   flex-direction: column;
   box-sizing: border-box;
   padding-right: 18px;
+  @media (max-width: 650px) {
+    width: 90%;
+    /* flex-direction: row;
+    flex-wrap: wrap; */
+  }
 `
 
 const closeButton = css`
