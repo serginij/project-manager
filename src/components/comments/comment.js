@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { AddComment } from './add-comment'
 import { deleteComment } from '@symbiotes/effects'
+import { ConfirmBlock } from '@ui'
 
 export const Comment = ({
   name,
@@ -51,9 +52,13 @@ export const Comment = ({
               <Text className={editControl} onClick={() => setEdit(true)}>
                 Изменить
               </Text>
-              <Text className={editControl} onClick={handleDeleteComment}>
-                Удалить
-              </Text>
+              <ConfirmBlock
+                onConfirm={handleDeleteComment}
+                title="Удаление комментария"
+                buttonText="Удалить комментарий"
+              >
+                <Text className={editControl}>Удалить</Text>
+              </ConfirmBlock>
             </EditBlock>
           )}
         </>
