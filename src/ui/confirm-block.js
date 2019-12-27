@@ -19,7 +19,10 @@ export const ConfirmBlock = ({
   const handleClick = e => {
     e.stopPropagation()
     let { x, y, width, height } = e.target.getBoundingClientRect()
-    // x = align ? x - data.width / 2 + width / 2 : x
+    let { innerHeight, innerWidth } = window
+    x = x + data.width > innerWidth ? (x -= data.width) : x
+    y = y + height > innerHeight ? (y -= height) : y
+
     setData({
       x: x,
       y: y + height,
@@ -28,7 +31,8 @@ export const ConfirmBlock = ({
     setVisible(!visible)
   }
 
-  const hanldeClose = () => {
+  const hanldeClose = e => {
+    e.stopPropagation()
     setVisible(close)
   }
 
