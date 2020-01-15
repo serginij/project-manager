@@ -28,7 +28,11 @@ export const Header = () => {
           MindMap
         </Link> */}
       </NavBar>
-
+      <Title>
+        <Link className={styledLink} to="/">
+          Project manager
+        </Link>
+      </Title>
       <Dropdown
         width={100}
         x={0}
@@ -67,10 +71,13 @@ const Avatar = styled.img`
 const NavBar = styled.nav`
   display: flex;
   justify-content: space-evenly;
-  min-width: 10%;
 `
 
 const styledLink = css`
   color: white;
   text-decoration: none;
+`
+
+const Title = styled.h2`
+  color: white;
 `
