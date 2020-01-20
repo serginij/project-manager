@@ -16,6 +16,7 @@ export const DeskList = ({ title, desksById, teamId, isAdmin }) => {
 
   const handleClick = id => {
     dispatch(getDesk(id))
+    setTeam(teamId)
   }
 
   let deskList = desksById ? (

@@ -1,14 +1,22 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { CommentsList } from '@components/comments/comments-list'
 import { Popup, ToggleInput, CloseButton, DynamicTextarea } from '@ui/'
+import { FeatBlock } from './feat/feat-block'
+import { UsersList } from './feat/users-list'
+
+import { updateCard } from '@symbiotes/effects'
 
 export const EditCard = ({ onClick, cardId }) => {
   let width = 50
   const card = useSelector(state => state.cards.cards[cardId])
+
+  const dispatch = useDispatch()
+
+  const update = name => dispatch(updateCard(cardId, name))
 
   if (window.matchMedia('(max-width: 730px)').matches) {
     width = 95
@@ -26,15 +34,16 @@ export const EditCard = ({ onClick, cardId }) => {
   }
 
   return (
-    <Popup width={width} onClick={onClick}>
+    <Popup className={popupStyle} width={width} onClick={onClick}>
       <Header>
-        <ToggleInput text="Edit">
-          <Name>{card.name}</Name>
-        </ToggleInput>
-        <CloseButton className={closeButton} onClick={onClick}>
-          ×
-        </CloseButton>
+        <ToggleInput
+          onSubmit={update}
+          text={card.name}
+          inputStyle={inputStyle}
+        />
+        <CloseButton onClick={onClick}>×</CloseButton>
       </Header>
+      <UsersList users={card.users} />
       <Wrapper>
         <Content>
           <h4>Описание</h4>
@@ -46,12 +55,7 @@ export const EditCard = ({ onClick, cardId }) => {
           <CommentsList cardId={cardId} comments={card.comments} />
         </Content>
         <Aside>
-          <h4>Информация</h4>
-          <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-          </ul>
+          <FeatBlock />
         </Aside>
       </Wrapper>
     </Popup>
@@ -74,6 +78,10 @@ const Header = styled.header`
   justify-content: space-between;
   background-color: var(--gray-background);
   border-radius: 3px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  /* padding: 0 12px; */
+  height: 2em;
 `
 
 const Content = styled.section`
@@ -81,7 +89,7 @@ const Content = styled.section`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 0 18px;
+  padding: 0 12px;
   @media (max-width: 650px) {
     width: 90%;
   }
@@ -92,26 +100,20 @@ const Aside = styled.aside`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-right: 18px;
+  /* padding-right: 18px; */
   @media (max-width: 650px) {
     width: 90%;
-    /* flex-direction: row;
-    flex-wrap: wrap; */
   }
 `
 
-const closeButton = css`
-  margin-right: 12px;
-`
-
-const Name = styled.h3`
+const inputStyle = css`
+  font-size: 15px;
   font-weight: bold;
-  width: 100%;
+  height: 2em;
+`
+
+const popupStyle = css`
+  background-color: var(--gray-background);
   box-sizing: border-box;
-  text-align: left;
-  margin: 12px 0 13px 18px;
-  cursor: pointer;
-  &:last-child {
-    padding-bottom: 0;
-  }
+  padding: 12px;
 `

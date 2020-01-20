@@ -1,0 +1,117 @@
+import React from 'react'
+import { styled } from 'linaria/react'
+import { css } from 'linaria'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { Dropdown } from '@ui'
+import { Input } from '@ui/'
+import { CloseButton } from '@ui/'
+
+import { addCardUser, findDeskUser } from '@symbiotes/effects'
+
+export const AddUser = ({ children }) => {
+  const card = useSelector(state => state.cards.cards[state.cards.currentCard])
+  const desk = useSelector(state => state.desks.desks[state.desks.currentDesk])
+  const { findList } = useSelector(state => state.desks)
+
+  const { token } = useSelector(state => state.auth)
+
+  const dispatch = useDispatch()
+
+  console.log(card)
+  const handleAddUser = id => dispatch(addCardUser(card.id, id, token))
+
+  const handleChange = e => {
+    searchUser(e.target.value)
+  }
+
+  const searchUser = username => {
+    dispatch(findDeskUser(desk.id, username, token))
+  }
+
+  let list =
+    desk &&
+    findList.map(user => {
+      console.log(user)
+      return (
+        <UserItem onClick={() => handleAddUser(user.id)} key={user.id}>
+          @{user.username}
+        </UserItem>
+      )
+    })
+
+  return (
+    <Dropdown
+      width={300}
+      content={
+        <Content>
+          <Header>
+            <Title>Участники</Title>
+            <CloseButton className={closeButton}>×</CloseButton>
+          </Header>
+          <Input
+            className={styledInput}
+            placeholder="Поиск людей"
+            onChange={handleChange}
+          />
+          <UserList>{list}</UserList>
+        </Content>
+      }
+    >
+      {children}
+    </Dropdown>
+  )
+}
+
+const Content = styled.div`
+  padding: 12px;
+  padding-top: 0px;
+  box-sizing: border-box;
+`
+
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--dark-gray);
+`
+
+const Title = styled.p`
+  color: var(--gray-text);
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+`
+
+const closeButton = css`
+  font-size: 24px;
+  font-weight: 200;
+`
+
+const styledInput = css`
+  font-size: 14px;
+`
+
+const UserList = styled.ul`
+  list-style: none;
+  padding: 0;
+  width: 100%;
+`
+
+const UserItem = styled.li`
+  list-style: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 12px;
+  margin-top: 8px;
+  border-radius: 3px;
+  font-size: 14px;
+  &:hover {
+    background-color: var(--dark-gray);
+    cursor: pointer;
+  }
+
+  &:nth-child(1) {
+    margin: 0;
+  }
+`

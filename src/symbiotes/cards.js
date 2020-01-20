@@ -3,7 +3,8 @@ import { createSymbiote } from 'redux-symbiote'
 const initialState = {
   loading: false,
   cards: {},
-  error: null
+  error: null,
+  currentCard: null
 }
 
 const symbiotes = {
@@ -23,7 +24,7 @@ const symbiotes = {
     ...state,
     cards: {
       ...state.cards,
-      [card.id]: { ...state.cards[card.id], name: card.name }
+      [card.id]: { ...state.cards[card.id], name: card.name, desc: card.desc }
     }
   }),
   addComment: (state, comment, cardId) => ({
@@ -65,7 +66,28 @@ const symbiotes = {
         }
       }
     }
-  }
+  },
+  setCurrent: (state, id) => ({ ...state, currentCard: id }),
+  addUser: (state, id, user) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [id]: {
+        ...state.cards[id],
+        users: [...state.cards[id].users, user]
+      }
+    }
+  }),
+  deleteUser: (state, id, userId) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [id]: {
+        ...state.cards[id],
+        users: state.cards[id].users.filter(user => user.id !== userId)
+      }
+    }
+  })
 }
 
 export const { actions: cardsActions, reducer: cardsReducer } = createSymbiote(

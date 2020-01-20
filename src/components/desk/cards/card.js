@@ -7,6 +7,8 @@ import { deleteCard } from '@symbiotes/effects'
 import { CloseButton, ConfirmBlock } from '@ui'
 import { EditCard } from './edit-card'
 
+import { cardsActions } from '@symbiotes/cards'
+
 export const Card = ({ text, columnId, id }) => {
   const [visible, setVisible] = useState(true)
   const [edit, setEdit] = useState(false)
@@ -17,6 +19,8 @@ export const Card = ({ text, columnId, id }) => {
 
   const dispatch = useDispatch()
 
+  const setCurrent = id => dispatch(cardsActions.setCurrent(id))
+
   const handleDeleteCard = e => {
     e.stopPropagation()
     dispatch(deleteCard(columnId, id))
@@ -24,6 +28,7 @@ export const Card = ({ text, columnId, id }) => {
 
   const handleClick = () => {
     setEdit(!edit)
+    setCurrent(id)
     setVisible(true)
   }
 
@@ -38,8 +43,8 @@ export const Card = ({ text, columnId, id }) => {
         <ConfirmBlock
           onClick={e => e.stopPropagation()}
           onConfirm={handleDeleteCard}
-          title="Удаление столбца"
-          buttonText="Удалить столбец"
+          title="Удаление карточки"
+          buttonText="Удалить карточку"
         >
           <CloseButton hidden={visible}>×</CloseButton>
         </ConfirmBlock>
