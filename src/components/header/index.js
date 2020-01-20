@@ -2,24 +2,22 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { logout as logoutAction } from '@symbiotes/helpers'
-
 import { Dropdown } from '@ui'
 
 import user from '../../assets/user.svg'
+import { StyledLink } from '@ui/'
 
 export const Header = () => {
+  const hidden = useSelector(state => state.auth.hidden)
   const dispatch = useDispatch()
 
   const logout = () => dispatch(logoutAction())
 
-  const handleClick = () => {
-    console.log('clicked')
-  }
   return (
-    <StyledHeader>
+    <StyledHeader hidden={hidden}>
       <NavBar>
         <Link className={styledLink} to="/">
           Главная
@@ -37,16 +35,24 @@ export const Header = () => {
         width={100}
         x={0}
         y={0}
-        list={[{ text: 'Выход', link: '/auth', action: logout }]}
+        content={
+          <Item>
+            <StyledLink to="/auth" onClick={logout}>
+              Выход
+            </StyledLink>
+          </Item>
+        }
         align
+        close
       >
-        <Avatar src={user} alt="avatar" onClick={handleClick} />
+        <Avatar src={user} alt="avatar" />
       </Dropdown>
     </StyledHeader>
   )
 }
 
 const StyledHeader = styled.header`
+  visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
   position: absolute;
   left: 0;
   top: 0;
@@ -80,4 +86,11 @@ const styledLink = css`
 
 const Title = styled.h2`
   color: white;
+`
+
+const Item = styled.p`
+  padding: 0 0.3em;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: var(--dark-gray);
 `
