@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { styled } from 'linaria/react'
 
-export const Popup = ({ children, width, onClick }) => {
+export const Popup = ({ children, width, onClick, className }) => {
   let [visible, setVisible] = useState(true)
 
   const changeVisible = useCallback(() => {
@@ -12,7 +12,11 @@ export const Popup = ({ children, width, onClick }) => {
 
   return (
     <Wrapper visible={visible} onClick={changeVisible}>
-      <Content width={width} onClick={e => e.stopPropagation()}>
+      <Content
+        className={className}
+        width={width}
+        onClick={e => e.stopPropagation()}
+      >
         {children}
       </Content>
     </Wrapper>

@@ -22,6 +22,7 @@ export const AddForm = ({
       onAdd(name)
     }
     setName('')
+    setOpen(false)
   }
   const handleChange = e => setName(e.target.value)
   const handleOpenForm = () => {

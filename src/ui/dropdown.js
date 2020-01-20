@@ -1,19 +1,9 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 
-import { StyledLink } from './styled-link'
-
-export const Dropdown = ({ children, width, list, align }) => {
+export const Dropdown = ({ children, width, content, align, close = true }) => {
   let [visible, setVisible] = useState(false)
   let [data, setData] = useState({ width: width })
-
-  let listBody = list.map((el, index) => {
-    return (
-      <Item key={index} onClick={el.action}>
-        {el.link ? <StyledLink to={el.link}>{el.text}</StyledLink> : el.text}
-      </Item>
-    )
-  })
 
   const handleClick = e => {
     let { x, y, width, height } = e.target.getBoundingClientRect()
@@ -29,15 +19,15 @@ export const Dropdown = ({ children, width, list, align }) => {
   return (
     <Wrapper>
       <Header onClick={handleClick}>{children}</Header>
-      <List
-        onMouseLeave={() => setVisible(false)}
+      <Body
+        onMouseLeave={close ? () => setVisible(false) : null}
         visible={visible}
         x={data.x}
         y={data.y}
         width={data.width}
       >
-        {listBody}
-      </List>
+        {content}
+      </Body>
     </Wrapper>
   )
 }
@@ -46,14 +36,7 @@ const Wrapper = styled.div``
 
 const Header = styled.div``
 
-const Item = styled.li`
-  text-align: center;
-  padding: 0.5em;
-  box-sizing: border-box;
-  cursor: pointer;
-`
-
-const List = styled.ul`
+const Body = styled.ul`
   display: ${props => (props.visible ? 'flex' : 'none')};
   flex-direction: column;
   position: absolute;
@@ -66,4 +49,5 @@ const List = styled.ul`
   margin-top: 12px;
   padding: 0;
   background-color: white;
+  box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
 `

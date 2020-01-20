@@ -4,7 +4,8 @@ import { styled } from 'linaria/react'
 export const ToggleInput = ({
   onSubmit = text => text,
   text,
-  children = null
+  children = null,
+  inputStyle
 }) => {
   let [edit, setEdit] = useState(false)
   let [value, setValue] = useState(text)
@@ -34,6 +35,7 @@ export const ToggleInput = ({
       {edit ? (
         <form onSubmit={handleSubmit} style={{ width: '85%' }}>
           <Input
+            className={inputStyle}
             ref={inputRef}
             type="text"
             value={value}
@@ -57,6 +59,7 @@ const Input = styled.input`
   padding-left: 8px;
   margin: 12px 0;
   width: 100%;
+  /* max-width: 300px; */
 `
 
 const Name = styled.h4`
