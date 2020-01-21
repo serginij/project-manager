@@ -38,7 +38,6 @@ export const addDesk = (name, teamId) => {
       teamId: teamId,
       name: name
     }).then(res => {
-      console.log(res)
       dispatch(createDesk(name, teamId, res.id))
     })
   }
@@ -365,7 +364,7 @@ export const findDeskUser = (deskId, username, token) => {
         })
         .catch(err => console.log(err))
     } else {
-      dispatch(teamsActions.findUsers([]))
+      dispatch(desksActions.setFoundList(deskId))
     }
   }
 }

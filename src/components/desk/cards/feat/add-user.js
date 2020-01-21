@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,33 +12,37 @@ import { addCardUser, findDeskUser } from '@symbiotes/effects'
 export const AddUser = ({ children }) => {
   const card = useSelector(state => state.cards.cards[state.cards.currentCard])
   const desk = useSelector(state => state.desks.desks[state.desks.currentDesk])
-  const { findList } = useSelector(state => state.desks)
-
+  const { foundList } = useSelector(state => state.desks)
   const { token } = useSelector(state => state.auth)
 
   const dispatch = useDispatch()
 
-  console.log(card)
   const handleAddUser = id => dispatch(addCardUser(card.id, id, token))
 
   const handleChange = e => {
     searchUser(e.target.value)
   }
 
-  const searchUser = username => {
-    dispatch(findDeskUser(desk.id, username, token))
-  }
+  const searchUser = useCallback(
+    username => {
+      dispatch(findDeskUser(desk.id, username, token))
+    },
+    [desk.id, dispatch, token]
+  )
 
   let list =
     desk &&
-    findList.map(user => {
-      console.log(user)
+    foundList.map(user => {
       return (
         <UserItem onClick={() => handleAddUser(user.id)} key={user.id}>
           @{user.username}
         </UserItem>
       )
     })
+
+  useEffect(() => {
+    searchUser('')
+  }, [searchUser])
 
   return (
     <Dropdown

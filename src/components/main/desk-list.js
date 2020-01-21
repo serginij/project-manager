@@ -61,7 +61,7 @@ const List = styled.ul`
   padding: 0;
 `
 
-const AddDesk = styled.div`
+const AddDesk = styled.li`
   display: flex;
   cursor: pointer;
   max-width: 48%;
