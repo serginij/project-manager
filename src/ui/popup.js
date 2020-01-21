@@ -7,8 +7,7 @@ export const Popup = ({ children, width, onClick, className }) => {
   const changeVisible = useCallback(() => {
     setVisible(v => !v)
     onClick()
-    console.log('change visibility ', visible)
-  }, [onClick, visible])
+  }, [onClick])
 
   return (
     <Wrapper visible={visible} onClick={changeVisible}>

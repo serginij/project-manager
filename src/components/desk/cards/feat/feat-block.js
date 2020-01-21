@@ -9,7 +9,6 @@ export const FeatBlock = () => {
     state => state.teams.teams[state.teams.currentTeam].isAdmin
   )
 
-  console.log(isAdmin)
   return (
     <>
       <h4>Информация</h4>
