@@ -69,7 +69,7 @@ export const ConfirmBlock = ({
   )
 }
 
-const WrapButton = styled.button`
+const WrapButton = styled.div`
   background: none;
   color: inherit;
   border: none;

@@ -20,7 +20,7 @@ import {
 
 export const DeskSettings = () => {
   const desk = useSelector(state => state.desks.desks[state.desks.currentDesk])
-  const { findList } = useSelector(state => state.desks)
+  const { foundList } = useSelector(state => state.desks)
 
   const [data, setData] = useState({
     name: desk.name
@@ -60,7 +60,7 @@ export const DeskSettings = () => {
           name="name"
         />
         <FindUser
-          findList={findList}
+          foundList={foundList}
           onSearch={searchUser}
           onSelect={addUser}
         />

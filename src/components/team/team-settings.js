@@ -22,7 +22,7 @@ import {
 
 export const TeamSettings = () => {
   const team = useSelector(state => state.teams.teams[state.teams.currentTeam])
-  const { findList, currentTeam } = useSelector(state => state.teams)
+  const { foundList, currentTeam } = useSelector(state => state.teams)
 
   const [data, setData] = useState({
     name: team.name,
@@ -78,7 +78,7 @@ export const TeamSettings = () => {
           name="desc"
         />
         <FindUser
-          findList={findList}
+          foundList={foundList}
           onSearch={searchUser}
           onSelect={addUser}
         />
