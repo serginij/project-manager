@@ -4,16 +4,13 @@ import { styled } from 'linaria/react'
 import { AddUser } from './add-user'
 import { UserInfo } from './user-info'
 
-// import icon from '@assets/icon.png'
+import icon from '@assets/icon.png'
 
 export const UsersList = ({ users }) => {
   let list = users.map(user => (
     <Item key={user.id}>
       <UserInfo username={user.username} id={user.id}>
-        <Avatar
-          src="https://img.icons8.com/bubbles/344/user.png"
-          alt="avatar"
-        />
+        <Avatar src={icon} alt="avatar" />
       </UserInfo>
     </Item>
   ))
