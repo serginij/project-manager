@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from 'linaria/react'
+
 import { Header } from '@components/header'
 
 export const CommonContent = ({ children }) => (

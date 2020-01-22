@@ -30,6 +30,7 @@ export const Auth = () => {
     type === 'Вход'
       ? dispatch(login(data.usr, data.pwd))
       : dispatch(signup(data.usr, data.pwd))
+    setHidden(false)
   }
 
   const setHidden = useCallback(val => dispatch(authActions.setHidden(val)), [
@@ -44,7 +45,6 @@ export const Auth = () => {
     <Wrapper>
       <h1>Project manager</h1>
       <p>Приложение для управления проектами</p>
-
       <Form onSubmit={handleSubmit}>
         <h2>{type}</h2>
         <Input
