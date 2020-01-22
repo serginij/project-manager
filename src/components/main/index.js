@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchTeams } from '@symbiotes/effects'
 import { getToken } from '@symbiotes/helpers'
+import { authActions } from '@symbiotes/auth'
 
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
@@ -17,10 +18,18 @@ export const Main = () => {
   const dispatch = useDispatch()
   const getTeams = useCallback(token => dispatch(fetchTeams(token)), [dispatch])
 
+  const setHidden = useCallback(val => dispatch(authActions.setHidden(val)), [
+    dispatch
+  ])
+
   useEffect(() => {
     dispatch(getToken())
     !!token && getTeams(token)
   }, [dispatch, getTeams, token])
+
+  useEffect(() => {
+    setHidden(false)
+  }, [setHidden])
 
   const teamList = Object.values(teams)
 

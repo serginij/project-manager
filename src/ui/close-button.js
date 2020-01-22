@@ -1,6 +1,11 @@
+import React from 'react'
 import { styled } from 'linaria/react'
 
-export const CloseButton = styled.button`
+export const CloseButton = ({ children, ...props }) => (
+  <Button {...props}>{children ? children : '×'}</Button>
+)
+
+const Button = styled.button`
   font-size: 2em;
   font-weight: 300;
   cursor: pointer;

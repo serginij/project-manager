@@ -3,7 +3,7 @@ import { styled } from 'linaria/react'
 
 import { Input } from './input'
 
-export const FindUser = ({ findList, onSearch, onSelect }) => {
+export const FindUser = ({ foundList, onSearch, onSelect }) => {
   const [value, setValue] = useState('')
   const [isVisible, setVisible] = useState(false)
   const [params, setParams] = useState({
@@ -24,18 +24,16 @@ export const FindUser = ({ findList, onSearch, onSelect }) => {
   }
 
   const searchUser = e => {
-    console.log()
     e.preventDefault()
     handleChange(e)
     onSearch(e.target.value)
   }
 
   const handleAddUser = user => {
-    console.log('handleAddUser', user)
     onSelect(user)
   }
 
-  let users = findList.map(user => (
+  let users = foundList.map(user => (
     <UserItem key={user.id} onClick={() => handleAddUser(user)}>
       <p>{user.username}</p>
     </UserItem>

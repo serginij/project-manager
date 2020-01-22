@@ -16,6 +16,7 @@ export const DeskList = ({ title, desksById, teamId, isAdmin }) => {
 
   const handleClick = id => {
     dispatch(getDesk(id))
+    setTeam(teamId)
   }
 
   let deskList = desksById ? (
@@ -60,7 +61,7 @@ const List = styled.ul`
   padding: 0;
 `
 
-const AddDesk = styled.div`
+const AddDesk = styled.li`
   display: flex;
   cursor: pointer;
   max-width: 48%;

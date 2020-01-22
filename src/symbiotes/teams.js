@@ -5,7 +5,7 @@ const initialState = {
   teams: {},
   error: null,
   currentTeam: null,
-  findList: []
+  foundList: []
 }
 
 const symbiotes = {
@@ -43,7 +43,7 @@ const symbiotes = {
       }
     }
   }),
-  findUsers: (state, users) => ({ ...state, findList: users }),
+  findUsers: (state, users) => ({ ...state, foundList: users }),
   addUser: (state, teamId, user) => ({
     ...state,
     teams: {
@@ -67,7 +67,6 @@ const symbiotes = {
   updateUser: (state, teamId, userId, isAdmin) => {
     let users = state.teams[teamId].users.map(user => {
       if (user.id === userId) {
-        console.log(user)
         user.is_admin = isAdmin
       }
       return user

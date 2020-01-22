@@ -14,7 +14,7 @@ export const TeamItem = ({ name, id, isAdmin }) => {
   const link = isAdmin ? `/team/settings/${id}` : `/teams/${id}`
 
   return (
-    <Item onClick={() => setTeam(id)} key>
+    <Item onClick={() => setTeam(id)} key={id}>
       <StyledLink to={link}>
         <Name>{name}</Name>
       </StyledLink>

@@ -33,7 +33,9 @@ export const Auth = () => {
     setHidden(false)
   }
 
-  const setHidden = useCallback(val => dispatch(authActions.setHidden(val)))
+  const setHidden = useCallback(val => dispatch(authActions.setHidden(val)), [
+    dispatch
+  ])
 
   useEffect(() => {
     setHidden(true)
@@ -69,20 +71,27 @@ export const Auth = () => {
       {/* <p>
         <StyledLink to="/resetpwd">Reset Password</StyledLink>
       </p> */}
-      <p>2019, Project manager</p>
+      <p>2020, Project manager</p>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  width: 30%;
+  width: 100%;
   margin: auto;
   align-items: center;
   text-align: center;
   vertical-align: middle;
   margin-top: 5%;
-  min-width: 270px;
   max-width: 500px;
+
+  @media (max-width: 1100px) {
+    max-width: 400px;
+  }
+
+  @media (max-width: 500px) {
+    max-width: 280px;
+  }
 `
 
 const Form = styled.form`

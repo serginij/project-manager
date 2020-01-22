@@ -5,7 +5,7 @@ export const handleErrors = response => {
   return response
 }
 
-// const baseUrl = 'http://192.168.128.208:3000'
+// const baseUrl = 'http://192.168.1.67:3000'
 const baseUrl = 'http://localhost:3000'
 
 export const get = (url, options, auth) =>

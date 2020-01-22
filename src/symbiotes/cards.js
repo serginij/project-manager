@@ -3,7 +3,8 @@ import { createSymbiote } from 'redux-symbiote'
 const initialState = {
   loading: false,
   cards: {},
-  error: null
+  error: null,
+  currentCard: null
 }
 
 const symbiotes = {
@@ -23,7 +24,68 @@ const symbiotes = {
     ...state,
     cards: {
       ...state.cards,
-      [card.id]: { ...state.cards[card.id], name: card.name }
+      [card.id]: { ...state.cards[card.id], name: card.name, desc: card.desc }
+    }
+  }),
+  addComment: (state, comment, cardId) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [cardId]: {
+        ...state.cards[cardId],
+        comments: [...state.cards[cardId].comments, comment]
+      }
+    }
+  }),
+  deleteComment: (state, cardId, commentId) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [cardId]: {
+        ...state.cards[cardId],
+        comments: state.cards[cardId].comments.filter(
+          comment => comment.id !== commentId
+        )
+      }
+    }
+  }),
+  updateComment: (state, cardId, commentId, text) => {
+    let comments = state.cards[cardId].comments.map(comment => {
+      if (comment.id === commentId) {
+        comment.text = text
+      }
+      return comment
+    })
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: {
+          ...state.cards[cardId],
+          comments: comments
+        }
+      }
+    }
+  },
+  setCurrent: (state, id) => ({ ...state, currentCard: id }),
+  addUser: (state, id, user) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [id]: {
+        ...state.cards[id],
+        users: [...state.cards[id].users, user]
+      }
+    }
+  }),
+  deleteUser: (state, id, userId) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [id]: {
+        ...state.cards[id],
+        users: state.cards[id].users.filter(user => user.id !== userId)
+      }
     }
   })
 }

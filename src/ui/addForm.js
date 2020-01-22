@@ -22,6 +22,7 @@ export const AddForm = ({
       onAdd(name)
     }
     setName('')
+    setOpen(false)
   }
   const handleChange = e => setName(e.target.value)
   const handleOpenForm = () => {
@@ -54,7 +55,7 @@ export const AddForm = ({
       {input}
       <CloseForm>
         <AddButton type="submit">{buttonText}</AddButton>
-        <CloseButton onClick={handleOpenForm}>×</CloseButton>
+        <CloseButton onClick={handleOpenForm} />
       </CloseForm>
     </Wrapper>
   )
@@ -100,7 +101,6 @@ const OpenForm = styled.button`
   &::before {
     content: '+';
     left: 12px;
-    /* top: 8px; */
     font-size: 2em;
     font-weight: 300;
     height: 100%;

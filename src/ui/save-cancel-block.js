@@ -4,15 +4,29 @@ import { css } from 'linaria'
 
 import { AddButton } from './add-button'
 import { Button } from './button'
+import { ConfirmBlock } from './confirm-block'
 
-export const SaveCancelBlock = ({ saveText, cancelText, handleCancel }) => (
+export const SaveCancelBlock = ({
+  saveText,
+  cancelText,
+  handleCancel,
+  title,
+  buttonText
+}) => (
   <Wrapper>
     <AddButton className={button}>
       {saveText ? saveText : 'Сохранить'}
     </AddButton>
-    <Button type="button" className={closeButton} onClick={handleCancel}>
-      {cancelText ? cancelText : 'Удалить'}
-    </Button>
+    <ConfirmBlock
+      title={title}
+      onConfirm={handleCancel}
+      buttonText={buttonText}
+      style={closeButton}
+    >
+      <Button type="button" className={closeButton}>
+        {cancelText ? cancelText : 'Удалить'}
+      </Button>
+    </ConfirmBlock>
   </Wrapper>
 )
 
@@ -35,4 +49,5 @@ const closeButton = css`
   font-size: 1rem;
   height: 2.2em;
   width: 30%;
+  border-radius: 3px;
 `

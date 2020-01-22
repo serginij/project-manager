@@ -10,4 +10,9 @@ export const AddButton = styled.button`
   cursor: pointer;
   font: inherit;
   min-width: 100px;
+
+  &:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
 `

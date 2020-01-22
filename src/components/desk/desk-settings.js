@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -10,11 +9,18 @@ import {
   deleteDeskUser,
   deleteDesk as delDesk
 } from '@symbiotes/effects'
-import { Input, FindUser, FormTitle, UserList, SaveCancelBlock } from '@ui'
+import {
+  Input,
+  FindUser,
+  FormTitle,
+  UserList,
+  SaveCancelBlock,
+  FormWrapper as Wrapper
+} from '@ui'
 
 export const DeskSettings = () => {
   const desk = useSelector(state => state.desks.desks[state.desks.currentDesk])
-  const { findList } = useSelector(state => state.desks)
+  const { foundList } = useSelector(state => state.desks)
 
   const [data, setData] = useState({
     name: desk.name
@@ -54,25 +60,20 @@ export const DeskSettings = () => {
           name="name"
         />
         <FindUser
-          findList={findList}
+          foundList={foundList}
           onSearch={searchUser}
           onSelect={addUser}
         />
         <UserList users={desk.users} deleteUser={deleteUser} />
-        <SaveCancelBlock handleCancel={deleteDesk} />
+        <SaveCancelBlock
+          handleCancel={deleteDesk}
+          title="Удаление доски"
+          buttonText="Удалить доску"
+        />
       </form>
     </Wrapper>
   )
 }
-
-const Wrapper = styled.div`
-  width: 30%;
-  margin: auto;
-  margin-top: 5%;
-  text-align: center;
-  min-width: 270px;
-  max-width: 500px;
-`
 
 const styledInput = css`
   font-size: 1rem;

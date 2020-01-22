@@ -8,7 +8,8 @@
       "@components/*": ["./components/*"],
       "@lib/*": ["./lib/*"],
       "@symbiotes/*": ["./symbiotes/*"],
-      "@ui/*": ["./ui/*"]
+      "@ui/*": ["./ui/*"],
+      "@assets/*": ["./assets/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

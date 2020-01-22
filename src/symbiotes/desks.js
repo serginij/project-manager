@@ -5,7 +5,7 @@ const initialState = {
   desks: {},
   error: null,
   currentDesk: null,
-  findList: []
+  foundList: []
 }
 
 const symbiotes = {
@@ -57,7 +57,7 @@ const symbiotes = {
       }
     }
   },
-  findUsers: (state, users) => ({ ...state, findList: users }),
+  findUsers: (state, users) => ({ ...state, foundList: users }),
   addUser: (state, deskId, user) => ({
     ...state,
     desks: {
@@ -82,7 +82,11 @@ const symbiotes = {
     let desks = state.desks
     delete desks[deskId]
     return { ...state, teams: desks }
-  }
+  },
+  setFoundList: (state, deskId, list = state.desks[deskId].users) => ({
+    ...state,
+    foundList: list
+  })
 }
 
 export const { actions: desksActions, reducer: desksReducer } = createSymbiote(

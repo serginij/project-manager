@@ -4,23 +4,40 @@ import { styled } from 'linaria/react'
 import { Header } from '@components/header'
 
 export const CommonContent = ({ children }) => (
-  <div style={{ fontFamily: 'sans-serif' }}>
+  <Main>
     <Header />
     <Wrapper>{children}</Wrapper>
-  </div>
+  </Main>
 )
 
 const Wrapper = styled.div`
   --gray: #fafbfc;
   --light-gray: rgba(9, 30, 66, 0.04);
-  --dark-gray: #dfe3e6;
+  --dark-gray: #ebecf0;
+  --gray-selection: rgba(9, 30, 66, 0.08);
+  --gray-background: #f4f5f6;
   --green: #27ae60;
   --red: #e74c3c;
   --primary-color: #483d8b;
+  --gray-text: #5e6c84;
 
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   padding-top: 60px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  background-color: var(--gray);
+
+  font-size: 16px;
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+  }
+`
+
+const Main = styled.div`
   height: 100vh;
   width: 100vw;
-  overflow-x: scroll;
-  background-color: var(--gray);
+  font-family: sans-serif;
 `

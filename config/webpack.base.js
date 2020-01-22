@@ -44,12 +44,10 @@ module.exports = {
         ]
       },
       {
-        test: /\.(gif|svg|jpg|png)$/i,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
+        test: /\.(gif|svg|jpg|png)$/,
+        use: {
+          loader: 'url-loader'
+        }
       }
     ]
   },
@@ -61,7 +59,8 @@ module.exports = {
       '@components': path.resolve(__dirname, '../src/components/'),
       '@lib': path.resolve(__dirname, '../src/lib'),
       '@symbiotes': path.resolve(__dirname, '../src/symbiotes'),
-      '@ui': path.resolve(__dirname, '../src/ui')
+      '@ui': path.resolve(__dirname, '../src/ui'),
+      '@assets': path.resolve(__dirname, '../src/assets')
     },
     extensions: ['.js']
   },

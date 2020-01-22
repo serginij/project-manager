@@ -38,7 +38,6 @@ export const addDesk = (name, teamId) => {
       teamId: teamId,
       name: name
     }).then(res => {
-      console.log(res)
       dispatch(createDesk(name, teamId, res.id))
     })
   }
@@ -99,14 +98,14 @@ export const deleteCard = (columnId, cardId) => {
   }
 }
 
-export const updateCard = (cardId, columnId, name) => {
+export const updateCard = (cardId, name, desc) => {
   return dispatch => {
     return update(`/desks/cards/${cardId}`, {
       name,
-      columnId
+      desc
     })
       .then(() => {
-        dispatch(cardsActions.editCard({ name: name, id: cardId }))
+        dispatch(cardsActions.editCard({ name: name, id: cardId, desc: desc }))
       })
       .catch(err => console.log(err))
   }
@@ -287,5 +286,85 @@ export const updateColumn = (id, name, token) => {
         dispatch(columnsActions.updateColumn(id, name))
       })
       .catch(err => console.log('updateColumn', err))
+  }
+}
+
+export const addComment = (text, cardId, token) => {
+  let date = new Date()
+  return dispatch => {
+    return post(`/cards/${cardId}/comments`, { text, date: date }, token)
+      .then(res => {
+        dispatch(
+          cardsActions.addComment(
+            {
+              text,
+              card_id: cardId,
+              user_id: res.user_id,
+              id: res.id,
+              date: date,
+              username: res.username
+            },
+            cardId
+          )
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteComment = (cardId, commentId, token) => {
+  return dispatch => {
+    return del(`/comments/${commentId}`, {}, token)
+      .then(() => {
+        dispatch(cardsActions.deleteComment(cardId, commentId))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const updateComment = (cardId, commentId, text, token) => {
+  return dispatch => {
+    return update(`/comments/${commentId}`, { text }, token)
+      .then(() => {
+        dispatch(cardsActions.updateComment(cardId, commentId, text))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const addCardUser = (cardId, userId, token) => {
+  return dispatch => {
+    return post(`/cards/${cardId}/users`, { userId: userId }, token)
+      .then(res => {
+        dispatch(
+          cardsActions.addUser(cardId, { id: userId, username: res.username })
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteCardUser = (cardId, userId, token) => {
+  return dispatch => {
+    return del(`/cards/${cardId}/users/${userId}`, {}, token)
+      .then(() => {
+        dispatch(cardsActions.deleteUser(cardId, userId))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const findDeskUser = (deskId, username, token) => {
+  return dispatch => {
+    if (username.length) {
+      return get(`/desks/${deskId}/user/find/${username}`, {}, token)
+        .then(res => {
+          dispatch(desksActions.findUsers(res.users))
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+    } else {
+      dispatch(desksActions.setFoundList(deskId))
+    }
   }
 }
