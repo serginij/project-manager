@@ -63,9 +63,7 @@ export const AddComment = ({
           >
             Сохранить
           </AddButton>
-          <CloseButton hidden={!edit} onClick={onCancel}>
-            ×
-          </CloseButton>
+          <CloseButton hidden={!edit} onClick={onCancel} />
         </ButtonsBlock>
       ) : null}
     </AddBlock>

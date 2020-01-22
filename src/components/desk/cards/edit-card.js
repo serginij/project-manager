@@ -21,15 +21,16 @@ export const EditCard = ({ onClick, cardId }) => {
   if (window.matchMedia('(max-width: 730px)').matches) {
     width = 95
   }
-
   if (window.matchMedia('(max-width: 1200px)').matches) {
     width = 60
   }
-
   if (window.matchMedia('(max-width: 1050px)').matches) {
-    width = 80
+    width = 90
   }
-  if (window.matchMedia('(max-width: 750px)').matches) {
+  if (window.matchMedia('(max-width: 850px)').matches) {
+    width = 70
+  }
+  if (window.matchMedia('(max-width: 500px)').matches) {
     width = 90
   }
 
@@ -41,9 +42,8 @@ export const EditCard = ({ onClick, cardId }) => {
           text={card.name}
           inputStyle={inputStyle}
         />
-        <CloseButton onClick={onClick}>×</CloseButton>
+        <CloseButton onClick={onClick} />
       </Header>
-
       <Wrapper>
         <Content>
           <UsersList users={card.users} />
@@ -68,8 +68,10 @@ const Wrapper = styled.div`
   background-color: var(--gray-background);
   display: flex;
   border-radius: 3px;
-  @media (max-width: 650px) {
+  justify-content: space-between;
+  @media (max-width: 850px) {
     flex-direction: column;
+    align-items: center;
   }
 `
 
@@ -81,7 +83,6 @@ const Header = styled.header`
   border-radius: 3px;
   box-sizing: border-box;
   align-items: flex-start;
-  /* padding: 0 12px; */
   height: 2em;
 `
 
@@ -91,19 +92,19 @@ const Content = styled.section`
   flex-direction: column;
   box-sizing: border-box;
   padding: 0 12px;
-  @media (max-width: 650px) {
-    width: 90%;
+  @media (max-width: 850px) {
+    width: 100%;
+    padding: 0;
   }
 `
 
 const Aside = styled.aside`
-  width: 30%;
+  width: 200px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  /* padding-right: 18px; */
-  @media (max-width: 650px) {
-    width: 90%;
+  @media (max-width: 850px) {
+    width: 100%;
   }
 `
 

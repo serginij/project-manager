@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 
-import edit from '../../assets/edit.svg'
+import edit from '@assets/edit.svg'
 
 import { Node } from './node'
 

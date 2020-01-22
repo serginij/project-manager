@@ -59,7 +59,6 @@ const Input = styled.input`
   padding-left: 8px;
   margin: 12px 0;
   width: 100%;
-  /* max-width: 300px; */
 `
 
 const Name = styled.h4`

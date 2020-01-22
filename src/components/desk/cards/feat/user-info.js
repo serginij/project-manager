@@ -25,7 +25,7 @@ export const UserInfo = ({ children, src, username, id }) => {
               <Avatar src={src} alt="avatar" />
               <Title>@{username}</Title>
             </>
-            <CloseButton className={closeButton}>×</CloseButton>
+            <CloseButton className={closeButton} />
           </Header>
           <Button className={buttonStyle} onClick={handleDeleteUser}>
             Удалить с карточки

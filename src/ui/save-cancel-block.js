@@ -3,6 +3,7 @@ import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
 import { AddButton } from './add-button'
+import { Button } from './button'
 import { ConfirmBlock } from './confirm-block'
 
 export const SaveCancelBlock = ({
@@ -22,9 +23,9 @@ export const SaveCancelBlock = ({
       buttonText={buttonText}
       style={closeButton}
     >
-      {/* <Button type="button" className={closeButton}> */}
-      {cancelText ? cancelText : 'Удалить'}
-      {/* </Button> */}
+      <Button type="button" className={closeButton}>
+        {cancelText ? cancelText : 'Удалить'}
+      </Button>
     </ConfirmBlock>
   </Wrapper>
 )

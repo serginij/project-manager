@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout as logoutAction } from '@symbiotes/helpers'
 import { Dropdown } from '@ui'
 
-import user from '../../assets/user.svg'
+import user from '@assets/user.svg'
 import { StyledLink } from '@ui/'
 
 export const Header = () => {
@@ -65,6 +65,10 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: #483d8b;
+
+  @media (max-width: 700px) {
+    padding: 10px 20px;
+  }
 `
 
 const Avatar = styled.img`
@@ -86,6 +90,10 @@ const styledLink = css`
 
 const Title = styled.h2`
   color: white;
+
+  @media (max-width: 700px) {
+    font-size: 1em;
+  }
 `
 
 const Item = styled.p`

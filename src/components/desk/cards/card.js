@@ -46,7 +46,7 @@ export const Card = ({ text, columnId, id }) => {
           title="Удаление карточки"
           buttonText="Удалить карточку"
         >
-          <CloseButton hidden={visible}>×</CloseButton>
+          <CloseButton hidden={visible} />
         </ConfirmBlock>
       </Wrapper>
       {edit && <EditCard cardId={id} onClick={handleClick} />}

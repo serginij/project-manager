@@ -28,6 +28,12 @@ const Wrapper = styled.div`
   overflow-x: scroll;
   overflow-y: scroll;
   background-color: var(--gray);
+
+  font-size: 16px;
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+  }
 `
 
 const Main = styled.div`

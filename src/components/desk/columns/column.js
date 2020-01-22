@@ -27,7 +27,7 @@ export const Column = ({ columnId }) => {
           title="Удаление столбца"
           buttonText="Удалить столбец"
         >
-          <CloseButton>×</CloseButton>
+          <CloseButton />
         </ConfirmBlock>
       </ColumnHeader>
       <CardsList cardsById={cards} columnId={columnId} />

@@ -3,9 +3,7 @@ import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Dropdown } from '@ui'
-import { Input } from '@ui/'
-import { CloseButton } from '@ui/'
+import { Dropdown, Input, CloseButton } from '@ui'
 
 import { addCardUser, findDeskUser } from '@symbiotes/effects'
 
@@ -51,7 +49,7 @@ export const AddUser = ({ children }) => {
         <Content>
           <Header>
             <Title>Участники</Title>
-            <CloseButton className={closeButton}>×</CloseButton>
+            <CloseButton className={closeButton} />
           </Header>
           <Input
             className={styledInput}
