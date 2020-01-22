@@ -9,7 +9,7 @@ import icon from '@assets/icon.png'
 export const UsersList = ({ users }) => {
   let list = users.map(user => (
     <Item key={user.id}>
-      <UserInfo username={user.username} id={user.id}>
+      <UserInfo username={user.username} id={user.id} src={icon}>
         <Avatar src={icon} alt="avatar" />
       </UserInfo>
     </Item>

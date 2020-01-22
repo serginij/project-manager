@@ -7,12 +7,7 @@ import { Dropdown, CloseButton, Button } from '@ui'
 
 import { deleteCardUser } from '@symbiotes/effects'
 
-export const UserInfo = ({
-  children,
-  src = 'https://img.icons8.com/bubbles/344/user.png',
-  username,
-  id
-}) => {
+export const UserInfo = ({ children, src, username, id }) => {
   const card = useSelector(state => state.cards.cards[state.cards.currentCard])
   const { token } = useSelector(state => state.auth)
 

@@ -43,9 +43,10 @@ export const EditCard = ({ onClick, cardId }) => {
         />
         <CloseButton onClick={onClick}>×</CloseButton>
       </Header>
-      <UsersList users={card.users} />
+
       <Wrapper>
         <Content>
+          <UsersList users={card.users} />
           <h4>Описание</h4>
           <DynamicTextarea
             minRows={3}
