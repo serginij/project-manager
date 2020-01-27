@@ -87,7 +87,37 @@ const symbiotes = {
         users: state.cards[id].users.filter(user => user.id !== userId)
       }
     }
-  })
+  }),
+  addLabel: (state, cardId, label) => ({
+    ...state,
+    cards: {
+      ...state.cards,
+      [cardId]: {
+        ...state.cards[cardId],
+        labels: [...state.cards[cardId].labels, label]
+      }
+    }
+  }),
+  editLabel: (state, cardId, label) => {
+    let labels = state.labels.forEach(lab => {
+      if (lab.id == label.id) {
+        label = {
+          ...lab,
+          ...label
+        }
+      }
+    })
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: {
+          ...state.cards[cardId],
+          labels: labels
+        }
+      }
+    }
+  }
 }
 
 export const { actions: cardsActions, reducer: cardsReducer } = createSymbiote(

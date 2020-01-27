@@ -1,7 +1,17 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 
-export const Dropdown = ({ children, width, content, align, close = true }) => {
+import { CloseButton } from '@ui'
+
+export const Dropdown = ({
+  children,
+  width,
+  content,
+  align,
+  close = true,
+  header
+}) => {
   let [visible, setVisible] = useState(false)
   let [data, setData] = useState({ width: width })
 
@@ -19,24 +29,49 @@ export const Dropdown = ({ children, width, content, align, close = true }) => {
   return (
     <Wrapper>
       <Header onClick={handleClick}>{children}</Header>
-      <Body
-        onMouseLeave={close ? () => setVisible(false) : null}
-        visible={visible}
-        x={data.x}
-        y={data.y}
-        width={data.width}
-      >
-        {content}
-      </Body>
+      <Backdrop visible={visible} onClick={() => setVisible(false)}>
+        <Body
+          onMouseLeave={close ? () => setVisible(false) : null}
+          onBlur={() => setVisible(false)}
+          onClick={e => e.stopPropagation()}
+          visible={visible}
+          x={data.x}
+          y={data.y}
+          width={data.width}
+        >
+          {header && (
+            <ContentHeader>
+              {header}
+              <CloseButton
+                onClick={() => setVisible(false)}
+                className={closeButton}
+              />
+            </ContentHeader>
+          )}
+          {content}
+        </Body>
+      </Backdrop>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div``
 
+const Backdrop = styled.div`
+  left: 0;
+  top: 0;
+  display: ${props => (props.visible ? 'block' : 'none')};
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0);
+`
+
 const Header = styled.div``
 
-const Body = styled.ul`
+const Body = styled.div`
   display: ${props => (props.visible ? 'flex' : 'none')};
   flex-direction: column;
   position: absolute;
@@ -50,4 +85,19 @@ const Body = styled.ul`
   padding: 0;
   background-color: white;
   box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
+  z-index: 4;
+`
+
+const ContentHeader = styled.header`
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--dark-gray);
+  box-sizing: border-box;
+  margin: 0 12px;
+  margin-bottom: 8px;
+`
+
+const closeButton = css`
+  font-size: 24px;
+  font-weight: 200;
 `
