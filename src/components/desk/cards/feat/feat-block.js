@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { AddUser } from './add-user'
 import { AddLabel } from './add-label'
+import { AddList } from './add-list'
 
 export const FeatBlock = () => {
   let isAdmin = useSelector(
@@ -22,7 +23,9 @@ export const FeatBlock = () => {
         <AddLabel>
           <Item>Метки</Item>
         </AddLabel>
-        <Item>Список</Item>
+        <AddList>
+          <Item>Список</Item>
+        </AddList>
       </List>
     </>
   )
