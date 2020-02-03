@@ -21,7 +21,7 @@ export const DynamicTextarea = ({
       e.target.style.lineHeight = '20px'
     }
     let lineHeight = +e.target.style.lineHeight.slice(0, 2)
-    console.log(lineHeight, e.target.style.fontSize, rows)
+    // console.log(lineHeight, e.target.style.fontSize, rows)
 
     const previousRows = event.target.rows
     event.target.rows = minRows

@@ -17,7 +17,13 @@ export const Dropdown = ({
 
   const handleClick = e => {
     let { x, y, width, height } = e.target.getBoundingClientRect()
+    let { innerHeight, innerWidth } = window
+
     x = align ? x - data.width / 2 + width / 2 : x
+    x =
+      x + data.width > innerWidth ? (x -= x + data.width - innerWidth + 50) : x
+    y = y + height > innerHeight ? (y -= y + height - innerHeight + 50) : y
+
     setData({
       x: x,
       y: y + height,

@@ -75,7 +75,6 @@ export const AddLabel = ({ children }) => {
     ))
 
   const handleChange = e => {
-    // searchUser(e.target.value)
     console.log(e.target.value)
   }
 

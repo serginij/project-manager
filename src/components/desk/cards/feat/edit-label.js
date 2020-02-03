@@ -58,8 +58,6 @@ export const EditLabel = ({ color = '', name = '', onClose }) => {
   )
 }
 
-// const Form = styled.form``
-
 const Label = styled.label`
   font-size: 14px;
   color: var(--gray-text);

@@ -31,7 +31,7 @@ export const ConfirmBlock = ({
     setVisible(!visible)
   }
 
-  const hanldeClose = e => {
+  const handleClose = e => {
     e.stopPropagation()
     setVisible(close)
   }
@@ -41,19 +41,19 @@ export const ConfirmBlock = ({
       <WrapButton type="button" onClick={handleClick} className={style}>
         {children}
       </WrapButton>
-      <BackDrop visible={visible} onClick={hanldeClose}>
+      <BackDrop visible={visible} onClick={handleClose}>
         <Wrapper
           visible={visible}
           width={data.width}
           x={data.x}
           y={data.y}
-          onBlur={hanldeClose}
+          onBlur={handleClose}
         >
           <Header>
             <Name>{title}</Name>
             <CloseButton
               type="button"
-              onClick={hanldeClose}
+              onClick={handleClose}
               className={cancelButton}
             />
           </Header>
@@ -108,6 +108,10 @@ const Wrapper = styled.div`
 const styledButton = css`
   background-color: var(--red);
   color: white;
+
+  &:hover {
+    background-color: var(--red);
+  }
 `
 
 const Text = styled.p``
