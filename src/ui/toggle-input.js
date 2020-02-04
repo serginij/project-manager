@@ -46,7 +46,9 @@ export const ToggleInput = ({
       ) : children ? (
         children
       ) : (
-        <Name onClick={handleOpenForm}>{text}</Name>
+        <Name tabIndex={0} onClick={handleOpenForm}>
+          {text}
+        </Name>
       )}
     </>
   )

@@ -64,11 +64,15 @@ export const AddLabel = ({ children }) => {
     labels &&
     labels.map(label => (
       <LabelItem key={label.id}>
-        <Label onClick={() => setLabel(label.id)} color={label.color}>
+        <Label
+          tabIndex={0}
+          onClick={() => setLabel(label.id)}
+          color={label.color}
+        >
           <p>{label.text}</p>
           {label.checked && <p>&#x2713;</p>}
         </Label>
-        <EditButton onClick={handleEdit}>
+        <EditButton tabIndex={0} onClick={handleEdit}>
           <img src={edit} alt="edit" width="50%" />
         </EditButton>
       </LabelItem>
@@ -85,7 +89,11 @@ export const AddLabel = ({ children }) => {
       header={
         isEdit ? (
           <EditTitle>
-            <CloseButton className={backButton} onClick={handleEdit}>
+            <CloseButton
+              className={backButton}
+              onClick={handleEdit}
+              type="button"
+            >
               {'〱'}
             </CloseButton>
             <Title>Изменение метки</Title>
@@ -172,6 +180,12 @@ const Label = styled.div`
     box-shadow: -8px 0 ${props => '#' + props.color};
     cursor: pointer;
   }
+
+  &:focus {
+    padding-left: 16px;
+    box-shadow: -8px 0 ${props => '#' + props.color};
+    outline: 1px solid var(--dark-gray);
+  }
 `
 
 const EditButton = styled.button`
@@ -184,6 +198,10 @@ const EditButton = styled.button`
 
   &:hover {
     background-color: var(--dark-gray);
+  }
+
+  &:focus {
+    outline: 2px solid var(--gray-selection);
   }
 `
 

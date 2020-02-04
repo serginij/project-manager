@@ -33,8 +33,6 @@ export const Header = () => {
       </Title>
       <Dropdown
         width={100}
-        x={0}
-        y={0}
         content={
           <Item>
             <StyledLink to="/auth" onClick={logout}>

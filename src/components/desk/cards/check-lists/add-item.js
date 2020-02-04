@@ -18,21 +18,19 @@ export const AddItem = ({ onAdd }) => {
       onBlur={handleOpen}
       isOpen
       closable
+      focus
       addElement={handleAdd}
       className={elementStyle}
       placeholder="Добавить элемент"
     />
   ) : (
-    <Button className={styledButton} onClick={handleOpen}>
-      Добавить элемент
-    </Button>
+    <Button onClick={handleOpen}>Добавить элемент</Button>
   )
 }
 
 const elementStyle = css`
   background-color: inherit;
   margin: 0;
-  padding-left: 46px;
 
   textarea {
     margin-top: 0;
@@ -41,8 +39,4 @@ const elementStyle = css`
   button {
     margin-left: 0;
   }
-`
-
-const styledButton = css`
-  margin-left: 46px;
 `

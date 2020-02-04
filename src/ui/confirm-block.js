@@ -21,11 +21,11 @@ export const ConfirmBlock = ({
     let { x, y, width, height } = e.target.getBoundingClientRect()
     let { innerHeight, innerWidth } = window
     x = x + data.width > innerWidth ? (x -= data.width) : x
-    y = y + height > innerHeight ? (y -= height) : y
+    y = y + height > innerHeight ? (y -= height) : y + height
 
     setData({
       x: x,
-      y: y + height,
+      y: y,
       width: data.width ? data.width : width
     })
     setVisible(!visible)

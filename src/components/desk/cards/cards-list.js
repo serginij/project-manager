@@ -7,7 +7,13 @@ import { Card } from './card'
 export const CardsList = ({ cardsById, columnId }) => {
   const { cards } = useSelector(state => state.cards)
   const cardsList = cardsById.map(id => (
-    <Card key={id} text={cards[id].name} columnId={columnId} id={id} />
+    <Card
+      tabIndex={0}
+      key={id}
+      text={cards[id].name}
+      columnId={columnId}
+      id={id}
+    />
   ))
 
   return <Wrapper>{cardsList}</Wrapper>
