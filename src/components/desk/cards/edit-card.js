@@ -7,7 +7,7 @@ import { CommentsList } from './comments/comments-list'
 import { Popup, ToggleInput, CloseButton, DynamicTextarea } from '@ui/'
 import { FeatBlock } from './feat/feat-block'
 import { UsersList } from './feat/users-list'
-import { CheckList } from './check-lists/check-list'
+import { Checklists } from './checklists'
 
 import { updateCard } from '@symbiotes/effects'
 
@@ -54,7 +54,7 @@ export const EditCard = ({ onClick, cardId }) => {
             maxRows={6}
             placeholder="Информация о задаче"
           />
-          <CheckList />
+          <Checklists cardId={cardId} />
           <CommentsList cardId={cardId} comments={card.comments} />
         </Content>
         <Aside>

@@ -1,13 +1,11 @@
+/* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react'
 
 import { TextArea } from './text-area'
 
-export const DynamicTextarea = ({
-  minRows = 1,
-  maxRows = 5,
-  onChange = () => {},
-  ...props
-}) => {
+export const DynamicTextarea = React.forwardRef((props, ref) => {
+  let { minRows, maxRows, onChange } = props
+
   let [rows, setRows] = useState(minRows)
 
   useEffect(() => {
@@ -38,5 +36,13 @@ export const DynamicTextarea = ({
 
     onChange(e)
   }
-  return <TextArea onChange={handleChange} rows={rows} autoHeight {...props} />
-}
+  return (
+    <TextArea
+      ref={ref}
+      onChange={handleChange}
+      rows={rows}
+      autoHeight
+      {...props}
+    />
+  )
+})

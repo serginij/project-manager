@@ -1,65 +1,82 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { ToggleInput, Button, ConfirmBlock } from '@ui/'
+import {
+  updateList,
+  deleteList,
+  addItem,
+  deleteItem,
+  updateItem
+} from '@symbiotes/effects'
 import { CheckItem } from './check-item'
 import { AddItem } from './add-item'
 
-const test = [
-  { id: 0, name: 'One', checked: false },
-  { id: 1, name: 'Two', checked: true },
-  { id: 2, name: 'Three', checked: false }
-]
+export const CheckList = ({ name = 'Список', list, cardId, listId }) => {
+  let token = useSelector(state => state.auth.token)
 
-export const CheckList = ({ name = 'Список', list = test }) => {
-  let [checkboxes, setCheckboxes] = useState(list)
+  const dispatch = useDispatch()
 
-  const handleEdit = id => {
-    let newList = checkboxes.map(item => {
-      if (item.id === id) {
-        item.checked = !item.checked
-      }
-      return item
-    })
-    setCheckboxes(newList)
+  const handleEdit = item => {
+    handleUpdateItem(item.text, item.id, !item.checked)
   }
 
-  const handleUpdate = (text, id) => {
-    let newList = [...checkboxes].map(item => {
-      if (item.id === id) {
-        item.name = text
-      }
-      return item
-    })
-    setCheckboxes(newList)
+  const handleUpdateItem = (text, id, checked) => {
+    let itemChecked = list.filter(item => item.id === id)[0].checked
+
+    dispatch(
+      updateItem(
+        cardId,
+        listId,
+        {
+          id: id,
+          text: text,
+          checked: checked === undefined ? itemChecked : checked
+        },
+        token
+      )
+    )
   }
 
-  const handleAdd = text => {
-    console.log('add check item')
-    let newList = [...checkboxes]
-    newList.push({ id: checkboxes.length, name: text, checked: false })
-    setCheckboxes(newList)
+  const handleAddItem = text => {
+    dispatch(addItem(cardId, listId, text, token))
   }
 
-  let checkList = checkboxes.map(item => (
-    <CheckItem
-      key={item.id}
-      item={item}
-      onEdit={handleEdit}
-      onUpdate={handleUpdate}
-    />
-  ))
+  const handleDeleteItem = id => {
+    dispatch(deleteItem(cardId, listId, id, token))
+  }
+
+  const handleUpdateList = name => {
+    dispatch(updateList(cardId, listId, name, token))
+  }
+
+  const handleDeleteList = () => {
+    dispatch(deleteList(cardId, listId, token))
+  }
+
+  let checkList =
+    list &&
+    list.map(item => (
+      <CheckItem
+        key={item.id}
+        item={item}
+        onEdit={handleEdit}
+        onUpdate={handleUpdateItem}
+        onDelete={handleDeleteItem}
+      />
+    ))
   return (
     <Wrapper>
       <Header>
         <ToggleInput
-          onSubmit={() => console.log('submit')}
+          onSubmit={handleUpdateList}
           text={name}
           inputStyle={inputStyle}
         />
         <ConfirmBlock
-          onConfirm={() => console.log('deleted')}
+          onConfirm={handleDeleteList}
           title="Удаление списка задач"
           buttonText="Удалить список задач"
         >
@@ -67,7 +84,7 @@ export const CheckList = ({ name = 'Список', list = test }) => {
         </ConfirmBlock>
       </Header>
       <Form>{checkList}</Form>
-      <AddItem onAdd={handleAdd} />
+      <AddItem onAdd={handleAddItem} />
     </Wrapper>
   )
 }

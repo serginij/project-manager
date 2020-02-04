@@ -29,26 +29,41 @@ export const Dropdown = ({
       y: y + height,
       width: data.width ? data.width : width
     })
-    setVisible(!visible)
+    setVisible(true)
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    setVisible(false)
   }
 
   return (
     <Wrapper>
       <Header onClick={handleClick}>{children}</Header>
-      <Backdrop visible={visible} onClick={() => setVisible(false)}>
+      <Backdrop
+        tabIndex={-1}
+        visible={visible}
+        onClick={() => {
+          setVisible(false)
+          console.log('click backdrop')
+        }}
+      >
         <Body
           onMouseLeave={close ? () => setVisible(false) : null}
-          onBlur={() => setVisible(false)}
           onClick={e => e.stopPropagation()}
           visible={visible}
           x={data.x}
           y={data.y}
           width={data.width}
+          onSubmit={handleSubmit}
+          tabIndex={-1}
         >
           {header && (
             <ContentHeader>
               {header}
               <CloseButton
+                tabIndex={0}
+                type="button"
                 onClick={() => setVisible(false)}
                 className={closeButton}
               />
@@ -70,14 +85,14 @@ const Backdrop = styled.div`
   z-index: 3;
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0);
 `
 
 const Header = styled.div``
 
-const Body = styled.div`
+const Body = styled.form`
   display: ${props => (props.visible ? 'flex' : 'none')};
   flex-direction: column;
   position: absolute;

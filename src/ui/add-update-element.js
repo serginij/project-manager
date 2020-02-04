@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
@@ -14,10 +14,16 @@ export const AddUpdateElement = ({
   className,
   isOpen,
   placeholder = '',
-  closable
+  closable,
+  focus
 }) => {
   let [open, setOpen] = useState(edit || isOpen)
   let [text, setText] = useState(value)
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    inputRef.current && inputRef.current.focus()
+  }, [])
 
   let handleAddElement = () => {
     setOpen(false)
@@ -36,6 +42,7 @@ export const AddUpdateElement = ({
   let unfocus = () => {
     if (text.trim() == '') {
       setOpen(false)
+      onCancel && onCancel()
     }
   }
 
@@ -46,6 +53,7 @@ export const AddUpdateElement = ({
   return (
     <AddBlock className={className}>
       <DynamicTextarea
+        ref={focus && inputRef}
         minRows={open ? 2 : 1}
         maxRows={5}
         className={styledInput}

@@ -117,6 +117,97 @@ const symbiotes = {
         }
       }
     }
+  },
+  addList: (state, cardId, list) => {
+    let lists = [...state.cards[cardId].checklists]
+    lists.push(list)
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: { ...state.cards[cardId], checklists: lists }
+      }
+    }
+  },
+  updateList: (state, cardId, list) => {
+    let lists = [...state.cards[cardId].checklists]
+    lists.map(item => {
+      if (item.id === list.id) {
+        item.name = list.name
+      }
+      return item
+    })
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: { ...state.cards[cardId], checklists: lists }
+      }
+    }
+  },
+  deleteList: (state, cardId, listId) => {
+    let lists = [...state.cards[cardId].checklists]
+    lists = lists.filter(item => item.id !== listId)
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: { ...state.cards[cardId], checklists: lists }
+      }
+    }
+  },
+  addItem: (state, cardId, listId, item) => {
+    let lists = [...state.cards[cardId].checklists].map(list => {
+      if (list.id === listId) {
+        list.items.push(item)
+      }
+      return list
+    })
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: { ...state.cards[cardId], checklists: lists }
+      }
+    }
+  },
+  updateItem: (state, cardId, listId, item) => {
+    let lists = [...state.cards[cardId].checklists]
+    lists.map(list => {
+      if (list.id === listId) {
+        list.items.map(element => {
+          if (element.id === item.id) {
+            element.text = item.text
+            element.checked = item.checked
+          }
+          return element
+        })
+      }
+      return list
+    })
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: { ...state.cards[cardId], checklists: lists }
+      }
+    }
+  },
+  deleteItem: (state, cardId, listId, itemId) => {
+    let lists = [...state.cards[cardId].checklists]
+    lists.map(list => {
+      if (list.id === listId) {
+        list.items = list.items.filter(item => item.id !== itemId)
+      }
+      return list
+    })
+    return {
+      ...state,
+      cards: {
+        ...state.cards,
+        [cardId]: { ...state.cards[cardId], checklists: lists }
+      }
+    }
   }
 }
 
