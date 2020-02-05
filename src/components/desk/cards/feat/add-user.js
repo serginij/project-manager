@@ -3,7 +3,7 @@ import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Dropdown, Input, CloseButton } from '@ui'
+import { Dropdown, Input } from '@ui'
 
 import { addCardUser, findDeskUser } from '@symbiotes/effects'
 
@@ -45,12 +45,10 @@ export const AddUser = ({ children }) => {
   return (
     <Dropdown
       width={300}
+      close={false}
+      header={<Title>Участники</Title>}
       content={
         <Content>
-          <Header>
-            <Title>Участники</Title>
-            <CloseButton className={closeButton} />
-          </Header>
           <Input
             className={styledInput}
             placeholder="Поиск людей"
@@ -71,23 +69,11 @@ const Content = styled.div`
   box-sizing: border-box;
 `
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  border-bottom: 1px solid var(--dark-gray);
-`
-
 const Title = styled.p`
   color: var(--gray-text);
   font-size: 14px;
   text-align: center;
   width: 100%;
-`
-
-const closeButton = css`
-  font-size: 24px;
-  font-weight: 200;
 `
 
 const styledInput = css`

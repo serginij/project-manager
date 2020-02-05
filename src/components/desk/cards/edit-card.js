@@ -3,10 +3,11 @@ import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { CommentsList } from '@components/comments/comments-list'
+import { CommentsList } from './comments/comments-list'
 import { Popup, ToggleInput, CloseButton, DynamicTextarea } from '@ui/'
 import { FeatBlock } from './feat/feat-block'
 import { UsersList } from './feat/users-list'
+import { Checklists } from './checklists'
 
 import { updateCard } from '@symbiotes/effects'
 
@@ -53,6 +54,7 @@ export const EditCard = ({ onClick, cardId }) => {
             maxRows={6}
             placeholder="Информация о задаче"
           />
+          <Checklists cardId={cardId} />
           <CommentsList cardId={cardId} comments={card.comments} />
         </Content>
         <Aside>

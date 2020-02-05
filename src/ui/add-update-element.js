@@ -1,40 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
-import { useSelector, useDispatch } from 'react-redux'
 
-import { AddButton, CloseButton, DynamicTextarea } from '@ui'
-import { addComment, updateComment } from '@symbiotes/effects'
+import { AddButton, CloseButton, DynamicTextarea } from './index'
 
-export const AddComment = ({
+export const AddUpdateElement = ({
   edit,
   value = '',
   onCancel,
-  cardId,
-  commentId
+  elementId,
+  addElement,
+  updateElement,
+  className,
+  isOpen,
+  placeholder = '',
+  closable,
+  focus
 }) => {
-  let [open, setOpen] = useState(edit)
+  let [open, setOpen] = useState(edit || isOpen)
   let [text, setText] = useState(value)
+  const inputRef = useRef(null)
 
-  const { token } = useSelector(state => state.auth)
+  useEffect(() => {
+    inputRef.current && inputRef.current.focus()
+  }, [])
 
-  const dispatch = useDispatch()
-
-  let handleAddComment = () => {
+  let handleAddElement = () => {
     setOpen(false)
-    dispatch(addComment(text, cardId, token))
+    addElement(text)
     setText('')
+    onCancel()
   }
 
-  let handleUpdateComment = () => {
+  let handleUpdateElement = () => {
     setOpen(false)
-    dispatch(updateComment(cardId, commentId, text, token))
+    updateElement(text, elementId)
     setText('')
+    onCancel()
   }
 
   let unfocus = () => {
     if (text.trim() == '') {
       setOpen(false)
+      onCancel && onCancel()
     }
   }
 
@@ -43,8 +51,9 @@ export const AddComment = ({
   }
 
   return (
-    <AddBlock>
+    <AddBlock className={className}>
       <DynamicTextarea
+        ref={focus && inputRef}
         minRows={open ? 2 : 1}
         maxRows={5}
         className={styledInput}
@@ -52,18 +61,18 @@ export const AddComment = ({
         value={text}
         onChange={handleChange}
         onBlur={unfocus}
-        placeholder="Напишите комментарий..."
+        placeholder={placeholder}
       />
       {open ? (
         <ButtonsBlock>
           <AddButton
             disabled={text.trim() == '' ? true : false}
-            onClick={edit ? handleUpdateComment : handleAddComment}
+            onClick={edit ? handleUpdateElement : handleAddElement}
             className={styledButton}
           >
             Сохранить
           </AddButton>
-          <CloseButton hidden={!edit} onClick={onCancel} />
+          <CloseButton hidden={!(edit || closable)} onClick={onCancel} />
         </ButtonsBlock>
       ) : null}
     </AddBlock>
@@ -78,11 +87,11 @@ const styledInput = css`
   box-sizing: border-box;
   height: auto;
   box-shadow: none;
-  border: 1px solid var(--dark-gray);
-  border-bottom: 1px solid white;
+  outline: 1px solid var(--dark-gray);
+  outline-bottom: 1px solid white;
   margin-bottom: 0;
   &:hover {
-    border: 1px solid lightgray;
+    outline: 1px solid lightgray;
   }
   &:focus {
     outline: 1px solid var(--dark-gray);

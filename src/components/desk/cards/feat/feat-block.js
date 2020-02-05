@@ -3,6 +3,8 @@ import { styled } from 'linaria/react'
 import { useSelector } from 'react-redux'
 
 import { AddUser } from './add-user'
+import { AddLabel } from './add-label'
+import { AddList } from './add-list'
 
 export const FeatBlock = () => {
   let isAdmin = useSelector(
@@ -18,8 +20,12 @@ export const FeatBlock = () => {
             <Item>Участники</Item>
           </AddUser>
         )}
-        <Item>Метки</Item>
-        <Item>Список</Item>
+        <AddLabel>
+          <Item>Метки</Item>
+        </AddLabel>
+        <AddList>
+          <Item>Список</Item>
+        </AddList>
       </List>
     </>
   )
@@ -33,6 +39,9 @@ const List = styled.ul`
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
+  }
+  &:first-child {
+    margin-top: 0;
   }
 `
 
@@ -49,10 +58,6 @@ const Item = styled.li`
   &:hover {
     background-color: var(--gray-selection);
     cursor: pointer;
-  }
-
-  &:nth-child(1) {
-    margin-top: 0;
   }
 
   @media (max-width: 850px) {

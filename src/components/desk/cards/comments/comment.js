@@ -42,6 +42,7 @@ export const Comment = ({
           edit
           value={text}
           onCancel={() => setEdit(false)}
+          cardId={cardId}
           commentId={commentId}
         />
       ) : (

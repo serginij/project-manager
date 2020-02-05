@@ -30,7 +30,7 @@ export const Column = ({ columnId }) => {
           <CloseButton />
         </ConfirmBlock>
       </ColumnHeader>
-      <CardsList cardsById={cards} columnId={columnId} />
+      <CardsList tabIndex={0} cardsById={cards} columnId={columnId} />
       <AddForm
         onAdd={handleAddCard}
         buttonText="Добавить карточку"

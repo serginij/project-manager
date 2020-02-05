@@ -368,3 +368,81 @@ export const findDeskUser = (deskId, username, token) => {
     }
   }
 }
+
+export const addList = (cardId, name, token) => {
+  return dispatch => {
+    return post(`/cards/${cardId}/checklists`, { name: name }, token)
+      .then(res => {
+        dispatch(
+          cardsActions.addList(cardId, { name: name, id: res.id, items: [] })
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const updateList = (cardId, listId, name, token) => {
+  return dispatch => {
+    return update(`/checklist/${listId}`, { name: name }, token)
+      .then(() => {
+        dispatch(cardsActions.updateList(cardId, { name: name, id: listId }))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteList = (cardId, listId, token) => {
+  return dispatch => {
+    return del(`/checklist/${listId}`, {}, token)
+      .then(() => {
+        dispatch(cardsActions.deleteList(cardId, listId))
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const addItem = (cardId, listId, text, token) => {
+  return dispatch => {
+    return post(`/checklist/${listId}/items`, { text: text }, token)
+      .then(res => {
+        dispatch(
+          cardsActions.addItem(cardId, listId, {
+            id: res.id,
+            text: text,
+            checked: false
+          })
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const updateItem = (cardId, listId, item, token) => {
+  return dispatch => {
+    return update(
+      `/checkitem/${item.id}`,
+      { text: item.text, checked: item.checked },
+      token
+    )
+      .then(() => {
+        dispatch(
+          cardsActions.updateItem(cardId, listId, {
+            text: item.text,
+            id: item.id,
+            checked: item.checked
+          })
+        )
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export const deleteItem = (cardId, listId, itemId, token) => {
+  return dispatch => {
+    return del(`/checkitem/${itemId}`, {}, token)
+      .then(() => {
+        dispatch(cardsActions.deleteItem(cardId, listId, itemId))
+      })
+      .catch(err => console.log(err))
+  }
+}

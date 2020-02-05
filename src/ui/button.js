@@ -11,4 +11,8 @@ export const Button = styled.button`
   font-size: 14px;
   cursor: pointer;
   min-width: 100px;
+
+  &:hover {
+    background-color: var(--gray-selection);
+  }
 `
