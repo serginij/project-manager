@@ -30,7 +30,7 @@ export const AddList = ({ children }) => {
       close={false}
       header={<Title>Добавление списка задач</Title>}
       content={
-        <Content onSubmit={handleAddList}>
+        <Content>
           <Label>Название</Label>
           <Input
             tabIndex={0}
@@ -43,7 +43,7 @@ export const AddList = ({ children }) => {
           <AddButton
             tabIndex={0}
             className={createButton}
-            // onClick={handleAddList}
+            onClick={handleAddList}
             // type="button"
           >
             Добавить
@@ -61,7 +61,7 @@ const Label = styled.label`
   color: var(--gray-text);
 `
 
-const Content = styled.form`
+const Content = styled.div`
   padding: 12px;
   padding-top: 0px;
   box-sizing: border-box;

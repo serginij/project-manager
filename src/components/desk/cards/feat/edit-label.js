@@ -7,6 +7,7 @@ import { Input, Button, AddButton } from '@ui'
 export const EditLabel = ({ color = '', name = '', onClose }) => {
   const handleSubmit = () => {
     console.log('save label')
+    onClose()
   }
 
   let [currentColor, setColor] = useState(color)
@@ -37,23 +38,21 @@ export const EditLabel = ({ color = '', name = '', onClose }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Label>Название</Label>
-        <Input
-          className={styledInput}
-          placeholder="Поиск метки"
-          onChange={handleChange}
-          value={text}
-        />
-        <Label>Цвет</Label>
-        <ColorsList>{list}</ColorsList>
-        <ButtonsBlock>
-          <AddButton onClick={onClose}>Сохранить</AddButton>
-          <Button className={delButton} onClick={onClose}>
-            Удалить
-          </Button>
-        </ButtonsBlock>
-      </form>
+      <Label>Название</Label>
+      <Input
+        className={styledInput}
+        placeholder="Поиск метки"
+        onChange={handleChange}
+        value={text}
+      />
+      <Label>Цвет</Label>
+      <ColorsList>{list}</ColorsList>
+      <ButtonsBlock>
+        <AddButton onClick={handleSubmit}>Сохранить</AddButton>
+        <Button className={delButton} onClick={onClose}>
+          Удалить
+        </Button>
+      </ButtonsBlock>
     </>
   )
 }
