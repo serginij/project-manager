@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AddComment } from './add-comment'
 import { deleteComment } from '@symbiotes/effects'
 import { ConfirmBlock } from '@ui'
+import { formatDate } from '@lib/format-date'
 
 export const Comment = ({
   name,
@@ -15,12 +16,7 @@ export const Comment = ({
   commentId,
   cardId
 }) => {
-  date = new Date(date)
-  let month = date.toLocaleString('ru', { month: 'short' }).slice(0, 3)
-  let day = parseInt(date.getDate())
-  let year = date.getFullYear()
-  let time = date.toLocaleString('ru', { hour: 'numeric', minute: 'numeric' })
-  let formattedDate = day + ' ' + month + ' ' + year + 'г. в ' + time
+  let formattedDate = formatDate(new Date(date))
 
   let [edit, setEdit] = useState(false)
 

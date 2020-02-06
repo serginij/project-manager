@@ -8,8 +8,11 @@ import { Popup, ToggleInput, CloseButton, DynamicTextarea } from '@ui/'
 import { FeatBlock } from './feat/feat-block'
 import { UsersList } from './feat/users-list'
 import { Checklists } from './checklists'
+import { Deadline } from './deadline'
 
 import { updateCard } from '@symbiotes/effects'
+
+//Add desc updating with backend request
 
 export const EditCard = ({ onClick, cardId }) => {
   let width = 50
@@ -17,7 +20,10 @@ export const EditCard = ({ onClick, cardId }) => {
 
   const dispatch = useDispatch()
 
-  const update = name => dispatch(updateCard(cardId, name))
+  const update = name => {
+    card.name = name
+    dispatch(updateCard(card))
+  }
 
   if (window.matchMedia('(max-width: 730px)').matches) {
     width = 95
@@ -54,6 +60,7 @@ export const EditCard = ({ onClick, cardId }) => {
             maxRows={6}
             placeholder="Информация о задаче"
           />
+          {card.deadline && <Deadline cardId={cardId} />}
           <Checklists cardId={cardId} />
           <CommentsList cardId={cardId} comments={card.comments} />
         </Content>

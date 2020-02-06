@@ -24,7 +24,13 @@ const symbiotes = {
     ...state,
     cards: {
       ...state.cards,
-      [card.id]: { ...state.cards[card.id], name: card.name, desc: card.desc }
+      [card.id]: {
+        ...state.cards[card.id],
+        name: card.name,
+        desc: card.desc,
+        deadline: card.deadline,
+        checked: card.checked
+      }
     }
   }),
   addComment: (state, comment, cardId) => ({

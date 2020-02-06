@@ -4,19 +4,28 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { ru } from 'date-fns/esm/locale'
 import { css } from 'linaria'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { Dropdown, SaveCancelBlock } from '@ui'
+import { updateCard } from '@symbiotes/effects'
 
 export const AddDeadline = ({ children, startDate = new Date() }) => {
+  let card = useSelector(state => state.cards.cards[state.cards.currentCard])
+
   let [date, setDate] = useState(new Date(startDate))
   let [time, setTime] = useState('')
-  let [error, setError] = useState(false)
+  let [error, setError] = useState({
+    date: false,
+    time: false
+  })
   let [text, setText] = useState(
     date
       .toLocaleDateString()
       .split('/')
       .join('.')
   )
+
+  const dispatch = useDispatch()
 
   const validTimeRegexp = new RegExp(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
   const validDateRegexp = new RegExp(
@@ -45,9 +54,33 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
     if (!validTimeRegexp.test(value)) {
       setError({ ...error, time: true })
     } else {
-      setError({ ...error, date: false })
-      setTime(value)
+      setError({ ...error, time: false })
     }
+    setTime(value)
+  }
+
+  const handleSubmit = e => {
+    if (error.date || error.time) {
+      e.preventDefault()
+    } else {
+      console.log(time)
+      let newTime = time.split(':')
+      let newDate = new Date(
+        date.getYear(),
+        date.getMonth(),
+        date.getDate(),
+        newTime[0],
+        newTime[1]
+      )
+      card.deadline = newDate
+      dispatch(updateCard(card))
+      console.log('new date', newDate)
+    }
+  }
+
+  const handleCancel = () => {
+    card.deadline = null
+    dispatch(updateCard(card))
   }
 
   return (
@@ -95,8 +128,8 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
             // fixedHeight
           />
           <SaveCancelBlock
-            handleSubmit={() => console.log('add deadline')}
-            handleCancel={() => console.log('delete deadline')}
+            handleSubmit={handleSubmit}
+            handleCancel={handleCancel}
             className={saveBlock}
           />
         </>
