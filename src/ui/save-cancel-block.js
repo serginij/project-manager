@@ -10,23 +10,31 @@ export const SaveCancelBlock = ({
   saveText,
   cancelText,
   handleCancel,
+  handleSubmit = () => {},
   title,
-  buttonText
+  buttonText,
+  className
 }) => (
-  <Wrapper>
-    <AddButton className={button}>
+  <Wrapper className={className}>
+    <AddButton className={button} onClick={handleSubmit}>
       {saveText ? saveText : 'Сохранить'}
     </AddButton>
-    <ConfirmBlock
-      title={title}
-      onConfirm={handleCancel}
-      buttonText={buttonText}
-      style={closeButton}
-    >
-      <Button type="button" className={closeButton}>
+    {title ? (
+      <ConfirmBlock
+        title={title}
+        onConfirm={handleCancel}
+        buttonText={buttonText}
+        style={closeButton}
+      >
+        <Button type="button" className={closeButton}>
+          {cancelText ? cancelText : 'Удалить'}
+        </Button>
+      </ConfirmBlock>
+    ) : (
+      <Button className={closeButton} onClick={handleCancel}>
         {cancelText ? cancelText : 'Удалить'}
       </Button>
-    </ConfirmBlock>
+    )}
   </Wrapper>
 )
 
@@ -50,4 +58,8 @@ const closeButton = css`
   height: 2.2em;
   width: 30%;
   border-radius: 3px;
+
+  &:hover {
+    background-color: var(--red);
+  }
 `

@@ -98,14 +98,13 @@ export const deleteCard = (columnId, cardId) => {
   }
 }
 
-export const updateCard = (cardId, name, desc) => {
+export const updateCard = card => {
   return dispatch => {
-    return update(`/desks/cards/${cardId}`, {
-      name,
-      desc
+    return update(`/desks/cards/${card.id}`, {
+      card
     })
       .then(() => {
-        dispatch(cardsActions.editCard({ name: name, id: cardId, desc: desc }))
+        dispatch(cardsActions.editCard(card))
       })
       .catch(err => console.log(err))
   }
