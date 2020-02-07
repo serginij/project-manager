@@ -17,4 +17,8 @@ const Button = styled.button`
   &:hover {
     color: black;
   }
+
+  &:focus {
+    outline: none;
+  }
 `

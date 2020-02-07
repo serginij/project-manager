@@ -13,7 +13,9 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
   let card = useSelector(state => state.cards.cards[state.cards.currentCard])
 
   let [date, setDate] = useState(new Date(startDate))
-  let [time, setTime] = useState('')
+  let [time, setTime] = useState(
+    date ? date.getHours() + ':' + date.getMinutes() : ''
+  )
   let [error, setError] = useState({
     date: false,
     time: false
@@ -33,17 +35,14 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
   )
 
   const onDateChange = e => {
-    // console.log('date', e.target.value)
     let value = e.target.value
     if (!validDateRegexp.test(value)) {
       setError({ ...error, date: true })
     } else {
       setError({ ...error, date: false })
       let date = value.split('.')
-      // console.log(date)
       let newDate = new Date(date[2].slice(0, 4), +date[1] - 1, date[0])
       setDate(newDate)
-      // console.log(newDate)
     }
 
     setText(value)
@@ -63,7 +62,6 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
     if (error.date || error.time) {
       e.preventDefault()
     } else {
-      console.log(time)
       let newTime = time.split(':')
       let newDate = new Date(
         date.getYear(),
@@ -74,7 +72,6 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
       )
       card.deadline = newDate
       dispatch(updateCard(card))
-      console.log('new date', newDate)
     }
   }
 
@@ -191,5 +188,5 @@ const Label = styled.label`
 `
 
 const saveBlock = css`
-  margin-top: 10px;
+  margin: 10px 0;
 `

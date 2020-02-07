@@ -15,10 +15,13 @@ export const AddUpdateElement = ({
   isOpen,
   placeholder = '',
   closable,
-  focus
+  focus,
+  minRows = 1,
+  maxRows = 5
 }) => {
   let [open, setOpen] = useState(edit || isOpen)
   let [text, setText] = useState(value)
+  let [rows, setRows] = useState(minRows)
   const inputRef = useRef(null)
 
   useEffect(() => {
@@ -42,20 +45,24 @@ export const AddUpdateElement = ({
   let unfocus = () => {
     if (text.trim() == '') {
       setOpen(false)
+      setRows(minRows)
       onCancel && onCancel()
     }
   }
 
-  let handleChange = e => {
+  let handleChange = (e, rows = 2) => {
     setText(e.target.value)
+    setRows(rows)
+    // console.log(e)
   }
 
   return (
     <AddBlock className={className}>
       <DynamicTextarea
         ref={focus && inputRef}
-        minRows={open ? 2 : 1}
-        maxRows={5}
+        minRows={open ? 2 : minRows}
+        curRows={rows}
+        maxRows={maxRows}
         className={styledInput}
         onClick={() => setOpen(true)}
         value={text}
@@ -63,6 +70,7 @@ export const AddUpdateElement = ({
         onBlur={unfocus}
         placeholder={placeholder}
       />
+
       {open ? (
         <ButtonsBlock>
           <AddButton

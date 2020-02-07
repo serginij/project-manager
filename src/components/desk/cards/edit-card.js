@@ -4,11 +4,18 @@ import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { CommentsList } from './comments/comments-list'
-import { Popup, ToggleInput, CloseButton, DynamicTextarea } from '@ui/'
+import {
+  Popup,
+  ToggleInput,
+  CloseButton,
+  // DynamicTextarea,
+  AddUpdateElement
+} from '@ui/'
 import { FeatBlock } from './feat/feat-block'
 import { UsersList } from './feat/users-list'
 import { Checklists } from './checklists'
 import { Deadline } from './deadline'
+import { Progress } from './progress'
 
 import { updateCard } from '@symbiotes/effects'
 
@@ -22,6 +29,11 @@ export const EditCard = ({ onClick, cardId }) => {
 
   const update = name => {
     card.name = name
+    dispatch(updateCard(card))
+  }
+
+  const updateDesc = text => {
+    card.desc = text
     dispatch(updateCard(card))
   }
 
@@ -54,13 +66,19 @@ export const EditCard = ({ onClick, cardId }) => {
       <Wrapper>
         <Content>
           <UsersList users={card.users} />
+          {card.deadline && <Deadline cardId={cardId} />}
+          <Progress lists={card.checklists} />
           <h4>Описание</h4>
-          <DynamicTextarea
+          <AddUpdateElement
+            value={card.desc || ''}
+            closable
+            elementId={card.id}
+            updateElement={updateDesc}
+            className={descStyle}
+            placeholder="Информация о задаче"
             minRows={3}
             maxRows={6}
-            placeholder="Информация о задаче"
           />
-          {card.deadline && <Deadline cardId={cardId} />}
           <Checklists cardId={cardId} />
           <CommentsList cardId={cardId} comments={card.comments} />
         </Content>
@@ -127,4 +145,37 @@ const popupStyle = css`
   background-color: var(--gray-background);
   box-sizing: border-box;
   padding: 12px;
+`
+
+const descStyle = css`
+  background-color: inherit;
+  width: 100%;
+  margin: 0;
+
+  textarea {
+    margin-top: 0;
+    background-color: var(--dark-gray);
+    &::placeholder {
+      color: black;
+    }
+
+    &:hover {
+      background-color: var(--gray-selection);
+    }
+
+    &:focus {
+      background-color: white;
+      &::placeholder {
+        color: grey;
+      }
+
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+
+  button {
+    margin-left: 0;
+  }
 `
