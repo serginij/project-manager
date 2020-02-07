@@ -32,7 +32,7 @@ export const EditLabel = ({ color = '', name = '', onClose }) => {
 
   let list = colors.map(color => (
     <Color key={color} color={color} onClick={() => setColor(color)}>
-      {color === currentColor && <p>&#x2713;</p>}
+      {color === currentColor && <p>&#x9001;</p>}
     </Color>
   ))
 
@@ -41,7 +41,7 @@ export const EditLabel = ({ color = '', name = '', onClose }) => {
       <Label>Название</Label>
       <Input
         className={styledInput}
-        placeholder="Поиск метки"
+        placeholder="Название метки"
         onChange={handleChange}
         value={text}
       />

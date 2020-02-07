@@ -18,22 +18,25 @@ export const Deadline = ({ cardId }) => {
     dispatch(updateCard(card))
     setChecked(!checked)
   }
-  console.log('card deadline', card.deadline)
   let formattedDate = formatDate(new Date(card.deadline), false)
   return (
-    <Wrapper>
-      <Checkbox
-        value={''}
-        checked={checked}
-        onChange={updateChecked}
-        onClick={updateChecked}
-      />
-      <AddDeadline startDate={card.date}>
-        <Time>
-          {formattedDate} {card.checked && <Done>ВЫПОЛНЕНО</Done>} &#8744;
-        </Time>
-      </AddDeadline>
-    </Wrapper>
+    <>
+      <Title>СРОК</Title>
+      <Wrapper>
+        <Checkbox
+          value={''}
+          checked={checked}
+          onChange={updateChecked}
+          onClick={updateChecked}
+        />
+        <AddDeadline startDate={card.date}>
+          <Time>
+            {formattedDate} {card.checked && <Done>ВЫПОЛНЕНО</Done>}{' '}
+            <Bracket>&#9001;</Bracket>
+          </Time>
+        </AddDeadline>
+      </Wrapper>
+    </>
   )
 }
 
@@ -51,7 +54,7 @@ const Time = styled.button`
   border-radius: 3px;
   height: 100%;
   box-sizing: border-box;
-  padding: 8px 10px;
+  padding: 4px 10px;
   align-items: center;
   cursor: pointer;
 
@@ -65,4 +68,15 @@ const Done = styled.p`
   color: white;
   font-size: 14px;
   margin: 3px;
+`
+
+const Title = styled.h3`
+  color: var(--gray-text);
+  font-size: 12px;
+`
+
+const Bracket = styled.p`
+  /* font-size: 32px; */
+  margin: 8px 0 0 4px;
+  transform: rotate(-90deg);
 `

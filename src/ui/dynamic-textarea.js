@@ -4,13 +4,13 @@ import React, { useState, useEffect } from 'react'
 import { TextArea } from './text-area'
 
 export const DynamicTextarea = React.forwardRef((props, ref) => {
-  let { minRows, maxRows, onChange } = props
+  let { minRows, maxRows, onChange, curRows } = props
 
   let [rows, setRows] = useState(minRows)
 
   useEffect(() => {
-    setRows(minRows)
-  }, [minRows])
+    setRows(curRows)
+  }, [curRows, minRows, props])
 
   let handleChange = e => {
     if (e.target.style.lineHeight === '') {
@@ -21,28 +21,28 @@ export const DynamicTextarea = React.forwardRef((props, ref) => {
     let lineHeight = +e.target.style.lineHeight.slice(0, 2)
     // console.log(lineHeight, e.target.style.fontSize, rows)
 
-    const previousRows = event.target.rows
-    event.target.rows = minRows
-    const currentRows = ~~(event.target.scrollHeight / lineHeight)
+    const previousRows = e.target.rows
+    e.target.rows = minRows
+    const currentRows = ~~(e.target.scrollHeight / lineHeight)
 
     if (currentRows === previousRows) {
-      event.target.rows = currentRows
+      e.target.rows = currentRows
     }
     if (currentRows >= maxRows) {
-      event.target.rows = maxRows
-      event.target.scrollTop = event.target.scrollHeight
+      e.target.rows = maxRows
+      e.target.scrollTop = e.target.scrollHeight
     }
     currentRows < maxRows ? setRows(currentRows) : setRows(maxRows)
 
-    onChange(e)
+    onChange && onChange(e, currentRows < maxRows ? currentRows : maxRows)
   }
   return (
     <TextArea
+      {...props}
       ref={ref}
       onChange={handleChange}
       rows={rows}
-      autoHeight
-      {...props}
+      // autoHeight
     />
   )
 })

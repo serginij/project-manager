@@ -94,7 +94,6 @@ const elementStyle = css`
   background-color: inherit;
   width: 100%;
   margin: 0;
-  width: 100%;
 
   textarea {
     margin-top: 0;
@@ -107,6 +106,7 @@ const elementStyle = css`
 
 const Name = styled.p`
   width: 100%;
+  font-size: 14px;
 `
 
 const Button = styled.button`

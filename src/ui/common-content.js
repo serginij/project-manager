@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   --light-gray: rgba(9, 30, 66, 0.04);
   --dark-gray: #ebecf0;
   --gray-selection: rgba(9, 30, 66, 0.08);
-  --gray-background: #f4f5f6;
+  --gray-background: #f4f5f7;
   --green: #27ae60;
   --red: #e74c3c;
   --primary-color: #483d8b;
