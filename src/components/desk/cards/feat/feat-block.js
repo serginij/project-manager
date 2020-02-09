@@ -1,16 +1,26 @@
 import React from 'react'
 import { styled } from 'linaria/react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { AddUser } from './add-user'
 import { AddLabel } from './add-label'
 import { AddList } from './add-list'
 import { AddDeadline } from './add-deadline'
+import { ConfirmBlock } from '@ui/'
+
+import { deleteCard } from '@symbiotes/effects'
 
 export const FeatBlock = () => {
   let isAdmin = useSelector(
     state => state.teams.teams[state.teams.currentTeam].isAdmin
   )
+  let card = useSelector(state => state.cards.cards[state.cards.currentCard])
+
+  const dispatch = useDispatch()
+
+  const handleDeleteCard = () => {
+    dispatch(deleteCard(card.column_id, card.id))
+  }
 
   return (
     <>
@@ -30,6 +40,14 @@ export const FeatBlock = () => {
         <AddDeadline>
           <Item>Срок</Item>
         </AddDeadline>
+        <Hr />
+        <ConfirmBlock
+          onConfirm={handleDeleteCard}
+          title="Удаление карточки"
+          buttonText="Удалить карточку"
+        >
+          <Item>Удалить</Item>
+        </ConfirmBlock>
       </List>
     </>
   )
@@ -71,4 +89,10 @@ const Item = styled.li`
   @media (max-width: 620px) {
     width: 150px;
   }
+`
+
+const Hr = styled.hr`
+  border: none;
+  background-color: var(--gray-selection);
+  height: 2px;
 `

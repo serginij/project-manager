@@ -26,6 +26,7 @@ export const AddComment = ({
   return (
     <AddUpdateElement
       edit={edit}
+      isOpen={false}
       value={value}
       onCancel={onCancel}
       elementId={commentId}

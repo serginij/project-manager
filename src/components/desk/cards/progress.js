@@ -1,21 +1,13 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
-export const Progress = ({ lists }) => {
-  let value = 0,
-    total = 0
-  lists.forEach(list => {
-    list.items.forEach(item => {
-      if (item.checked) {
-        value++
-      }
-      total++
-    })
-  })
-  let progress = (value / total) * 100
+import { getProgress } from '@lib/get-progress'
+
+export const Progress = ({ lists, type }) => {
+  let { progress } = getProgress(lists, type)
   return (
     <>
-      <Title>ВЫПОЛНЕНИЕ</Title>
+      {!(type === 'singlelist') && <Title>ВЫПОЛНЕНИЕ</Title>}
       <Percent>
         {Math.floor(progress)}%
         <ProgressBar max="100" value={progress} />

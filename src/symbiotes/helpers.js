@@ -13,7 +13,9 @@ export const addColumn = (name, deskId, columnId) => {
 
 export const addCard = (name, columnId, cardId) => {
   return dispatch => {
-    dispatch(cardsActions.addCard({ name: name, id: cardId }))
+    dispatch(
+      cardsActions.addCard({ name: name, id: cardId, column_id: columnId })
+    )
     dispatch(columnsActions.addCard(columnId, cardId))
   }
 }

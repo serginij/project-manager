@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
-import { Dropdown, Input, Button, CloseButton } from '@ui'
-import edit from '@assets/edit.svg'
+import { Dropdown, Input, Button, CloseButton, EditIcon } from '@ui'
 
 import { EditLabel } from './edit-label'
 
@@ -72,9 +71,7 @@ export const AddLabel = ({ children }) => {
           <p>{label.text}</p>
           {label.checked && <p>&#x2713;</p>}
         </Label>
-        <EditButton tabIndex={0} onClick={handleEdit}>
-          <img src={edit} alt="edit" width="50%" />
-        </EditButton>
+        <EditIcon size={35} handleEdit={handleEdit} />
       </LabelItem>
     ))
 
@@ -154,7 +151,7 @@ const LabelItem = styled.li`
   list-style: none;
   display: flex;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 6px;
 `
 
 const Label = styled.div`
@@ -164,11 +161,11 @@ const Label = styled.div`
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  padding: 12px 12px;
+  padding: 8px 12px;
   border-radius: 3px;
   font-size: 14px;
   font-weight: 700;
-  height: 3em;
+  height: 2.5em;
   background-color: ${props => '#' + props.color};
   color: white;
   margin-right: 8px;
@@ -185,23 +182,6 @@ const Label = styled.div`
     padding-left: 16px;
     box-shadow: -8px 0 ${props => '#' + props.color};
     outline: 1px solid var(--dark-gray);
-  }
-`
-
-const EditButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  height: 42px;
-  width: 42px;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: var(--dark-gray);
-  }
-
-  &:focus {
-    outline: 2px solid var(--gray-selection);
   }
 `
 

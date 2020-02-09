@@ -13,6 +13,7 @@ import {
 } from '@symbiotes/effects'
 import { CheckItem } from './check-item'
 import { AddItem } from './add-item'
+import { Progress } from '../progress'
 
 export const CheckList = ({ name = 'Список', list, cardId, listId }) => {
   let token = useSelector(state => state.auth.token)
@@ -83,6 +84,7 @@ export const CheckList = ({ name = 'Список', list, cardId, listId }) => {
           <Button>Удалить</Button>
         </ConfirmBlock>
       </Header>
+      <Progress lists={list} type="singlelist" />
       <Form>{checkList}</Form>
       <AddItem onAdd={handleAddItem} />
     </Wrapper>

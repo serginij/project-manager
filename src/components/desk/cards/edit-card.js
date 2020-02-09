@@ -70,6 +70,8 @@ export const EditCard = ({ onClick, cardId }) => {
           <Progress lists={card.checklists} />
           <h4>Описание</h4>
           <AddUpdateElement
+            edit
+            isOpen={false}
             value={card.desc || ''}
             closable
             elementId={card.id}
