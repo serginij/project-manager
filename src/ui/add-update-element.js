@@ -7,19 +7,19 @@ import { AddButton, CloseButton, DynamicTextarea } from './index'
 export const AddUpdateElement = ({
   edit,
   value = '',
-  onCancel,
+  onCancel = () => {},
   elementId,
   addElement,
   updateElement,
   className,
-  isOpen,
+  isOpen = true,
   placeholder = '',
   closable,
   focus,
   minRows = 1,
   maxRows = 5
 }) => {
-  let [open, setOpen] = useState(edit || isOpen)
+  let [open, setOpen] = useState(isOpen)
   let [text, setText] = useState(value)
   let [rows, setRows] = useState(minRows)
   const inputRef = useRef(null)
@@ -33,13 +33,14 @@ export const AddUpdateElement = ({
     addElement(text)
     setText('')
     onCancel()
+    setRows(minRows)
   }
 
   let handleUpdateElement = () => {
     setOpen(false)
     updateElement(text, elementId)
-    setText('')
     onCancel()
+    setRows(minRows)
   }
 
   let unfocus = () => {
@@ -54,6 +55,11 @@ export const AddUpdateElement = ({
     setText(e.target.value)
     setRows(rows)
     // console.log(e)
+  }
+
+  let handleCancel = () => {
+    setOpen(false)
+    onCancel()
   }
 
   return (
@@ -80,7 +86,7 @@ export const AddUpdateElement = ({
           >
             Сохранить
           </AddButton>
-          <CloseButton hidden={!(edit || closable)} onClick={onCancel} />
+          <CloseButton hidden={!(edit || closable)} onClick={handleCancel} />
         </ButtonsBlock>
       ) : null}
     </AddBlock>

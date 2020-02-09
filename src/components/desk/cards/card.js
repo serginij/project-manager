@@ -2,14 +2,12 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { useDispatch } from 'react-redux'
 
-import { deleteCard } from '@symbiotes/effects'
-
-import { CloseButton, ConfirmBlock } from '@ui'
+import { EditIcon } from '@ui'
 import { EditCard } from './edit-card'
 
 import { cardsActions } from '@symbiotes/cards'
 
-export const Card = ({ text, columnId, id }) => {
+export const Card = ({ text, id }) => {
   const [visible, setVisible] = useState(true)
   const [edit, setEdit] = useState(false)
 
@@ -20,11 +18,6 @@ export const Card = ({ text, columnId, id }) => {
   const dispatch = useDispatch()
 
   const setCurrent = id => dispatch(cardsActions.setCurrent(id))
-
-  const handleDeleteCard = e => {
-    e.stopPropagation()
-    dispatch(deleteCard(columnId, id))
-  }
 
   const handleClick = () => {
     setEdit(!edit)
@@ -40,14 +33,7 @@ export const Card = ({ text, columnId, id }) => {
         onClick={handleClick}
       >
         <Text>{text}</Text>
-        <ConfirmBlock
-          onClick={e => e.stopPropagation()}
-          onConfirm={handleDeleteCard}
-          title="Удаление карточки"
-          buttonText="Удалить карточку"
-        >
-          <CloseButton hidden={visible} />
-        </ConfirmBlock>
+        <EditIcon size={32} />
       </Wrapper>
       {edit && <EditCard cardId={id} onClick={handleClick} />}
     </>
@@ -66,6 +52,7 @@ const Wrapper = styled.li`
   border-radius: 3px;
   margin-bottom: 8px;
   padding: 0 12px;
+  padding-right: 4px;
   box-sizing: border-box;
   word-wrap: break-word;
   max-width: 276px;

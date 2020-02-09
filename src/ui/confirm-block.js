@@ -18,15 +18,16 @@ export const ConfirmBlock = ({
 
   const handleClick = e => {
     e.stopPropagation()
-    let { x, y, width, height } = e.target.getBoundingClientRect()
+    let { x, y, width, height, top } = e.target.getBoundingClientRect()
     let { innerHeight, innerWidth } = window
     x = x + data.width > innerWidth ? (x -= data.width) : x
-    y = y + height > innerHeight ? (y -= height) : y + height
+    y = y + 130 > innerHeight ? (y -= 130) : y + height
 
     setData({
       x: x,
       y: y,
-      width: data.width ? data.width : width
+      width: data.width ? data.width : width,
+      offsetTop: e.target.offsetTop - top
     })
     setVisible(!visible)
   }
@@ -41,7 +42,7 @@ export const ConfirmBlock = ({
       <WrapButton type="button" onClick={handleClick} className={style}>
         {children}
       </WrapButton>
-      <BackDrop visible={visible} onClick={handleClose}>
+      <BackDrop top={data.offsetTop} visible={visible} onClick={handleClose}>
         <Wrapper
           visible={visible}
           width={data.width}
@@ -83,7 +84,7 @@ const BackDrop = styled.div`
   width: 100%;
   height: 100%;
   left: 0;
-  top: 0;
+  top: ${props => props.top}px;
 `
 
 const Wrapper = styled.div`
