@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
@@ -15,8 +15,18 @@ export const Dropdown = ({
   let [visible, setVisible] = useState(false)
   let [data, setData] = useState({ width: width })
 
+  const bodyRef = useRef(null)
+  useEffect(() => {
+    let height = bodyRef.current.clientHeight
+    let { innerHeight } = window
+
+    let y = data.y + height > innerHeight ? data.y - height : data.y
+
+    setData(prev => ({ ...prev, y: y }))
+  }, [data.y, visible])
+
   const handleClick = e => {
-    let { x, y, width, height } = e.target.getBoundingClientRect()
+    let { x, y, width, height, top } = e.target.getBoundingClientRect()
     let { innerHeight, innerWidth } = window
 
     x = align ? x - data.width / 2 + width / 2 : x
@@ -30,8 +40,10 @@ export const Dropdown = ({
     setData({
       x: x,
       y: y,
-      width: data.width ? data.width : width
+      width: data.width ? data.width : width,
+      offsetTop: e.target.offsetTop - top
     })
+
     setVisible(true)
   }
 
@@ -44,6 +56,7 @@ export const Dropdown = ({
     <Wrapper>
       <Header onClick={handleClick}>{children}</Header>
       <Backdrop
+        top={data.offsetTop}
         tabIndex={-1}
         visible={visible}
         onClick={() => {
@@ -60,6 +73,7 @@ export const Dropdown = ({
           width={data.width}
           onSubmit={handleSubmit}
           tabIndex={-1}
+          ref={bodyRef}
         >
           {header && (
             <ContentHeader>
@@ -83,11 +97,12 @@ const Wrapper = styled.div``
 
 const Backdrop = styled.div`
   left: 0;
-  top: 0;
+  top: ${props => props.top + 'px'};
   display: ${props => (props.visible ? 'block' : 'none')};
   z-index: 3;
   position: absolute;
   width: 100%;
+  /* min-height: 100vh; */
   height: 100vh;
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0);
