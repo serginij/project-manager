@@ -53,11 +53,12 @@ export const Main = () => {
     <Container>
       <TeamList teams={teamList} />
       <div className="desks">{desksList}</div>
+      {/* <Alert /> */}
     </Container>
   )
 }
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   margin-top: 60px;
   justify-content: space-evenly;
