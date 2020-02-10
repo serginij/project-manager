@@ -85,7 +85,7 @@ export const CheckList = ({ name = 'Список', list, cardId, listId }) => {
         </ConfirmBlock>
       </Header>
       <Progress lists={list} type="singlelist" />
-      <Form>{checkList}</Form>
+      <List>{checkList}</List>
       <AddItem onAdd={handleAddItem} />
     </Wrapper>
   )
@@ -111,7 +111,7 @@ const Header = styled.header`
   height: 2em;
 `
 
-const Form = styled.form`
+const List = styled.div`
   display: flex;
   flex-direction: column;
   padding: 8px 0;

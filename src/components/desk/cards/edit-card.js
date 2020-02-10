@@ -4,13 +4,7 @@ import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { CommentsList } from './comments/comments-list'
-import {
-  Popup,
-  ToggleInput,
-  CloseButton,
-  // DynamicTextarea,
-  AddUpdateElement
-} from '@ui/'
+import { Popup, ToggleInput, CloseButton, AddUpdateElement } from '@ui/'
 import { FeatBlock } from './feat/feat-block'
 import { UsersList } from './feat/users-list'
 import { Checklists } from './checklists'
@@ -18,8 +12,6 @@ import { Deadline } from './deadline'
 import { Progress } from './progress'
 
 import { updateCard } from '@symbiotes/effects'
-
-//Add desc updating with backend request
 
 export const EditCard = ({ onClick, cardId }) => {
   let width = 50
@@ -52,6 +44,9 @@ export const EditCard = ({ onClick, cardId }) => {
   if (window.matchMedia('(max-width: 500px)').matches) {
     width = 90
   }
+
+  // console.log(window.location)
+  // window.location.reload()
 
   return (
     <Popup className={popupStyle} width={width} onClick={onClick}>

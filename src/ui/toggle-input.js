@@ -33,16 +33,14 @@ export const ToggleInput = ({
   return (
     <>
       {edit ? (
-        <form onSubmit={handleSubmit} style={{ width: '85%' }}>
-          <Input
-            className={inputStyle}
-            ref={inputRef}
-            type="text"
-            value={value}
-            onChange={handleChange}
-            onBlur={handleSubmit}
-          />
-        </form>
+        <Input
+          className={inputStyle}
+          ref={inputRef}
+          type="text"
+          value={value}
+          onChange={handleChange}
+          onBlur={handleSubmit}
+        />
       ) : children ? (
         children
       ) : (

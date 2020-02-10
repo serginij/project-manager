@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 export const Checkbox = ({ className, checked, onClick, ...props }) => (
   <CheckboxContainer className={className} onClick={onClick}>
     <HiddenCheckbox checked={checked} {...props} type="checkbox" />
-    <StyledCheckbox checked={checked} className="styledcheckbox">
+    <StyledCheckbox checked={checked}>
       <Icon viewBox="0 0 24 24" checked={checked}>
         <polyline points="20 6 9 17 4 12" />
       </Icon>
@@ -38,7 +38,7 @@ const HiddenCheckbox = styled.input`
   width: 2px;
 
   &:focus {
-    .styledcheckbox {
+    ${StyledCheckbox} {
       box-shadow: 0 0 0 3px var(--gray-selection);
     }
   }

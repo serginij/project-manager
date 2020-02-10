@@ -42,7 +42,7 @@ export const DynamicTextarea = React.forwardRef((props, ref) => {
       ref={ref}
       onChange={handleChange}
       rows={rows}
-      defaultValue={props.value}
+      // defaultValue={props.value}
       // autoHeight
     />
   )

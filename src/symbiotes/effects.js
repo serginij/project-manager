@@ -402,6 +402,13 @@ export const deleteList = (cardId, listId, token) => {
 
 export const addItem = (cardId, listId, text, token) => {
   return dispatch => {
+    // dispatch(
+    //   cardsActions.addItem(cardId, listId, {
+    //     id: 'some-text',
+    //     text: text,
+    //     checked: false
+    //   })
+    // )
     return post(`/checklist/${listId}/items`, { text: text }, token)
       .then(res => {
         dispatch(

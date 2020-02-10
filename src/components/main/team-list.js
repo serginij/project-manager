@@ -51,7 +51,7 @@ const List = styled.ul`
   padding: 0;
 `
 
-const Teams = styled.aside`
+const Teams = styled.section`
   width: 50%;
   min-width: 200px;
   margin: auto;

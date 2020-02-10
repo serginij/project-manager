@@ -1,4 +1,4 @@
-export const getProgress = (lists, type) => {
+export const getProgress = (lists = [], type) => {
   let value = 0,
     total = 0
 
@@ -12,13 +12,12 @@ export const getProgress = (lists, type) => {
       })
     : lists &&
       lists.forEach(list => {
-        list.item &&
-          list.items.forEach(item => {
-            if (item.checked) {
-              value++
-            }
-            total++
-          })
+        list.items.forEach(item => {
+          if (item.checked) {
+            value++
+          }
+          total++
+        })
       })
   let progress = total ? (value / total) * 100 : 0
   return { value: value, total: total, progress: progress }
