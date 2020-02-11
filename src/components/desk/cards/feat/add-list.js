@@ -4,7 +4,7 @@ import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { Dropdown, Input, AddButton } from '@ui'
-import { addList } from '@symbiotes/effects'
+import { addList } from '@symbiotes/effects/'
 
 export const AddList = ({ children }) => {
   let [name, setName] = useState('')

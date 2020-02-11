@@ -3,7 +3,7 @@ import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useDispatch } from 'react-redux'
 
-import { login, signup } from '@symbiotes/effects'
+import { login, signup } from '@symbiotes/effects/'
 import { authActions } from '@symbiotes/auth'
 
 import { Input, AddButton } from '@ui'

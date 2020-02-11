@@ -11,7 +11,7 @@ import { Checklists } from './checklists'
 import { Deadline } from './deadline'
 import { Progress } from './progress'
 
-import { updateCard } from '@symbiotes/effects'
+import { updateCard } from '@symbiotes/effects/'
 
 export const EditCard = ({ onClick, cardId }) => {
   let width = 50

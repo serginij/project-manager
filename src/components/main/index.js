@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchTeams } from '@symbiotes/effects'
+import { fetchTeams } from '@symbiotes/effects/'
 import { getToken } from '@symbiotes/helpers'
 import { authActions } from '@symbiotes/auth'
 
@@ -53,7 +53,6 @@ export const Main = () => {
     <Container>
       <TeamList teams={teamList} />
       <div className="desks">{desksList}</div>
-      {/* <Alert /> */}
     </Container>
   )
 }

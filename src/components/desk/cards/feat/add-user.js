@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Dropdown, Input } from '@ui'
 
-import { addCardUser, findDeskUser } from '@symbiotes/effects'
+import { addCardUser, findDeskUser } from '@symbiotes/effects/'
 
 export const AddUser = ({ children }) => {
   const card = useSelector(state => state.cards.cards[state.cards.currentCard])

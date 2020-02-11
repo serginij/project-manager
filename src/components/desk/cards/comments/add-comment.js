@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { AddUpdateElement } from '@ui'
-import { addComment, updateComment } from '@symbiotes/effects'
+import { addComment, updateComment } from '@symbiotes/effects/'
 
 export const AddComment = ({
   edit,

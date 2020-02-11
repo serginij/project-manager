@@ -9,7 +9,7 @@ import {
   deleteTeamUser,
   updateTeamUser,
   deleteTeam as delTeam
-} from '@symbiotes/effects'
+} from '@symbiotes/effects/'
 import {
   Input,
   TextArea,

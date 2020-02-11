@@ -7,7 +7,7 @@ import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { Dropdown, SaveCancelBlock } from '@ui'
-import { updateCard } from '@symbiotes/effects'
+import { updateCard } from '@symbiotes/effects/'
 
 export const AddDeadline = ({ children, startDate = new Date() }) => {
   let card = useSelector(state => state.cards.cards[state.cards.currentCard])

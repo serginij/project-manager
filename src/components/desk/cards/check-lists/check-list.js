@@ -10,7 +10,7 @@ import {
   addItem,
   deleteItem,
   updateItem
-} from '@symbiotes/effects'
+} from '@symbiotes/effects/'
 import { CheckItem } from './check-item'
 import { AddItem } from './add-item'
 import { Progress } from '../progress'

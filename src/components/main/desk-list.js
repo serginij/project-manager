@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from 'linaria/react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getDesk } from '@symbiotes/effects'
+import { getDesk } from '@symbiotes/effects/'
 import { teamsActions } from '@symbiotes/teams'
 import { StyledLink, Spinner } from '@ui'
 
