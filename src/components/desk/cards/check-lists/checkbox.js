@@ -49,7 +49,6 @@ const StyledCheckbox = styled.div`
   background-color: ${props =>
     props.checked ? 'var(--primary-color)' : 'var(--gray)'};
   border-radius: 3px;
-  transition: all 150ms;
   border: 2px solid var(--gray-selection);
   cursor: pointer;
 

@@ -32,6 +32,7 @@ const Wrapper = styled.div`
   height: 100%;
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0.4);
+  cursor: default;
 `
 
 const Content = styled.section`

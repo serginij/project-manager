@@ -12,12 +12,13 @@ export const getProgress = (lists = [], type) => {
       })
     : lists &&
       lists.forEach(list => {
-        list.items.forEach(item => {
-          if (item.checked) {
-            value++
-          }
-          total++
-        })
+        list.items &&
+          list.items.forEach(item => {
+            if (item.checked) {
+              value++
+            }
+            total++
+          })
       })
   let progress = total ? (value / total) * 100 : 0
   return { value: value, total: total, progress: progress }

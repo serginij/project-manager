@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
-// import { CloseButton } from './close-button'
+
+import warning from '@assets/warning.png'
 
 export const Alert = ({ runEffect }) => {
   const [visible, setVisible] = useState(false)
@@ -8,17 +9,15 @@ export const Alert = ({ runEffect }) => {
   useEffect(() => {
     setVisible(true)
     runEffect && runEffect()
-    // console.log('mounted')
     setTimeout(() => {
       setVisible(false)
-      // console.log('closed')
     }, 3000)
   }, [runEffect])
 
   return (
     <Body visible={visible} onClick={() => setVisible(false)}>
+      <Img src={warning} alt="" />
       <p>Someting went wrong</p>
-      {/* <CloseButton  /> */}
     </Body>
   )
 }
@@ -34,9 +33,14 @@ const Body = styled.div`
   width: 180px;
   height: 40px;
   border-radius: 3px;
-  background-color: var(--gray-background);
-  color: crimson;
-  /* font-weight: 500; */
+  background-color: var(--red);
+  color: white;
+  font-weight: 400;
   cursor: pointer;
   text-align: center;
+`
+
+const Img = styled.img`
+  width: 20px;
+  height: 20px;
 `
