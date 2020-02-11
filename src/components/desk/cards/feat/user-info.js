@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Dropdown, CloseButton, Button } from '@ui'
 
-import { deleteCardUser } from '@symbiotes/effects'
+import { deleteCardUser } from '@symbiotes/effects/'
 
 export const UserInfo = ({ children, src, username, id }) => {
   const card = useSelector(state => state.cards.cards[state.cards.currentCard])

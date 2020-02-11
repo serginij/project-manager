@@ -13,6 +13,7 @@ const symbiotes = {
     fail: (state, error) => ({ ...state, loading: false, error: error }),
     done: (state, cards) => ({ ...state, loading: false, cards: cards })
   },
+  setError: (state, error) => ({ ...state, error: error }),
   addCard: (state, card) => ({
     ...state,
     cards: {
@@ -63,12 +64,12 @@ const symbiotes = {
       }
     }
   }),
-  updateComment: (state, cardId, commentId, text) => {
-    let comments = state.cards[cardId].comments.map(comment => {
-      if (comment.id === commentId) {
-        comment.text = text
+  updateComment: (state, cardId, commentId, comment) => {
+    let comments = state.cards[cardId].comments.map(item => {
+      if (item.id === commentId) {
+        item = { ...item, ...comment }
       }
-      return comment
+      return item
     })
     return {
       ...state,
@@ -143,11 +144,11 @@ const symbiotes = {
       }
     }
   },
-  updateList: (state, cardId, list) => {
+  updateList: (state, cardId, listId, list) => {
     let lists = [...state.cards[cardId].checklists]
     lists.map(item => {
-      if (item.id === list.id) {
-        item.name = list.name
+      if (item.id === listId) {
+        item = { ...item, ...list }
       }
       return item
     })
@@ -185,7 +186,7 @@ const symbiotes = {
       }
     }
   },
-  updateItem: (state, cardId, listId, item) => {
+  updateItem: (state, cardId, listId, itemId, item) => {
     let lists = [...state.cards[cardId].checklists]
     lists.map(list => {
       if (list.id === listId) {

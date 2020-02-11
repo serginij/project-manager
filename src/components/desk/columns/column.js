@@ -3,7 +3,7 @@ import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { AddForm, CloseButton, ToggleInput, ConfirmBlock } from '@ui'
-import { deleteColumn, addCard, updateColumn } from '@symbiotes/effects'
+import { deleteColumn, addCard, updateColumn } from '@symbiotes/effects/'
 import { CardsList } from '../cards/cards-list'
 
 export const Column = ({ columnId }) => {

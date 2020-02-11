@@ -4,7 +4,7 @@ import { css } from 'linaria'
 
 import { Input, AddButton, FormTitle, FormWrapper as Wrapper } from '@ui'
 
-import { addDesk } from '@symbiotes/effects'
+import { addDesk } from '@symbiotes/effects/'
 
 export const CreateDesk = props => {
   const [name, setName] = useState('')

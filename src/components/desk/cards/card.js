@@ -26,17 +26,15 @@ export const Card = ({ text, id }) => {
   }
 
   return (
-    <>
-      <Wrapper
-        onMouseEnter={handleHover}
-        onMouseLeave={() => setVisible(true)}
-        onClick={handleClick}
-      >
-        <Text>{text}</Text>
-        <EditIcon size={32} />
-      </Wrapper>
+    <Wrapper
+      onMouseEnter={handleHover}
+      onMouseLeave={() => setVisible(true)}
+      onClick={handleClick}
+    >
+      <Text>{text}</Text>
+      <EditIcon size={32} />
       {edit && <EditCard cardId={id} onClick={handleClick} />}
-    </>
+    </Wrapper>
   )
 }
 

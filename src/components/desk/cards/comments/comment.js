@@ -4,7 +4,7 @@ import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { AddComment } from './add-comment'
-import { deleteComment } from '@symbiotes/effects'
+import { deleteComment } from '@symbiotes/effects/'
 import { ConfirmBlock } from '@ui'
 import { formatDate } from '@lib/format-date'
 

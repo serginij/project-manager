@@ -8,7 +8,7 @@ import { AddList } from './add-list'
 import { AddDeadline } from './add-deadline'
 import { ConfirmBlock } from '@ui/'
 
-import { deleteCard } from '@symbiotes/effects'
+import { deleteCard } from '@symbiotes/effects/'
 
 export const FeatBlock = () => {
   let isAdmin = useSelector(

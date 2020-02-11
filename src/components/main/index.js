@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchTeams } from '@symbiotes/effects'
+import { fetchTeams } from '@symbiotes/effects/'
 import { getToken } from '@symbiotes/helpers'
 import { authActions } from '@symbiotes/auth'
 
@@ -57,7 +57,7 @@ export const Main = () => {
   )
 }
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   margin-top: 60px;
   justify-content: space-evenly;

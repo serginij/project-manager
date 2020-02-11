@@ -8,7 +8,7 @@ import {
   addDeskUser,
   deleteDeskUser,
   deleteDesk as delDesk
-} from '@symbiotes/effects'
+} from '@symbiotes/effects/'
 import {
   Input,
   FindUser,

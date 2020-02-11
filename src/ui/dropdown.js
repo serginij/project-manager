@@ -13,7 +13,7 @@ export const Dropdown = ({
   header
 }) => {
   let [visible, setVisible] = useState(false)
-  let [data, setData] = useState({ width: width })
+  let [data, setData] = useState({ width: width, offsetTop: 0, x: 0, y: 0 })
 
   const bodyRef = useRef(null)
   useEffect(() => {

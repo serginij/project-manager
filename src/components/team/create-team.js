@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { addTeam } from '@symbiotes/effects'
+import { addTeam } from '@symbiotes/effects/'
 
 import { Input, AddButton, TextArea, FormWrapper as Wrapper } from '@ui'
 

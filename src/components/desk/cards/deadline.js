@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { updateCard } from '@symbiotes/effects'
+import { updateCard } from '@symbiotes/effects/'
 import { formatDate } from '@lib/format-date'
 
 import { Checkbox } from './check-lists/checkbox'
@@ -19,6 +19,7 @@ export const Deadline = ({ cardId }) => {
     setChecked(!checked)
   }
   let formattedDate = formatDate(new Date(card.deadline), false)
+  let overdue = new Date().getTime > new Date(card.deadline).getTime
   return (
     <>
       <Title>СРОК</Title>
@@ -31,7 +32,12 @@ export const Deadline = ({ cardId }) => {
         />
         <AddDeadline startDate={card.date}>
           <Time>
-            {formattedDate} {card.checked && <Done>ВЫПОЛНЕНО</Done>}{' '}
+            {formattedDate}{' '}
+            {card.checked && (
+              <Done overdue={overdue}>
+                {overdue ? 'ПРОСРОЧЕНО' : 'ВЫПОЛНЕНО'}
+              </Done>
+            )}{' '}
             <Bracket>&#9001;</Bracket>
           </Time>
         </AddDeadline>
@@ -64,7 +70,7 @@ const Time = styled.button`
 `
 
 const Done = styled.p`
-  background-color: var(--green);
+  background-color: ${props => (props.overdue ? 'var(--red)' : 'var(--green)')};
   color: white;
   font-size: 14px;
   margin: 3px;
