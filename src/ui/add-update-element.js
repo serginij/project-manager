@@ -101,14 +101,14 @@ const styledInput = css`
   box-sizing: border-box;
   height: auto;
   box-shadow: none;
-  outline: 1px solid var(--dark-gray);
+  outline: 1px solid var(--seconadry);
   outline-bottom: 1px solid white;
   margin-bottom: 0;
   &:hover {
     outline: 1px solid lightgray;
   }
   &:focus {
-    outline: 1px solid var(--dark-gray);
+    outline: 1px solid var(--seconadry);
   }
 `
 
@@ -117,7 +117,7 @@ const styledButton = css`
   width: fit-content;
   margin: 8px 12px;
   &:focus {
-    outline: 1px solid var(--dark-gray);
+    outline: 1px solid var(--seconadry);
   }
 `
 

@@ -48,7 +48,7 @@ const Add = styled.button`
   text-decoration: none;
   font-size: 28px;
   border-radius: 50%;
-  background-color: var(--dark-gray);
+  background-color: var(--secondary);
   border: none;
   color: var(--gray-text);
   cursor: pointer;
@@ -60,12 +60,12 @@ const Add = styled.button`
   padding-bottom: 10px;
 
   &:hover {
-    background-color: var(--gray-selection);
+    background-color: var(--secondary__dark);
   }
 `
 
 const Title = styled.h3`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 12px;
 `
 

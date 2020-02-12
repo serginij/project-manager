@@ -44,7 +44,6 @@ export const AddList = ({ children }) => {
             tabIndex={0}
             className={createButton}
             onClick={handleAddList}
-            // type="button"
           >
             Добавить
           </AddButton>
@@ -58,7 +57,7 @@ export const AddList = ({ children }) => {
 
 const Label = styled.label`
   font-size: 14px;
-  color: var(--gray-text);
+  color: var(--secondary-text);
 `
 
 const Content = styled.div`
@@ -68,7 +67,7 @@ const Content = styled.div`
 `
 
 const Title = styled.p`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 14px;
   text-align: center;
   width: 100%;

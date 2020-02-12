@@ -39,7 +39,7 @@ const HiddenCheckbox = styled.input`
 
   &:focus {
     ${StyledCheckbox} {
-      box-shadow: 0 0 0 3px var(--gray-selection);
+      box-shadow: 0 0 0 3px var(--secondary__dark);
     }
   }
 `
@@ -47,13 +47,14 @@ const StyledCheckbox = styled.div`
   width: 16px;
   height: 16px;
   background-color: ${props =>
-    props.checked ? 'var(--primary-color)' : 'var(--gray)'};
+    props.checked ? 'var(--primary)' : 'var(--secondary__light)'};
   border-radius: 3px;
-  border: 2px solid var(--gray-selection);
+  border: 2px solid
+    ${props => (props.checked ? 'var(--primary)' : 'var(--secondary)')};
   cursor: pointer;
 
   &:hover {
     background-color: ${props =>
-      props.checked ? 'var(--primary-color)' : 'var(--dark-gray)'};
+      props.checked ? 'var(--primary)' : 'var(--secondary)'};
   }
 `

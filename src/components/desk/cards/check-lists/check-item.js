@@ -68,7 +68,7 @@ const Item = styled.div`
   align-items: ${props => (props.edit ? 'flex-start' : 'center')};
 
   &:hover {
-    background-color: var(--dark-gray);
+    background-color: var(--secondary);
   }
   &:first-child {
     margin: 0;
@@ -123,7 +123,7 @@ const Button = styled.button`
   visibility: hidden;
   padding-bottom: 18px;
   &:hover {
-    background-color: var(--gray-selection);
+    background-color: var(--secondary__dark);
   }
 `
 
@@ -138,7 +138,7 @@ const deleteButton = css`
 `
 
 const Title = styled.p`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 14px;
   text-align: center;
   width: 100%;

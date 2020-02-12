@@ -18,10 +18,10 @@ const EditButton = styled.button`
   border-radius: 3px;
 
   &:hover {
-    background-color: var(--dark-gray);
+    background-color: var(--secondary);
   }
 
   &:focus {
-    outline: 2px solid var(--gray-selection);
+    outline: 2px solid var(--secondary__dark);
   }
 `

@@ -2,7 +2,7 @@ import { styled } from 'linaria/react'
 
 export const Button = styled.button`
   padding: 6px 12px;
-  background-color: var(--light-gray);
+  background-color: var(--secondary);
   border-radius: 3px;
   margin-right: 8px;
   height: fit-content;
@@ -13,6 +13,6 @@ export const Button = styled.button`
   min-width: 100px;
 
   &:hover {
-    background-color: var(--gray-selection);
+    background-color: var(--secondary__dark);
   }
 `

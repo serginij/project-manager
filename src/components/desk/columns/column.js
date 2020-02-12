@@ -45,7 +45,7 @@ export const Column = ({ columnId }) => {
 const ColumnWrapper = styled.li`
   display: flex;
   flex-direction: column;
-  background-color: var(--dark-gray);
+  background-color: var(--secondary);
   box-sizing: border-box;
   list-style: none;
   margin-right: 12px;

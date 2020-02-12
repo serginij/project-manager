@@ -62,7 +62,7 @@ export const AddForm = ({
 }
 
 const Wrapper = styled.form`
-  background: var(--dark-gray);
+  background: var(--secondary);
   max-width: 300px;
   width: 100%;
   box-sizing: border-box;
@@ -85,7 +85,7 @@ const OpenForm = styled.button`
   flex-shrink: 0;
   border: none;
   align-items: center;
-  background: var(--dark-gray);
+  background: var(--secondary);
   border-radius: 3px;
   max-width: 300px;
   width: 100%;

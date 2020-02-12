@@ -118,11 +118,9 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
             placeholderText="Weeks start on Monday"
             showMonthDropdown
             showYearDropdown
-            // dropdownMode="select"
             className={datePicker}
             calendarClassName={datePicker}
             wrapperClassName={datePicker}
-            // fixedHeight
           />
           <SaveCancelBlock
             handleSubmit={handleSubmit}
@@ -138,7 +136,7 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
 }
 
 const Title = styled.p`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 14px;
   text-align: center;
   width: 100%;
@@ -162,10 +160,10 @@ const Input = styled.input`
   padding-left: 8px;
   margin-top: 8px;
   border: 3px solid
-    ${props => (props.error ? 'var(--red)' : 'var(--dark-gray)')};
+    ${props => (props.error ? 'var(--red)' : 'var(--secondary)')};
 
   &:focus {
-    border: 3px solid var(--primary-color);
+    border: 3px solid var(--primary);
     outline: none;
   }
 `
@@ -181,7 +179,7 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
   font-size: 14px;
-  color: var(--gray-text);
+  color: var(--secondary-text);
   display: flex;
   flex-direction: column;
   width: 40%;

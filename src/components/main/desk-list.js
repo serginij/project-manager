@@ -71,7 +71,7 @@ const AddDesk = styled.li`
   text-align: center;
   align-items: center;
   justify-content: center;
-  background-color: var(--dark-gray);
+  background-color: var(--secondary);
   border-radius: 3px;
   transition: all 0.2s ease-in-out;
 

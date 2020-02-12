@@ -70,7 +70,7 @@ const Content = styled.div`
 `
 
 const Title = styled.p`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 14px;
   text-align: center;
   width: 100%;
@@ -95,7 +95,7 @@ const UserItem = styled.li`
   border-radius: 3px;
   font-size: 14px;
   &:hover {
-    background-color: var(--dark-gray);
+    background-color: var(--secondary);
     cursor: pointer;
   }
 

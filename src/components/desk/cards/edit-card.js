@@ -45,9 +45,6 @@ export const EditCard = ({ onClick, cardId }) => {
     width = 90
   }
 
-  // console.log(window.location)
-  // window.location.reload()
-
   return (
     <Popup className={popupStyle} width={width} onClick={onClick}>
       <Header>
@@ -89,7 +86,7 @@ export const EditCard = ({ onClick, cardId }) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: var(--gray-background);
+  background-color: var(--secondary__light);
   display: flex;
   border-radius: 3px;
   justify-content: space-between;
@@ -103,7 +100,7 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: var(--gray-background);
+  background-color: var(--secondary__light);
   border-radius: 3px;
   box-sizing: border-box;
   align-items: flex-start;
@@ -139,7 +136,7 @@ const inputStyle = css`
 `
 
 const popupStyle = css`
-  background-color: var(--gray-background);
+  background-color: var(--secondary__light);
   box-sizing: border-box;
   padding: 12px;
 `
@@ -151,13 +148,13 @@ const descStyle = css`
 
   textarea {
     margin-top: 0;
-    background-color: var(--dark-gray);
+    background-color: var(--secondary);
     &::placeholder {
       color: black;
     }
 
     &:hover {
-      background-color: var(--gray-selection);
+      background-color: var(--secondary__dark);
     }
 
     &:focus {
