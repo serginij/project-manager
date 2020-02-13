@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
-import { useDispatch } from 'react-redux'
+import { css } from 'linaria'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { EditIcon } from '@ui'
 import { EditCard } from './edit-card'
@@ -14,12 +15,24 @@ import time from '@assets/time.png'
 import check from '@assets/check.png'
 
 export const Card = ({ text, id, card }) => {
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   const [edit, setEdit] = useState(false)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const allLabels = useSelector(
+    state => state.desks.desks[state.desks.currentDesk].labels
+  )
+  let formattedDate = formatDate(new Date(card.deadline), false)
+    .split(' ')
+    .slice(0, 2)
+    .join(' ')
 
-  const handleHover = () => {
-    setVisible(!visible)
-  }
+  let progress = getProgress(card.checklists)
+
+  const labels = []
+  card &&
+    card.labels.forEach(label => {
+      labels.push(allLabels[label])
+    })
 
   const dispatch = useDispatch()
 
@@ -31,23 +44,39 @@ export const Card = ({ text, id, card }) => {
     setVisible(true)
   }
 
-  let formattedDate = formatDate(new Date(card.deadline), false)
-    .split(' ')
-    .slice(0, 2)
-    .join(' ')
+  let list = labels.map(label => (
+    <Item key={label.id}>
+      <ColorBlock color={label.color}>{label.name}</ColorBlock>
+    </Item>
+  ))
 
-  let progress = getProgress(card.checklists)
-  // console.log(!!card.comments.length)
+  const showEdit = e => {
+    if (e.target.tagName == 'LI') {
+      let { x, y, width } = e.target.getBoundingClientRect()
+      setPosition({ x: x + width - 30, y: y })
+      setVisible(true)
+    } else {
+      let { x, y, width } = e.target.parentElement.getBoundingClientRect()
+      setPosition({ x: x + width - 30, y: y })
+      setVisible(true)
+    }
+  }
+
   return (
     <Wrapper
-      onMouseEnter={handleHover}
-      onMouseLeave={() => setVisible(true)}
+      onMouseEnter={showEdit}
+      onMouseLeave={() => setVisible(false)}
       onClick={handleClick}
     >
-      <Text>
-        {text}
-        <EditIcon size={32} />
-      </Text>
+      {!!labels.length && <List>{list}</List>}
+      <EditIcon
+        visible={visible}
+        size={14}
+        className={editIcon}
+        x={position.x}
+        y={position.y}
+      />
+      <Text>{text}</Text>
       <InfoBlock>
         {card.deadline && (
           <InfoItem>
@@ -68,7 +97,9 @@ export const Card = ({ text, id, card }) => {
           </InfoItem>
         )}
       </InfoBlock>
-      {edit && <EditCard cardId={id} onClick={handleClick} />}
+      {edit && (
+        <EditCard allLabels={allLabels} cardId={id} onClick={handleClick} />
+      )}
     </Wrapper>
   )
 }
@@ -76,7 +107,7 @@ export const Card = ({ text, id, card }) => {
 const Wrapper = styled.li`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   background: #ffffff;
@@ -84,19 +115,26 @@ const Wrapper = styled.li`
   border: none;
   border-radius: 3px;
   margin-bottom: 8px;
-  padding: 0 12px;
+  padding: 0 8px;
   padding-right: 4px;
   box-sizing: border-box;
   word-wrap: break-word;
   max-width: 276px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+
   &:last-child {
     margin-bottom: 0;
+  }
+
+  &:hover {
+    background-color: var(--secondary__light);
+    /* opacity: 0.7; */
   }
 `
 
 const Text = styled.p`
-  padding: 8px 0;
+  padding: 4px 0;
   width: 100%
   display: flex;
   justify-content: space-between;
@@ -124,4 +162,47 @@ const Icon = styled.img`
   width: 16px;
   height: 16px;
   margin-right: 4px;
+`
+
+const List = styled.ul`
+  text-decoration: none;
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+  width: 100%;
+  display: flex;
+`
+
+const Item = styled.li`
+  text-decoration: none;
+  list-style: none;
+  margin-right: 4px;
+`
+
+const ColorBlock = styled.div`
+  box-sizing: border-box;
+  padding: 1px 5px;
+  min-width: 40px;
+  height: 18px;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+  background-color: ${props => '#' + props.color};
+  color: white;
+  cursor: pointer;
+`
+
+const editIcon = css`
+  box-sizing: content-box;
+  position: absolute;
+  padding: 6px;
+  padding-bottom: 4px;
+  opacity: 0.9;
+  margin-top: 4px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `

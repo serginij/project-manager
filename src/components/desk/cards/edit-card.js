@@ -14,11 +14,8 @@ import { LabelsList } from './labels-list'
 
 import { updateCard } from '@symbiotes/effects/'
 
-export const EditCard = ({ onClick, cardId }) => {
+export const EditCard = ({ onClick, cardId, allLabels }) => {
   let width = 50
-  const allLabels = useSelector(
-    state => state.desks.desks[state.desks.currentDesk].labels
-  )
 
   const card = useSelector(state => state.cards.cards[cardId])
 
