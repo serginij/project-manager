@@ -1,11 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 
 import { addColumn, getDesk } from '@symbiotes/effects/'
 import { cardsActions } from '@symbiotes/cards'
 
-import { AddForm, Button, StyledLink, Alert } from '@ui'
+import { AddForm, Button, StyledLink, Alert, Spinner } from '@ui'
 import { ColumnsList } from './columns/columns-list'
 
 export const Desk = () => {
@@ -23,32 +24,32 @@ export const Desk = () => {
     dispatch(cardsActions.setError(null))
   }
 
-  return (
-    currentDesk && (
-      <>
-        <DeskHeader>
-          <h2>{desk.name}</h2>
-          {isAdmin && (
-            <Button>
-              <StyledLink to={`/desk/settings/${currentDesk}`}>
-                Настройки
-              </StyledLink>
-            </Button>
-          )}
-        </DeskHeader>
-        <DeskWrapper>
-          <ColumnsList deskId={currentDesk} />
-          <AddForm
-            onAdd={handleAddColumn}
-            buttonText="Добавить столбец"
-            inputText="Добавить еще один столбец"
-            placeholder="Название столбца"
-            type="column"
-          />
-          {error && <Alert runEffect={reloadDesk} />}
-        </DeskWrapper>
-      </>
-    )
+  return desk ? (
+    <>
+      <DeskHeader>
+        <h2>{desk.name}</h2>
+        {isAdmin && (
+          <Button>
+            <StyledLink to={`/desk/settings/${currentDesk}`}>
+              Настройки
+            </StyledLink>
+          </Button>
+        )}
+      </DeskHeader>
+      <DeskWrapper>
+        <ColumnsList deskId={currentDesk} />
+        <AddForm
+          onAdd={handleAddColumn}
+          buttonText="Добавить столбец"
+          inputText="Добавить еще один столбец"
+          placeholder="Название столбца"
+          type="column"
+        />
+        {error && <Alert runEffect={reloadDesk} />}
+      </DeskWrapper>
+    </>
+  ) : (
+    <Spinner className={spinnerStyle} />
   )
 }
 
@@ -65,4 +66,8 @@ const DeskHeader = styled.header`
   margin: 0 20px;
   justify-content: space-between;
   align-items: center;
+`
+
+const spinnerStyle = css`
+  margin: 20px 0 0 50px;
 `

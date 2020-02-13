@@ -19,7 +19,8 @@ export const Deadline = ({ cardId }) => {
     setChecked(!checked)
   }
   let formattedDate = formatDate(new Date(card.deadline), false)
-  let overdue = new Date().getTime > new Date(card.deadline).getTime
+  let overdue = new Date().getTime() > new Date(card.deadline).getTime()
+
   return (
     <>
       <Title>СРОК</Title>
@@ -33,9 +34,9 @@ export const Deadline = ({ cardId }) => {
         <AddDeadline startDate={card.date}>
           <Time>
             {formattedDate}{' '}
-            {card.checked && (
-              <Done overdue={overdue}>
-                {overdue ? 'ПРОСРОЧЕНО' : 'ВЫПОЛНЕНО'}
+            {(checked || overdue) && (
+              <Done overdue={overdue && checked}>
+                {overdue && checked ? 'ВЫПОЛНЕНО' : 'ПРОСРОЧЕНО'}
               </Done>
             )}{' '}
             <Bracket>&#9001;</Bracket>
@@ -54,7 +55,7 @@ const Wrapper = styled.div`
 
 const Time = styled.button`
   display: flex;
-  background-color: var(--dark-gray);
+  background-color: var(--secondary);
   border: none;
   font-size: 14px;
   border-radius: 3px;
@@ -63,26 +64,27 @@ const Time = styled.button`
   padding: 4px 10px;
   align-items: center;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--gray-selection);
+    background-color: var(--secondary__dark);
   }
 `
 
 const Done = styled.p`
-  background-color: ${props => (props.overdue ? 'var(--red)' : 'var(--green)')};
+  background-color: ${props => (props.overdue ? 'var(--green)' : 'var(--red)')};
   color: white;
   font-size: 14px;
   margin: 3px;
+  padding: 0 3px;
 `
 
 const Title = styled.h3`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 12px;
 `
 
 const Bracket = styled.p`
-  /* font-size: 32px; */
   margin: 8px 0 0 4px;
   transform: rotate(-90deg);
 `

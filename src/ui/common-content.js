@@ -11,33 +11,35 @@ export const CommonContent = ({ children }) => (
 )
 
 const Wrapper = styled.div`
-  --gray: #fafbfc;
-  --light-gray: rgba(9, 30, 66, 0.04);
-  --dark-gray: #ebecf0;
-  --gray-selection: rgba(9, 30, 66, 0.08);
-  --gray-background: #f4f5f7;
-  --green: #27ae60;
-  --red: #e74c3c;
-  --primary-color: #483d8b;
-  --gray-text: #5e6c84;
-
   box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding-top: 60px;
   overflow-x: scroll;
   overflow-y: scroll;
-  background-color: var(--gray);
+  background-color: var(--secondary__light);
+`
+
+const Main = styled.div`
+  --primary: #6200ea;
+  --primary__light: #9d46ff;
+  --primary__dark: #0a00b6;
+  --primary-text: #ffffff;
+  --secondary: #e0e0e0;
+  --secondary__light: #f5f5f5;
+  --secondary__dark: #d4d4d4;
+  --secondary-text: #455a64;
+  --secondary-text__dark: #000000;
+  --green: #43a047;
+  --red: #e53935;
+
+  height: 100vh;
+  width: 100vw;
+  font-family: sans-serif;
 
   font-size: 16px;
 
   @media (max-width: 1200px) {
     font-size: 14px;
   }
-`
-
-const Main = styled.div`
-  height: 100vh;
-  width: 100vw;
-  font-family: sans-serif;
 `

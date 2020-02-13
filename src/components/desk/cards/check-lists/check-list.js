@@ -68,6 +68,7 @@ export const CheckList = ({ name = 'Список', list, cardId, listId }) => {
         onDelete={handleDeleteItem}
       />
     ))
+
   return (
     <Wrapper>
       <Header>
@@ -104,7 +105,7 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: var(--gray-background);
+  background-color: var(--secondary__light);
   border-radius: 3px;
   box-sizing: border-box;
   align-items: center;

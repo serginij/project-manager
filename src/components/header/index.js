@@ -62,7 +62,7 @@ const StyledHeader = styled.header`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #483d8b;
+  background-color: var(--primary);
 
   @media (max-width: 700px) {
     padding: 10px 20px;
@@ -98,5 +98,4 @@ const Item = styled.p`
   padding: 0 0.3em;
   text-align: center;
   box-sizing: border-box;
-  background-color: var(--dark-gray);
 `

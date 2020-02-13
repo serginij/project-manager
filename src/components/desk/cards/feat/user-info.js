@@ -48,11 +48,11 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  border-bottom: 1px solid var(--dark-gray);
+  border-bottom: 1px solid var(--secondary);
 `
 
 const Title = styled.p`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 14px;
   text-align: center;
   width: 100%;

@@ -15,12 +15,19 @@ export const UserList = ({ users, deleteUser, updateUser, showRole }) => {
           </Button>
         )}
         {updateUser && (
-          <Button onClick={() => updateUser(user.id, user.is_admin)}>
+          <Button
+            onClick={() => updateUser(user.id, user.is_admin)}
+            type="button"
+          >
             {user.is_admin ? 'Администратор' : 'Обычный'}
           </Button>
         )}
         {deleteUser && (
-          <Button className={delButton} onClick={() => deleteUser(user.id)}>
+          <Button
+            className={delButton}
+            onClick={() => deleteUser(user.id)}
+            type="button"
+          >
             Исключить
           </Button>
         )}
@@ -48,4 +55,7 @@ const button = css`
 const delButton = css`
   background-color: var(--red);
   color: white;
+  &:hover {
+    background-color: var(--red);
+  }
 `

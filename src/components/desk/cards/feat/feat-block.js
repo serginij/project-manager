@@ -10,7 +10,7 @@ import { ConfirmBlock } from '@ui/'
 
 import { deleteCard } from '@symbiotes/effects/'
 
-export const FeatBlock = () => {
+export const FeatBlock = ({ allLabels, cardLabels }) => {
   let isAdmin = useSelector(
     state => state.teams.teams[state.teams.currentTeam].isAdmin
   )
@@ -31,7 +31,11 @@ export const FeatBlock = () => {
             <Item>Участники</Item>
           </AddUser>
         )}
-        <AddLabel>
+        <AddLabel
+          allLabels={allLabels}
+          cardLabels={cardLabels}
+          cardId={card.id}
+        >
           <Item>Метки</Item>
         </AddLabel>
         <AddList>
@@ -40,7 +44,6 @@ export const FeatBlock = () => {
         <AddDeadline>
           <Item>Срок</Item>
         </AddDeadline>
-        <Hr />
         <ConfirmBlock
           onConfirm={handleDeleteCard}
           title="Удаление карточки"
@@ -71,14 +74,15 @@ const Item = styled.li`
   list-style: none;
   width: 200px;
   box-sizing: border-box;
-  background-color: var(--dark-gray);
+  background-color: var(--secondary);
   padding: 12px 12px;
   margin-top: 8px;
   border-radius: 3px;
   font-size: 14px;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--gray-selection);
+    background-color: var(--secondary__dark);
     cursor: pointer;
   }
 
@@ -89,10 +93,4 @@ const Item = styled.li`
   @media (max-width: 620px) {
     width: 150px;
   }
-`
-
-const Hr = styled.hr`
-  border: none;
-  background-color: var(--gray-selection);
-  height: 2px;
 `

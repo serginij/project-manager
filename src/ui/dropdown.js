@@ -17,10 +17,14 @@ export const Dropdown = ({
 
   const bodyRef = useRef(null)
   useEffect(() => {
+    let offsetTop = bodyRef.current.offsetTop
     let height = bodyRef.current.clientHeight
     let { innerHeight } = window
 
-    let y = data.y + height > innerHeight ? data.y - height : data.y
+    let y =
+      data.y + height > innerHeight
+        ? data.y - (height + offsetTop - innerHeight + 50)
+        : data.y
 
     setData(prev => ({ ...prev, y: y }))
   }, [data.y, visible])
@@ -130,7 +134,7 @@ const Body = styled.form`
 const ContentHeader = styled.header`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--dark-gray);
+  border-bottom: 1px solid var(--secondary);
   box-sizing: border-box;
   margin: 0 12px;
   margin-bottom: 8px;

@@ -127,5 +127,5 @@ const cancelButton = css`
 const Header = styled.header`
 display: flex;
 justify-content: space-between
-border-bottom: 1px solid var(--dark-gray)
+border-bottom: 1px solid var(--secondary)
 `

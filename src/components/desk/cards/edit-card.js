@@ -10,11 +10,16 @@ import { UsersList } from './feat/users-list'
 import { Checklists } from './checklists'
 import { Deadline } from './deadline'
 import { Progress } from './progress'
+import { LabelsList } from './labels-list'
 
 import { updateCard } from '@symbiotes/effects/'
 
 export const EditCard = ({ onClick, cardId }) => {
   let width = 50
+  const allLabels = useSelector(
+    state => state.desks.desks[state.desks.currentDesk].labels
+  )
+
   const card = useSelector(state => state.cards.cards[cardId])
 
   const dispatch = useDispatch()
@@ -45,9 +50,6 @@ export const EditCard = ({ onClick, cardId }) => {
     width = 90
   }
 
-  // console.log(window.location)
-  // window.location.reload()
-
   return (
     <Popup className={popupStyle} width={width} onClick={onClick}>
       <Header>
@@ -61,6 +63,11 @@ export const EditCard = ({ onClick, cardId }) => {
       <Wrapper>
         <Content>
           <UsersList users={card.users} />
+          <LabelsList
+            cardId={card.id}
+            allLabels={allLabels}
+            cardLabels={card.labels}
+          />
           {card.deadline && <Deadline cardId={cardId} />}
           <Progress lists={card.checklists} />
           <h4>Описание</h4>
@@ -80,7 +87,7 @@ export const EditCard = ({ onClick, cardId }) => {
           <CommentsList cardId={cardId} comments={card.comments} />
         </Content>
         <Aside>
-          <FeatBlock />
+          <FeatBlock allLabels={allLabels} cardLabels={card.labels} />
         </Aside>
       </Wrapper>
     </Popup>
@@ -89,7 +96,7 @@ export const EditCard = ({ onClick, cardId }) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: var(--gray-background);
+  background-color: var(--secondary__light);
   display: flex;
   border-radius: 3px;
   justify-content: space-between;
@@ -103,7 +110,7 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: var(--gray-background);
+  background-color: var(--secondary__light);
   border-radius: 3px;
   box-sizing: border-box;
   align-items: flex-start;
@@ -139,7 +146,7 @@ const inputStyle = css`
 `
 
 const popupStyle = css`
-  background-color: var(--gray-background);
+  background-color: var(--secondary__light);
   box-sizing: border-box;
   padding: 12px;
 `
@@ -151,13 +158,14 @@ const descStyle = css`
 
   textarea {
     margin-top: 0;
-    background-color: var(--dark-gray);
+    background-color: var(--secondary);
+    transition: background-color 0.3s ease;
     &::placeholder {
       color: black;
     }
 
     &:hover {
-      background-color: var(--gray-selection);
+      background-color: var(--secondary__dark);
     }
 
     &:focus {

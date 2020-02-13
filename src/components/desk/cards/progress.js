@@ -17,7 +17,7 @@ export const Progress = ({ lists, type }) => {
 }
 
 const Title = styled.h3`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 12px;
 `
 
@@ -31,17 +31,17 @@ const ProgressBar = styled.progress`
 
   &::-webkit-progress-bar {
     border-radius: 4px;
-    background-color: var(--dark-gray);
+    background-color: var(--secondary);
   }
 
   &::-webkit-progress-value {
     border-radius: 4px;
-    background-color: var(--primary-color);
+    background-color: var(--primary);
   }
 `
 
 const Percent = styled.p`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 14px;
   display: flex;
   align-items: center;

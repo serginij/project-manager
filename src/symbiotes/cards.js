@@ -25,7 +25,8 @@ const symbiotes = {
         desc: '',
         comments: [],
         users: [],
-        column_id: card.column_id
+        column_id: card.column_id,
+        labels: []
       }
     }
   }),
@@ -67,10 +68,12 @@ const symbiotes = {
   updateComment: (state, cardId, commentId, comment) => {
     let comments = state.cards[cardId].comments.map(item => {
       if (item.id === commentId) {
-        item = { ...item, ...comment }
+        return { ...item, ...comment }
       }
+
       return item
     })
+
     return {
       ...state,
       cards: {
@@ -113,15 +116,9 @@ const symbiotes = {
       }
     }
   }),
-  editLabel: (state, cardId, label) => {
-    let labels = state.labels.forEach(lab => {
-      if (lab.id == label.id) {
-        label = {
-          ...lab,
-          ...label
-        }
-      }
-    })
+  deleteLabel: (state, cardId, labelId) => {
+    let labels = state.cards[cardId].labels.filter(label => label !== labelId)
+
     return {
       ...state,
       cards: {
@@ -134,8 +131,8 @@ const symbiotes = {
     }
   },
   addList: (state, cardId, list) => {
-    let lists = [...state.cards[cardId].checklists]
-    lists.push(list)
+    let lists = [...state.cards[cardId].checklists, list]
+
     return {
       ...state,
       cards: {
@@ -145,13 +142,14 @@ const symbiotes = {
     }
   },
   updateList: (state, cardId, listId, list) => {
-    let lists = [...state.cards[cardId].checklists]
-    lists.map(item => {
+    let lists = state.cards[cardId].checklists.map(item => {
       if (item.id === listId) {
-        item = { ...item, ...list }
+        return { ...item, ...list }
       }
+
       return item
     })
+
     return {
       ...state,
       cards: {
@@ -161,8 +159,10 @@ const symbiotes = {
     }
   },
   deleteList: (state, cardId, listId) => {
-    let lists = [...state.cards[cardId].checklists]
-    lists = lists.filter(item => item.id !== listId)
+    const lists = state.cards[cardId].checklists.filter(
+      item => item.id !== listId
+    )
+
     return {
       ...state,
       cards: {
@@ -172,9 +172,9 @@ const symbiotes = {
     }
   },
   addItem: (state, cardId, listId, item) => {
-    let lists = [...state.cards[cardId].checklists].map(list => {
+    let lists = state.cards[cardId].checklists.map(list => {
       if (list.id === listId) {
-        list.items.push(item)
+        return { ...list, items: [...list.items, item] }
       }
       return list
     })
@@ -187,16 +187,17 @@ const symbiotes = {
     }
   },
   updateItem: (state, cardId, listId, itemId, item) => {
-    let lists = [...state.cards[cardId].checklists]
-    lists.map(list => {
+    let lists = state.cards[cardId].checklists.map(list => {
       if (list.id === listId) {
-        list.items.map(element => {
-          if (element.id === item.id) {
-            element.text = item.text
-            element.checked = item.checked
-          }
-          return element
-        })
+        return {
+          ...list,
+          items: list.items.map(element => {
+            if (element.id === itemId) {
+              return { ...element, ...item }
+            }
+            return element
+          })
+        }
       }
       return list
     })
@@ -209,10 +210,9 @@ const symbiotes = {
     }
   },
   deleteItem: (state, cardId, listId, itemId) => {
-    let lists = [...state.cards[cardId].checklists]
-    lists.map(list => {
+    let lists = state.cards[cardId].checklists.map(list => {
       if (list.id === listId) {
-        list.items = list.items.filter(item => item.id !== itemId)
+        return { ...list, items: list.items.filter(item => item.id !== itemId) }
       }
       return list
     })

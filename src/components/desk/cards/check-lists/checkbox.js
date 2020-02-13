@@ -1,13 +1,13 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
+import { CheckIcon } from '@ui'
+
 export const Checkbox = ({ className, checked, onClick, ...props }) => (
   <CheckboxContainer className={className} onClick={onClick}>
     <HiddenCheckbox checked={checked} {...props} type="checkbox" />
     <StyledCheckbox checked={checked}>
-      <Icon viewBox="0 0 24 24" checked={checked}>
-        <polyline points="20 6 9 17 4 12" />
-      </Icon>
+      <CheckIcon size={16} thickness={2} checked={checked} />
     </StyledCheckbox>
   </CheckboxContainer>
 )
@@ -16,13 +16,6 @@ const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
   margin: 0 20px 0 8px;
-`
-
-const Icon = styled.svg`
-  fill: none;
-  stroke: white;
-  stroke-width: 2px;
-  visibility: ${props => (props.checked ? 'visible' : 'hidden')};
 `
 
 const HiddenCheckbox = styled.input`
@@ -39,7 +32,7 @@ const HiddenCheckbox = styled.input`
 
   &:focus {
     ${StyledCheckbox} {
-      box-shadow: 0 0 0 3px var(--gray-selection);
+      box-shadow: 0 0 0 3px var(--secondary__dark);
     }
   }
 `
@@ -47,13 +40,14 @@ const StyledCheckbox = styled.div`
   width: 16px;
   height: 16px;
   background-color: ${props =>
-    props.checked ? 'var(--primary-color)' : 'var(--gray)'};
+    props.checked ? 'var(--primary)' : 'var(--secondary__light)'};
   border-radius: 3px;
-  border: 2px solid var(--gray-selection);
+  border: 2px solid
+    ${props => (props.checked ? 'var(--primary)' : 'var(--secondary)')};
   cursor: pointer;
 
   &:hover {
     background-color: ${props =>
-      props.checked ? 'var(--primary-color)' : 'var(--dark-gray)'};
+      props.checked ? 'var(--primary)' : 'var(--secondary)'};
   }
 `
