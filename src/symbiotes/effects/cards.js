@@ -32,7 +32,7 @@ export const updateCard = card => {
     return update(`/desks/cards/${card.id}`, {
       card
     }).catch(err => {
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
       console.log(err)
     })
   }

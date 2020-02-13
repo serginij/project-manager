@@ -85,6 +85,7 @@ const ColorBlock = styled.div`
   height: 38px;
   border-radius: 5px;
   font-weight: 700;
+  font-size: 14px;
   text-align: center;
   background-color: ${props => '#' + props.color};
   color: white;

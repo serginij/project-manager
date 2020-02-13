@@ -21,7 +21,7 @@ export const addLabel = (deskId, label) => {
       })
       .catch(err => {
         console.log('addLabel', err)
-        dispatch(cardsActions.setError(err))
+        dispatch(cardsActions.setError(err.message))
       })
   }
 }
@@ -36,7 +36,7 @@ export const updateLabel = (deskId, label) => {
       }
     }).catch(err => {
       console.log('updateLabel', err)
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
     })
   }
 }
@@ -46,7 +46,7 @@ export const deleteLabel = (deskId, labelId) => {
     dispatch(desksActions.deleteLabel(deskId, labelId))
     return del(`/labels/${labelId}`).catch(err => {
       console.log('deleteLabel', err)
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
     })
   }
 }
@@ -58,7 +58,7 @@ export const addCardLabel = (cardId, label) => {
       labelId: label
     }).catch(err => {
       console.log('addCardLabel', err)
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
     })
   }
 }
@@ -68,7 +68,7 @@ export const deleteCardLabel = (cardId, labelId) => {
     dispatch(cardsActions.deleteLabel(cardId, labelId))
     return del(`/cards/${cardId}/labels/${labelId}`).catch(err => {
       console.log('deleteCardLabel', err)
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
     })
   }
 }

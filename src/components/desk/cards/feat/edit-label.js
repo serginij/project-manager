@@ -64,7 +64,12 @@ export const EditLabel = ({ color = '', name = '', onClose, labelId }) => {
       <Label>Цвет</Label>
       <ColorsList>{list}</ColorsList>
       <ButtonsBlock>
-        <AddButton onClick={handleAddLabel}>Сохранить</AddButton>
+        <AddButton
+          disabled={currentColor == '' && text == ''}
+          onClick={handleAddLabel}
+        >
+          Сохранить
+        </AddButton>
         <Button className={delButton} onClick={handleDeleteLabel}>
           Удалить
         </Button>

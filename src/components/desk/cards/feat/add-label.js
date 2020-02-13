@@ -102,7 +102,12 @@ export const AddLabel = ({ children, allLabels, cardLabels, cardId }) => {
       content={
         <Content>
           {isEdit ? (
-            <EditLabel labelId={id} color={color} onClose={handleEdit} />
+            <EditLabel
+              name={id ? allLabels[id].name : ''}
+              labelId={id}
+              color={color}
+              onClose={handleEdit}
+            />
           ) : (
             <>
               <Input
@@ -111,7 +116,7 @@ export const AddLabel = ({ children, allLabels, cardLabels, cardId }) => {
                 onChange={findLabel}
               />
               <LabelList>{list}</LabelList>
-              <Button className={createButton} onClick={handleEdit}>
+              <Button className={createButton} onClick={() => handleEdit()}>
                 Создать новую метку
               </Button>
             </>
