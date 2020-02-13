@@ -19,7 +19,7 @@ export const updateList = (cardId, listId, name, token) => {
   return dispatch => {
     cardsActions.updateList(cardId, listId, { name: name, id: listId })
     return update(`/checklist/${listId}`, { name: name }, token).catch(err => {
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
       console.log(err)
     })
   }
@@ -29,7 +29,7 @@ export const deleteList = (cardId, listId, token) => {
   return dispatch => {
     dispatch(cardsActions.deleteList(cardId, listId))
     return del(`/checklist/${listId}`, {}, token).catch(err => {
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
       console.log(err)
     })
   }
@@ -53,7 +53,7 @@ export const addItem = (cardId, listId, text, token) => {
         )
       })
       .catch(err => {
-        dispatch(cardsActions.setError(err))
+        dispatch(cardsActions.setError(err.message))
         console.log(err)
       })
   }
@@ -73,7 +73,7 @@ export const updateItem = (cardId, listId, item, token) => {
       { text: item.text, checked: item.checked },
       token
     ).catch(err => {
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
       console.log(err)
     })
   }
@@ -83,7 +83,7 @@ export const deleteItem = (cardId, listId, itemId, token) => {
   return dispatch => {
     dispatch(cardsActions.deleteItem(cardId, listId, itemId))
     return del(`/checkitem/${itemId}`, {}, token).catch(err => {
-      dispatch(cardsActions.setError(err))
+      dispatch(cardsActions.setError(err.message))
       console.log(err)
     })
   }
