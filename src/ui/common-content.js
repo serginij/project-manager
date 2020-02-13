@@ -27,7 +27,7 @@ const Main = styled.div`
   --primary-text: #ffffff;
   --secondary: #e0e0e0;
   --secondary__light: #f5f5f5;
-  --secondary__dark: #aeaeae;
+  --secondary__dark: #d4d4d4;
   --secondary-text: #455a64;
   --secondary-text__dark: #000000;
   --green: #43a047;

@@ -11,6 +11,7 @@ export const Button = styled.button`
   font-size: 14px;
   cursor: pointer;
   min-width: 100px;
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: var(--secondary__dark);

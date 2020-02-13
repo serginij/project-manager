@@ -1,13 +1,13 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 
+import { CheckIcon } from '@ui'
+
 export const Checkbox = ({ className, checked, onClick, ...props }) => (
   <CheckboxContainer className={className} onClick={onClick}>
     <HiddenCheckbox checked={checked} {...props} type="checkbox" />
     <StyledCheckbox checked={checked}>
-      <Icon viewBox="0 0 24 24" checked={checked}>
-        <polyline points="20 6 9 17 4 12" />
-      </Icon>
+      <CheckIcon size={16} thickness={2} checked={checked} />
     </StyledCheckbox>
   </CheckboxContainer>
 )
@@ -16,13 +16,6 @@ const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
   margin: 0 20px 0 8px;
-`
-
-const Icon = styled.svg`
-  fill: none;
-  stroke: white;
-  stroke-width: 2px;
-  visibility: ${props => (props.checked ? 'visible' : 'hidden')};
 `
 
 const HiddenCheckbox = styled.input`

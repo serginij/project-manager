@@ -64,6 +64,7 @@ const Time = styled.button`
   padding: 4px 10px;
   align-items: center;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: var(--secondary__dark);
