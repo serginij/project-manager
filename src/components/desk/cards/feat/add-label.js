@@ -1,62 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
+import { useDispatch } from 'react-redux'
 
-import { Dropdown, Input, Button, CloseButton, EditIcon } from '@ui'
+import { Dropdown, Input, Button, CloseButton, EditIcon, CheckIcon } from '@ui'
+import { addCardLabel, deleteCardLabel } from '@symbiotes/effects/'
 
 import { EditLabel } from './edit-label'
 
-export const AddLabel = ({ children }) => {
-  let [labels, setLabels] = useState([
-    {
-      id: 0,
-      color: 'ff0000',
-      text: 'one',
-      checked: false
-    },
-    {
-      id: 1,
-      color: 'ffff00',
-      text: '',
-      checked: true
-    },
-    {
-      id: 2,
-      color: 'ff00ff',
-      text: '',
-      checked: false
-    },
-    {
-      id: 3,
-      color: '7CB342',
-      text: 'four',
-      checked: true
-    },
-    {
-      id: 4,
-      color: '0000ff',
-      text: 'five',
-      checked: false
-    }
-  ])
-
+export const AddLabel = ({ children, allLabels, cardLabels, cardId }) => {
+  const [color, setColor] = useState('')
+  const [id, setId] = useState(null)
   let [isEdit, setEdit] = useState(false)
+  const [labels, setLabels] = useState(null)
 
-  const handleEdit = () => {
-    setEdit(!isEdit)
+  useEffect(() => {
+    setLabels(
+      allLabels &&
+        Object.values(allLabels).map(label => {
+          if (cardLabels.includes(label.id)) {
+            return { ...label, checked: true }
+          }
+          return { ...label, checked: false }
+        })
+    )
+  }, [allLabels, cardLabels])
+
+  const dispatch = useDispatch()
+
+  const handleAddLabel = id => {
+    let label = labels.filter(label => label.id === id)[0]
+    if (label.checked) {
+      dispatch(deleteCardLabel(cardId, id))
+    } else {
+      dispatch(addCardLabel(cardId, id))
+    }
   }
 
-  const setLabel = id => {
-    let newLabels = labels.map(label => {
-      if (label.id === id) {
-        label = {
-          ...label,
-          checked: !label.checked
-        }
-      }
-      return label
-    })
-    setLabels(newLabels)
+  const findLabel = e => {
+    let newLabels = [...labels]
+    let val = e.target.value.trim()
+    if (!val.length) {
+      newLabels =
+        allLabels &&
+        Object.values(allLabels).map(label => {
+          if (cardLabels.includes(label.id)) {
+            return { ...label, checked: true }
+          }
+          return { ...label, checked: false }
+        })
+    }
+
+    setLabels(newLabels.filter(label => label.name.includes(val)))
+  }
+
+  const handleEdit = (color = '', id = null) => {
+    setEdit(!isEdit)
+    setColor(color)
+    setId(id)
   }
 
   let list =
@@ -65,19 +66,18 @@ export const AddLabel = ({ children }) => {
       <LabelItem key={label.id}>
         <Label
           tabIndex={0}
-          onClick={() => setLabel(label.id)}
+          onClick={() => handleAddLabel(label.id)}
           color={label.color}
         >
-          <p>{label.text}</p>
-          {label.checked && <p>&#x2713;</p>}
+          <p>{label.name}</p>
+          <CheckIcon checked={label.checked} size={18} thickness={3} />
         </Label>
-        <EditIcon size={35} handleEdit={handleEdit} />
+        <EditIcon
+          size={35}
+          handleEdit={() => handleEdit(label.color, label.id)}
+        />
       </LabelItem>
     ))
-
-  const handleChange = e => {
-    console.log(e.target.value)
-  }
 
   return (
     <Dropdown
@@ -102,13 +102,13 @@ export const AddLabel = ({ children }) => {
       content={
         <Content>
           {isEdit ? (
-            <EditLabel onClose={handleEdit} />
+            <EditLabel labelId={id} color={color} onClose={handleEdit} />
           ) : (
             <>
               <Input
                 className={styledInput}
                 placeholder="Поиск меток"
-                onChange={handleChange}
+                onChange={findLabel}
               />
               <LabelList>{list}</LabelList>
               <Button className={createButton} onClick={handleEdit}>
@@ -131,7 +131,7 @@ const Content = styled.div`
 `
 
 const Title = styled.p`
-  color: var(--gray-text);
+  color: var(--secondary-text);
   font-size: 14px;
   text-align: center;
   width: 100%;
@@ -169,19 +169,16 @@ const Label = styled.div`
   background-color: ${props => '#' + props.color};
   color: white;
   margin-right: 8px;
-  border: 1px solid black;
 
   &:hover {
-    /* box-shadow: -8px 0 var(--gray-selection); */
     padding-left: 16px;
-    box-shadow: -8px 0 ${props => '#' + props.color};
+    box-shadow: -4px 0 ${props => '#' + props.color};
     cursor: pointer;
   }
 
   &:focus {
     padding-left: 16px;
-    box-shadow: -8px 0 ${props => '#' + props.color};
-    outline: 1px solid var(--dark-gray);
+    outline: 1px solid var(--secondary);
   }
 `
 

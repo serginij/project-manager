@@ -1,38 +1,54 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { Input, Button, AddButton } from '@ui'
+import { Input, Button, AddButton, CheckIcon } from '@ui'
+import { addLabel, deleteLabel, updateLabel } from '@symbiotes/effects/'
 
-export const EditLabel = ({ color = '', name = '', onClose }) => {
-  const handleSubmit = () => {
-    console.log('save label')
+export const EditLabel = ({ color = '', name = '', onClose, labelId }) => {
+  let [currentColor, setColor] = useState(color)
+  let [text, setText] = useState(name)
+  const deskId = useSelector(state => state.desks.currentDesk)
+
+  const dispatch = useDispatch()
+
+  const handleAddLabel = () => {
+    if (labelId) {
+      dispatch(
+        updateLabel(deskId, { id: labelId, name: text, color: currentColor })
+      )
+    } else {
+      dispatch(addLabel(deskId, { name: text, color: currentColor }))
+    }
     onClose()
   }
 
-  let [currentColor, setColor] = useState(color)
-  let [text, setText] = useState(name)
+  const handleDeleteLabel = () => {
+    dispatch(deleteLabel(deskId, labelId))
+    onClose()
+  }
 
   const handleChange = e => {
     setText(e.target.value)
   }
 
   let colors = [
-    'ff0000',
-    '00ff00',
-    '0000ff',
-    'ffff00',
-    '00ffff',
-    'ff00ff',
-    'fff000',
-    '000fff',
-    'ff0f00',
-    'f000ff'
+    'f44336',
+    'ff9800',
+    'ffeb3b',
+    '4caf50',
+    '00bcd4',
+    '2196f3',
+    'ab47bc',
+    '8bc34a',
+    '3f51b5',
+    'e91e63'
   ]
 
   let list = colors.map(color => (
     <Color key={color} color={color} onClick={() => setColor(color)}>
-      {color === currentColor && <p>&#x9001;</p>}
+      <CheckIcon checked={color === currentColor} size={16} thickness={3} />
     </Color>
   ))
 
@@ -48,8 +64,8 @@ export const EditLabel = ({ color = '', name = '', onClose }) => {
       <Label>Цвет</Label>
       <ColorsList>{list}</ColorsList>
       <ButtonsBlock>
-        <AddButton onClick={handleSubmit}>Сохранить</AddButton>
-        <Button className={delButton} onClick={onClose}>
+        <AddButton onClick={handleAddLabel}>Сохранить</AddButton>
+        <Button className={delButton} onClick={handleDeleteLabel}>
           Удалить
         </Button>
       </ButtonsBlock>
@@ -59,7 +75,7 @@ export const EditLabel = ({ color = '', name = '', onClose }) => {
 
 const Label = styled.label`
   font-size: 14px;
-  color: var(--gray-text);
+  color: var(--secondary-text);
 `
 
 const ColorsList = styled.div`

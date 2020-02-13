@@ -86,7 +86,64 @@ const symbiotes = {
   setFoundList: (state, deskId, list = state.desks[deskId].users) => ({
     ...state,
     foundList: list
-  })
+  }),
+  addLabel: (state, deskId, label) => ({
+    ...state,
+    desks: {
+      ...state.desks,
+      [deskId]: {
+        ...state.desks[deskId],
+        labels: {
+          ...state.desks[deskId].labels,
+          [label.id]: label
+        }
+      }
+    }
+  }),
+  updateLabel: (state, deskId, labelId, label) => {
+    let labels = {}
+    for (let key in state.desks[deskId].labels) {
+      console.log(key)
+      if (key == labelId) {
+        console.log('found one')
+        labels[label.id] = {
+          ...state.desks[deskId].labels[labelId],
+          ...label
+        }
+      } else {
+        labels[key] = { ...state.desks[deskId].labels[key] }
+      }
+    }
+    return {
+      ...state,
+      desks: {
+        ...state.desks,
+        [deskId]: {
+          ...state.desks[deskId],
+          labels: labels
+        }
+      }
+    }
+  },
+  deleteLabel: (state, deskId, labelId) => {
+    let labels = { ...state.desks[deskId].labels }
+    let newLabels = {}
+    for (let key in state.desks[deskId].labels) {
+      if (key != labelId) {
+        newLabels[key] = { ...labels[key] }
+      }
+    }
+    return {
+      ...state,
+      desks: {
+        ...state.desks,
+        [deskId]: {
+          ...state.desks[deskId],
+          labels: newLabels
+        }
+      }
+    }
+  }
 }
 
 export const { actions: desksActions, reducer: desksReducer } = createSymbiote(

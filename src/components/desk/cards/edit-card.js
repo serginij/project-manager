@@ -10,11 +10,16 @@ import { UsersList } from './feat/users-list'
 import { Checklists } from './checklists'
 import { Deadline } from './deadline'
 import { Progress } from './progress'
+import { LabelsList } from './labels-list'
 
 import { updateCard } from '@symbiotes/effects/'
 
 export const EditCard = ({ onClick, cardId }) => {
   let width = 50
+  const allLabels = useSelector(
+    state => state.desks.desks[state.desks.currentDesk].labels
+  )
+
   const card = useSelector(state => state.cards.cards[cardId])
 
   const dispatch = useDispatch()
@@ -58,6 +63,11 @@ export const EditCard = ({ onClick, cardId }) => {
       <Wrapper>
         <Content>
           <UsersList users={card.users} />
+          <LabelsList
+            cardId={card.id}
+            allLabels={allLabels}
+            cardLabels={card.labels}
+          />
           {card.deadline && <Deadline cardId={cardId} />}
           <Progress lists={card.checklists} />
           <h4>Описание</h4>
@@ -77,7 +87,7 @@ export const EditCard = ({ onClick, cardId }) => {
           <CommentsList cardId={cardId} comments={card.comments} />
         </Content>
         <Aside>
-          <FeatBlock />
+          <FeatBlock allLabels={allLabels} cardLabels={card.labels} />
         </Aside>
       </Wrapper>
     </Popup>
@@ -149,6 +159,7 @@ const descStyle = css`
   textarea {
     margin-top: 0;
     background-color: var(--secondary);
+    transition: background-color 0.3s ease;
     &::placeholder {
       color: black;
     }

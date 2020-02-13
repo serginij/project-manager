@@ -68,6 +68,7 @@ export const CheckList = ({ name = 'Список', list, cardId, listId }) => {
         onDelete={handleDeleteItem}
       />
     ))
+
   return (
     <Wrapper>
       <Header>
