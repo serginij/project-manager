@@ -13,6 +13,7 @@ export const CardsList = ({ cardsById, columnId }) => {
       text={cards[id].name}
       columnId={columnId}
       id={id}
+      card={cards[id]}
     />
   ))
 

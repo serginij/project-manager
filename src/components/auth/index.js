@@ -30,7 +30,6 @@ export const Auth = () => {
     type === 'Вход'
       ? dispatch(login(data.usr, data.pwd))
       : dispatch(signup(data.usr, data.pwd))
-    setHidden(false)
   }
 
   const setHidden = useCallback(val => dispatch(authActions.setHidden(val)), [
