@@ -38,8 +38,7 @@ const symbiotes = {
       ...state.teams,
       [team.id]: {
         ...state.teams[team.id],
-        name: team.name,
-        desc: team.desc
+        ...team
       }
     }
   }),
