@@ -57,7 +57,6 @@ const symbiotes = {
       }
     }
   },
-  findUsers: (state, users) => ({ ...state, foundList: users }),
   addUser: (state, deskId, user) => ({
     ...state,
     desks: {
@@ -81,9 +80,9 @@ const symbiotes = {
   deleteDesk: (state, deskId) => {
     let desks = state.desks
     delete desks[deskId]
-    return { ...state, teams: desks }
+    return { ...state, desks: desks }
   },
-  setFoundList: (state, deskId, list = state.desks[deskId].users) => ({
+  setFoundList: (state, list = state.desks[state.currentDesk].users) => ({
     ...state,
     foundList: list
   }),
@@ -103,10 +102,8 @@ const symbiotes = {
   updateLabel: (state, deskId, labelId, label) => {
     let labels = {}
     for (let key in state.desks[deskId].labels) {
-      console.log(key)
       if (key == labelId) {
-        console.log('found one')
-        labels[label.id] = {
+        labels[labelId] = {
           ...state.desks[deskId].labels[labelId],
           ...label
         }

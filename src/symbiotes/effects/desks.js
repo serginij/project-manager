@@ -37,12 +37,12 @@ export const findTeamUser = (teamId, username) => {
     if (username.length) {
       return get(`/teams/${teamId}/user/find/${username}`)
         .then(res => {
-          dispatch(desksActions.findUsers(res.users))
+          dispatch(desksActions.setFoundList(res.users))
           console.log(res)
         })
         .catch(err => console.log(err))
     } else {
-      dispatch(desksActions.findUsers([]))
+      dispatch(desksActions.setFoundList([]))
     }
   }
 }
@@ -102,7 +102,7 @@ export const findDeskUser = (deskId, username, token) => {
         })
         .catch(err => console.log(err))
     } else {
-      dispatch(desksActions.setFoundList(deskId))
+      dispatch(desksActions.setFoundList())
     }
   }
 }

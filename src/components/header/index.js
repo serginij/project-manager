@@ -11,7 +11,7 @@ import user from '@assets/user.svg'
 import { StyledLink } from '@ui/'
 
 export const Header = () => {
-  const hidden = useSelector(state => state.auth.hidden) || false
+  const hidden = useSelector(state => state.auth.hidden)
   const dispatch = useDispatch()
 
   const logout = () => dispatch(logoutAction())

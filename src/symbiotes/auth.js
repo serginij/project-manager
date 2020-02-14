@@ -1,7 +1,6 @@
 import { createSymbiote } from 'redux-symbiote'
 
 const initialState = {
-  loading: false,
   token: '',
   basePath: '/auth',
   error: null,
@@ -9,13 +8,18 @@ const initialState = {
 }
 
 const symbiotes = {
-  login: (state, token) => ({ ...state, token: token, basePath: '/' }),
+  login: (state, token) => ({
+    ...state,
+    token: token,
+    basePath: '/',
+    hidden: false
+  }),
   logout: state => ({
     ...state,
     token: '',
-    basePath: '/auth'
-  }),
-  setHidden: (state, hidden) => ({ ...state, hidden: hidden })
+    basePath: '/auth',
+    hidden: true
+  })
 }
 
 export const { actions: authActions, reducer: authReducer } = createSymbiote(

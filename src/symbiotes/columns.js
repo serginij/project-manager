@@ -16,7 +16,7 @@ const symbiotes = {
     ...state,
     columns: {
       ...state.columns,
-      [column.id]: { name: column.name, _id: column.id, cards: [] }
+      [column.id]: { name: column.name, id: column.id, cards: [] }
     }
   }),
   addCard: (state, columnId, cardId) => ({

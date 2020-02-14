@@ -26,7 +26,8 @@ const symbiotes = {
         comments: [],
         users: [],
         column_id: card.column_id,
-        labels: []
+        labels: [],
+        checked: false
       }
     }
   }),
@@ -36,10 +37,7 @@ const symbiotes = {
       ...state.cards,
       [card.id]: {
         ...state.cards[card.id],
-        name: card.name,
-        desc: card.desc,
-        deadline: card.deadline,
-        checked: card.checked
+        ...card
       }
     }
   }),
@@ -174,7 +172,7 @@ const symbiotes = {
   addItem: (state, cardId, listId, item) => {
     let lists = state.cards[cardId].checklists.map(list => {
       if (list.id === listId) {
-        return { ...list, items: [...list.items, item] }
+        return { ...list, items: [...list.items, { ...item, checked: false }] }
       }
       return list
     })
