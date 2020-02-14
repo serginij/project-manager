@@ -3,9 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:12.9.1 # the primary container, where your job's commands are run
-    branches:
-      only:
-        - master
     steps:
       - checkout # check out the code in the project directory
       - run: yarn install
