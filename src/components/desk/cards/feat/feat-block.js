@@ -41,7 +41,7 @@ export const FeatBlock = ({ allLabels, cardLabels }) => {
         <AddList>
           <Item>Список</Item>
         </AddList>
-        <AddDeadline>
+        <AddDeadline startDate={card.deadline || new Date()}>
           <Item>Срок</Item>
         </AddDeadline>
         <ConfirmBlock

@@ -221,6 +221,16 @@ const symbiotes = {
         [cardId]: { ...state.cards[cardId], checklists: lists }
       }
     }
+  },
+  deleteDeskLabel: (state, labelId) => {
+    let cards = {}
+    Object.keys(state.cards).forEach(id => {
+      cards[id] = {
+        ...state.cards[id],
+        labels: state.cards[id].labels.filter(label => label !== labelId)
+      }
+    })
+    return { ...state, cards: cards }
   }
 }
 

@@ -4,7 +4,7 @@ const initialState = {
   token: '',
   basePath: '/auth',
   error: null,
-  hidden: false
+  hidden: true
 }
 
 const symbiotes = {

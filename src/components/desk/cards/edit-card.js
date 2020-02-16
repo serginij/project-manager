@@ -158,7 +158,7 @@ const descStyle = css`
     background-color: var(--secondary);
     transition: background-color 0.3s ease;
     &::placeholder {
-      color: black;
+      color: var(--secondary-text);
     }
 
     &:hover {

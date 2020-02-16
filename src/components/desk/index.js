@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
@@ -8,12 +8,14 @@ import { cardsActions } from '@symbiotes/cards'
 
 import { AddForm, Button, StyledLink, Alert, Spinner } from '@ui'
 import { ColumnsList } from './columns/columns-list'
+import { history } from '@lib/routing'
 
 export const Desk = () => {
   const { currentDesk } = useSelector(state => state.desks)
   const desk = useSelector(state => state.desks.desks[currentDesk])
   const { teams } = useSelector(state => state.teams)
   const { error } = useSelector(state => state.cards)
+  const { desks } = useSelector(state => state.desks)
 
   let isAdmin = desk && teams && teams[desk.team_id].isAdmin
 
@@ -23,6 +25,12 @@ export const Desk = () => {
     dispatch(getDesk(currentDesk))
     dispatch(cardsActions.setError(null))
   }
+
+  useEffect(() => {
+    if (!Object.keys(desks).length) {
+      history.push('/')
+    }
+  }, [desks])
 
   return desk ? (
     <>

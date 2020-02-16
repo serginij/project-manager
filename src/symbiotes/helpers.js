@@ -56,3 +56,10 @@ export const deleteDesk = (teamId, deskId) => {
     dispatch(desksActions.deleteDesk(deskId))
   }
 }
+
+export const deleteLabel = (deskId, labelId) => {
+  return dispatch => {
+    dispatch(desksActions.deleteLabel(deskId, labelId))
+    dispatch(cardsActions.deleteDeskLabel(labelId))
+  }
+}

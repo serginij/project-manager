@@ -31,7 +31,7 @@ export const SaveCancelBlock = ({
         </Button>
       </ConfirmBlock>
     ) : (
-      <Button className={closeButton} onClick={handleCancel}>
+      <Button type="button" className={closeButton} onClick={handleCancel}>
         {cancelText ? cancelText : 'Удалить'}
       </Button>
     )}

@@ -103,9 +103,16 @@ const symbiotes = {
     let labels = {}
     for (let key in state.desks[deskId].labels) {
       if (key == labelId) {
-        labels[labelId] = {
-          ...state.desks[deskId].labels[labelId],
-          ...label
+        if (label.id) {
+          labels[label.id] = {
+            ...state.desks[deskId].labels[labelId],
+            ...label
+          }
+        } else {
+          labels[labelId] = {
+            ...state.desks[deskId].labels[labelId],
+            ...label
+          }
         }
       } else {
         labels[key] = { ...state.desks[deskId].labels[key] }

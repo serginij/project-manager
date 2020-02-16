@@ -2,6 +2,7 @@ import { desksActions } from '@symbiotes/desks'
 import { cardsActions } from '@symbiotes/cards'
 
 import { post, del, update } from '@lib/request'
+import { deleteLabel as delLabel } from '@symbiotes/helpers'
 
 export const addLabel = (deskId, label) => {
   return dispatch => {
@@ -43,7 +44,7 @@ export const updateLabel = (deskId, label) => {
 
 export const deleteLabel = (deskId, labelId) => {
   return dispatch => {
-    dispatch(desksActions.deleteLabel(deskId, labelId))
+    dispatch(delLabel(deskId, labelId))
     return del(`/labels/${labelId}`).catch(err => {
       console.log('deleteLabel', err)
       dispatch(cardsActions.setError(err.message))
