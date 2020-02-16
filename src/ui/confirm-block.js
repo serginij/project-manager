@@ -59,7 +59,7 @@ export const ConfirmBlock = ({
             />
           </Header>
           <Text>Данное действие необратимо.</Text>
-          <Button onClick={onConfirm} className={styledButton}>
+          <Button type="button" onClick={onConfirm} className={styledButton}>
             {buttonText}
           </Button>
         </Wrapper>

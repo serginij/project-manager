@@ -558,4 +558,35 @@ describe('cards reducer', () => {
 
     expect(state).toEqual(expected)
   })
+
+  it('should delete label from all cards', () => {
+    const initial = {
+      cards: {
+        1: {
+          id: 1,
+          labels: [1, 2, 3, 4]
+        },
+        2: { id: 2, labels: [1, 9, 10] },
+        3: { id: 3, labels: [] }
+      }
+    }
+
+    const state = cardsReducer(initial, cardsActions.deleteDeskLabel(1))
+
+    const expected = {
+      cards: {
+        1: {
+          id: 1,
+          labels: [2, 3, 4]
+        },
+        2: { id: 2, labels: [9, 10] },
+        3: {
+          id: 3,
+          labels: []
+        }
+      }
+    }
+
+    expect(state).toEqual(expected)
+  })
 })

@@ -36,6 +36,7 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
 
   const onDateChange = e => {
     let value = e.target.value
+
     if (!validDateRegexp.test(value)) {
       setError({ ...error, date: true })
     } else {
@@ -46,6 +47,16 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
     }
 
     setText(value)
+  }
+
+  const onSelectDate = date => {
+    setDate(date)
+    setText(
+      date
+        .toLocaleDateString()
+        .split('/')
+        .join('.')
+    )
   }
 
   const onTimeChange = e => {
@@ -64,7 +75,7 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
     } else {
       let newTime = time.split(':')
       let newDate = new Date(
-        date.getYear(),
+        date.getFullYear(),
         date.getMonth(),
         date.getDate(),
         newTime[0],
@@ -110,7 +121,7 @@ export const AddDeadline = ({ children, startDate = new Date() }) => {
           </Wrapper>
           <DatePicker
             inline
-            onChange={date => setDate(date)}
+            onChange={onSelectDate}
             selected={date}
             minDate={new Date()}
             showDisabledMonthNavigation

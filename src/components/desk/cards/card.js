@@ -31,7 +31,7 @@ export const Card = ({ text, id, card }) => {
   const labels = []
   card &&
     card.labels.forEach(label => {
-      labels.push(allLabels[label])
+      allLabels[label] && labels.push(allLabels[label])
     })
 
   const dispatch = useDispatch()
@@ -69,13 +69,6 @@ export const Card = ({ text, id, card }) => {
       onClick={handleClick}
     >
       {!!labels.length && <List>{list}</List>}
-      <EditIcon
-        visible={visible}
-        size={14}
-        className={editIcon}
-        x={position.x}
-        y={position.y}
-      />
       <Text>{text}</Text>
       <InfoBlock>
         {card.deadline && (
@@ -97,6 +90,13 @@ export const Card = ({ text, id, card }) => {
           </InfoItem>
         )}
       </InfoBlock>
+      <EditIcon
+        visible={visible}
+        size={14}
+        className={editIcon}
+        x={position.x}
+        y={position.y}
+      />
       {edit && (
         <EditCard allLabels={allLabels} cardId={id} onClick={handleClick} />
       )}
@@ -141,6 +141,11 @@ const Text = styled.p`
   align-items: center;
   margin: 0;
   word-break: break-all;
+
+  &:first-child {
+    margin-top: 2px;
+  }
+
 `
 
 const InfoBlock = styled.div`

@@ -19,6 +19,7 @@ export const Deadline = ({ cardId }) => {
     setChecked(!checked)
   }
   let formattedDate = formatDate(new Date(card.deadline), false)
+
   let overdue = new Date().getTime() > new Date(card.deadline).getTime()
 
   return (

@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useDispatch } from 'react-redux'
 
 import { login, signup } from '@symbiotes/effects/'
-import { authActions } from '@symbiotes/auth'
 
 import { Input, AddButton } from '@ui'
 
@@ -31,14 +30,6 @@ export const Auth = () => {
       ? dispatch(login(data.usr, data.pwd))
       : dispatch(signup(data.usr, data.pwd))
   }
-
-  const setHidden = useCallback(val => dispatch(authActions.setHidden(val)), [
-    dispatch
-  ])
-
-  useEffect(() => {
-    setHidden(true)
-  }, [setHidden])
 
   return (
     <Wrapper>
