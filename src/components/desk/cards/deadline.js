@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { updateCard } from '@symbiotes/effects/'
 import { formatDate } from '@lib/format-date'
+import { Icon } from '@ui'
+import down from '@assets/chevron-down.png'
 
 import { Checkbox } from './check-lists/checkbox'
 import { AddDeadline } from './feat/add-deadline'
@@ -39,8 +41,8 @@ export const Deadline = ({ cardId }) => {
               <Done overdue={overdue && checked}>
                 {overdue && checked ? 'ВЫПОЛНЕНО' : 'ПРОСРОЧЕНО'}
               </Done>
-            )}{' '}
-            <Bracket>&#9001;</Bracket>
+            )}
+            <Icon src={down} alt="" width={14} height={14} />
           </Time>
         </AddDeadline>
       </Wrapper>
@@ -83,9 +85,4 @@ const Done = styled.p`
 const Title = styled.h3`
   color: var(--secondary-text);
   font-size: 12px;
-`
-
-const Bracket = styled.p`
-  margin: 8px 0 0 4px;
-  transform: rotate(-90deg);
 `

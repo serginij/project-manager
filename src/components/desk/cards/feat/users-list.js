@@ -5,6 +5,8 @@ import { AddUser } from './add-user'
 import { UserInfo } from './user-info'
 
 import icon from '@assets/icon.png'
+import plus from '@assets/plus.png'
+import { Icon } from '@ui'
 
 export const UsersList = ({ users }) => {
   let list = users.map(user => (
@@ -23,7 +25,9 @@ export const UsersList = ({ users }) => {
           {list}
           <Item>
             <AddUser>
-              <Add>+</Add>
+              <Add>
+                <Icon src={plus} alt="add user" width={18} height={18} />
+              </Add>
             </AddUser>
           </Item>
         </List>
