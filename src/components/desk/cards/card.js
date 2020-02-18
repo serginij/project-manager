@@ -41,7 +41,6 @@ export const Card = ({ text, id, card }) => {
   const handleClick = () => {
     setEdit(!edit)
     setCurrent(id)
-    setVisible(true)
   }
 
   let list = labels.map(label => (
