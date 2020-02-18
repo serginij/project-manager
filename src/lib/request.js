@@ -1,6 +1,6 @@
 export const handleErrors = response => {
   if (!response.ok) {
-    throw Error(response.message)
+    throw response
   }
   return response
 }

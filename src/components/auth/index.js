@@ -1,24 +1,21 @@
 import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { login, signup } from '@symbiotes/effects/'
+import { login } from '@symbiotes/effects/'
 
-import { Input, AddButton } from '@ui'
+import { Input, AddButton, StyledLink, Alert } from '@ui'
 
 export const Auth = () => {
-  const [type, setType] = useState('Вход')
   const [data, setData] = useState({
     usr: '',
     pwd: ''
   })
 
-  const dispatch = useDispatch()
+  const { error, signup } = useSelector(state => state.auth)
 
-  const handleSwitch = () => {
-    type === 'Вход' ? setType('Регистрация') : setType('Вход')
-  }
+  const dispatch = useDispatch()
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
@@ -26,9 +23,8 @@ export const Auth = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    type === 'Вход'
-      ? dispatch(login(data.usr, data.pwd))
-      : dispatch(signup(data.usr, data.pwd))
+    console.log('handleSubmit login')
+    dispatch(login(data.usr, data.pwd))
   }
 
   return (
@@ -36,7 +32,7 @@ export const Auth = () => {
       <h1>Project manager</h1>
       <p>Приложение для управления проектами</p>
       <Form onSubmit={handleSubmit}>
-        <h2>{type}</h2>
+        <h2>Вход</h2>
         <Input
           className={styledInput}
           name="usr"
@@ -44,6 +40,7 @@ export const Auth = () => {
           type="text"
           value={data.usr}
           onChange={handleChange}
+          autoComplete="username"
         />
         <Input
           className={styledInput}
@@ -52,16 +49,19 @@ export const Auth = () => {
           type="password"
           value={data.pwd}
           onChange={handleChange}
+          autoComplete="current-password"
         />
-        <Switch onClick={handleSwitch}>
-          {type === 'Вход' ? 'Регистрация' : 'Вход'}
+        <Switch>
+          <StyledLink to="/signup">Регистрация</StyledLink>
         </Switch>
-        <AddButton className={button}>{type}</AddButton>
+        <AddButton className={button}>Вход</AddButton>
       </Form>
       {/* <p>
         <StyledLink to="/resetpwd">Reset Password</StyledLink>
       </p> */}
       <p>2020, Project manager</p>
+      {error && <Alert text="Неправильный логин или пароль" />}
+      {signup && <Alert text="Пользователь зарегистирован" success={true} />}
     </Wrapper>
   )
 }

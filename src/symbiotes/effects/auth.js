@@ -18,17 +18,23 @@ export const login = (username, password) => {
       })
       .catch(err => {
         console.log(err)
+        dispatch(authActions.setError(err))
       })
   }
 }
 
-export const signup = (username, password) => {
+export const signup = data => {
   return dispatch => {
-    return post('/signup', { username, password })
-      .then(res => {
-        dispatch(authActions.login(res.token))
-        history.push('/')
+    return post('/signup', { data: data })
+      .then(() => {
+        dispatch(authActions.signup())
+        history.push('/auth')
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        dispatch(
+          authActions.setError({ reason: err.reason, message: err.message })
+        )
+      })
   }
 }

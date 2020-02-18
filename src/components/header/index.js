@@ -8,7 +8,6 @@ import { logout as logoutAction } from '@symbiotes/helpers'
 import { Dropdown } from '@ui'
 
 import user from '@assets/user.svg'
-import { StyledLink } from '@ui/'
 
 export const Header = () => {
   const hidden = useSelector(state => state.auth.hidden)
@@ -33,13 +32,7 @@ export const Header = () => {
       </Title>
       <Dropdown
         width={100}
-        content={
-          <Item>
-            <StyledLink to="/auth" onClick={logout}>
-              Выход
-            </StyledLink>
-          </Item>
-        }
+        content={<Item onClick={logout}>Выход</Item>}
         align
         close
       >
@@ -98,4 +91,5 @@ const Item = styled.p`
   padding: 0 0.3em;
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
 `

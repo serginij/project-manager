@@ -4,7 +4,8 @@ const initialState = {
   token: '',
   basePath: '/auth',
   error: null,
-  hidden: true
+  hidden: true,
+  signup: false
 }
 
 const symbiotes = {
@@ -12,13 +13,25 @@ const symbiotes = {
     ...state,
     token: token,
     basePath: '/',
-    hidden: false
+    hidden: false,
+    signup: false,
+    error: null
   }),
   logout: state => ({
     ...state,
     token: '',
     basePath: '/auth',
-    hidden: true
+    hidden: true,
+    signup: false,
+    error: null
+  }),
+  setError: (state, err) => ({ ...state, error: err }),
+  signup: state => ({
+    ...state,
+    token: '',
+    basePath: '/auth',
+    signup: true,
+    error: null
   })
 }
 
