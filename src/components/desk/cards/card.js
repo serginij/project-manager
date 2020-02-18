@@ -51,14 +51,16 @@ export const Card = ({ text, id, card }) => {
   ))
 
   const showEdit = e => {
-    if (e.target.tagName == 'LI') {
-      let { x, y, width } = e.target.getBoundingClientRect()
-      setPosition({ x: x + width - 30, y: y })
-      setVisible(true)
-    } else {
-      let { x, y, width } = e.target.parentElement.getBoundingClientRect()
-      setPosition({ x: x + width - 30, y: y })
-      setVisible(true)
+    if (!document.ontouchstart) {
+      if (e.target.tagName == 'LI') {
+        let { x, y, width } = e.target.getBoundingClientRect()
+        setPosition({ x: x + width - 30, y: y })
+        setVisible(true)
+      } else {
+        let { x, y, width } = e.target.parentElement.getBoundingClientRect()
+        setPosition({ x: x + width - 30, y: y })
+        setVisible(true)
+      }
     }
   }
 
@@ -134,7 +136,7 @@ const Wrapper = styled.li`
 `
 
 const Text = styled.p`
-  padding: 4px 0;
+  padding: 5px 0;
   width: 100%
   display: flex;
   justify-content: space-between;
@@ -186,11 +188,11 @@ const Item = styled.li`
 
 const ColorBlock = styled.div`
   box-sizing: border-box;
-  padding: 1px 5px;
+  padding: 0 5px;
   min-width: 40px;
-  height: 18px;
+  height: 16px;
   border-radius: 4px;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 13px;
   text-align: center;
   background-color: ${props => '#' + props.color};
@@ -203,7 +205,7 @@ const editIcon = css`
   position: absolute;
   padding: 6px;
   padding-bottom: 4px;
-  opacity: 0.9;
+  opacity: 0.7;
   margin-top: 4px;
 
   img {

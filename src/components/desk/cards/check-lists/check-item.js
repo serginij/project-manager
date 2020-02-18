@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
-import { AddUpdateElement, Dropdown } from '@ui'
+import { AddUpdateElement, Dropdown, Icon } from '@ui'
+import more from '@assets/more.png'
 
 import { Checkbox } from './checkbox'
 
@@ -52,7 +53,9 @@ export const CheckItem = ({ item, onUpdate, onEdit, onDelete }) => {
               </Button>
             }
           >
-            <Button type="button">...</Button>
+            <Button type="button">
+              <Icon src={more} alt="more" width={18} height={18} />
+            </Button>
           </Dropdown>
         </Content>
       )}
@@ -110,18 +113,22 @@ const Name = styled.p`
 `
 
 const Button = styled.button`
+  display: flex;
   border: none;
   background-color: inherit;
   cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
   box-sizing: border-box;
   font-size: 1.5em;
   text-align: center;
   border-radius: 3px;
-  height: 2rem;
+  padding: 4px;
+  margin-right: 4px;
+  /* height: 1.5rem;
+  width: 1.5rem; */
+  /* margin-right 10px; */
   visibility: hidden;
-  padding-bottom: 18px;
+  align-items: center;
+  /* padding-bottom: 18px; */
   &:hover {
     background-color: var(--secondary__dark);
   }
@@ -143,3 +150,8 @@ const Title = styled.p`
   text-align: center;
   width: 100%;
 `
+
+// const Icon = styled.img`
+//   width: 18px;
+//   height: 18px;
+// `

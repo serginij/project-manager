@@ -44,7 +44,9 @@ export const DeskList = ({ title, desksById, teamId, isAdmin }) => {
         {deskList}
         {isAdmin && (
           <AddDesk onClick={() => setTeam(teamId)}>
-            <StyledLink to="/create-desk">Создать доску</StyledLink>
+            <StyledLink to="/create-desk">
+              <Text>Создать доску</Text>
+            </StyledLink>
           </AddDesk>
         )}
       </List>
@@ -89,4 +91,8 @@ const AddDesk = styled.li`
     min-height: 70px;
     min-width: 120px;
   }
+`
+
+const Text = styled.p`
+  margin: 40px 0;
 `

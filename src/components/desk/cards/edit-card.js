@@ -110,7 +110,7 @@ const Header = styled.header`
   background-color: var(--secondary__light);
   border-radius: 3px;
   box-sizing: border-box;
-  align-items: flex-start;
+  align-items: center;
   height: 2em;
 `
 

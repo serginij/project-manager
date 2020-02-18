@@ -1,7 +1,9 @@
 import React from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 
-import { StyledLink, CloseButton } from '@ui'
+import { StyledLink, Icon } from '@ui'
+import plus from '@assets/plus.png'
 
 import { TeamItem } from './team-item'
 
@@ -22,9 +24,15 @@ export const TeamList = ({ teams }) => {
       <Teams>
         <ListHeader>
           <h3>Команды</h3>
-          <CloseButton>
-            <StyledLink to="/create-team">+</StyledLink>
-          </CloseButton>
+          <StyledLink to="/create-team" className={linkStyle}>
+            <Icon
+              src={plus}
+              alt="add team"
+              width={22}
+              height={22}
+              opacity={1}
+            />
+          </StyledLink>
         </ListHeader>
         <List>{teamList}</List>
       </Teams>
@@ -68,4 +76,8 @@ const ListHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+`
+
+const linkStyle = css`
+  width: auto;
 `

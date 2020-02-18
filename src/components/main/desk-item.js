@@ -41,4 +41,6 @@ const DeskIcon = styled.li`
   }
 `
 
-const Name = styled.p``
+const Name = styled.p`
+  margin: 40px 0;
+`

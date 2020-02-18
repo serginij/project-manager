@@ -36,7 +36,7 @@ export const EditLabel = ({ color = '', name = '', onClose, labelId }) => {
   let colors = [
     'f44336',
     'ff9800',
-    'ffeb3b',
+    'fdd835',
     '4caf50',
     '00bcd4',
     '2196f3',

@@ -3,8 +3,17 @@ import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { useDispatch } from 'react-redux'
 
-import { Dropdown, Input, Button, CloseButton, EditIcon, CheckIcon } from '@ui'
+import {
+  Dropdown,
+  Input,
+  Button,
+  CloseButton,
+  EditIcon,
+  CheckIcon,
+  Icon
+} from '@ui'
 import { addCardLabel, deleteCardLabel } from '@symbiotes/effects/'
+import back from '@assets/chevron-left.png'
 
 import { EditLabel } from './edit-label'
 
@@ -91,7 +100,7 @@ export const AddLabel = ({ children, allLabels, cardLabels, cardId }) => {
               onClick={handleEdit}
               type="button"
             >
-              {'〱'}
+              <Icon src={back} alt="back" width={16} height={16} />
             </CloseButton>
             <Title>Изменение метки</Title>
           </EditTitle>
@@ -183,9 +192,14 @@ const Label = styled.div`
 
   &:focus {
     padding-left: 16px;
-    outline: 1px solid var(--secondary);
+    outline: 1px solid ${props => '#' + props.color};
   }
 `
+
+// const Icon = styled.img`
+//   width: 18px;
+//   height: 18px;
+// `
 
 const createButton = css`
   margin-top: 12px;
@@ -196,6 +210,7 @@ const createButton = css`
 const EditTitle = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 `
 
