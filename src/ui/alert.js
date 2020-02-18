@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 
 import warning from '@assets/warning.png'
+import ok from '@assets/ok.png'
 
-export const Alert = ({ runEffect }) => {
+export const Alert = ({
+  runEffect,
+  success = false,
+  text = success ? 'Успешно' : 'Произошла ошибка'
+}) => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -11,13 +16,13 @@ export const Alert = ({ runEffect }) => {
     runEffect && runEffect()
     setTimeout(() => {
       setVisible(false)
-    }, 3000)
+    }, 5000)
   }, [runEffect])
 
   return (
-    <Body visible={visible} onClick={() => setVisible(false)}>
-      <Img src={warning} alt="" />
-      <p>Someting went wrong</p>
+    <Body visible={visible} onClick={() => setVisible(false)} success={success}>
+      <Img src={success ? ok : warning} alt="" />
+      <p>{text}</p>
     </Body>
   )
 }
@@ -30,10 +35,10 @@ const Body = styled.div`
   align-items: center;
   top: 60px;
   right: 10px;
-  width: 180px;
-  height: 40px;
+  min-width: 180px;
+  min-height: 40px;
   border-radius: 3px;
-  background-color: var(--red);
+  background-color: ${props => (props.success ? 'var(--green)' : 'var(--red)')};
   color: white;
   font-weight: 400;
   cursor: pointer;
@@ -43,4 +48,5 @@ const Body = styled.div`
 const Img = styled.img`
   width: 20px;
   height: 20px;
+  margin-right: 10px;
 `

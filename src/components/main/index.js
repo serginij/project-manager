@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchTeams } from '@symbiotes/effects/'
@@ -11,7 +12,7 @@ import { TeamList } from './team-list'
 import { Spinner } from '@ui'
 
 export const Main = () => {
-  const { teams } = useSelector(state => state.teams)
+  const { teams, loading } = useSelector(state => state.teams)
   const { token } = useSelector(state => state.auth)
 
   const dispatch = useDispatch()
@@ -24,7 +25,8 @@ export const Main = () => {
 
   const teamList = Object.values(teams)
 
-  let desksList = teamList.length ? (
+  let desksList =
+    teamList.length &&
     teamList.map(team => {
       return (
         <DeskList
@@ -36,11 +38,10 @@ export const Main = () => {
         />
       )
     })
-  ) : (
-    <Spinner />
-  )
 
-  return (
+  return loading ? (
+    <Spinner className={spinnerStyle} />
+  ) : (
     <Container>
       <TeamList teams={teamList} />
       <div className="desks">{desksList}</div>
@@ -70,4 +71,8 @@ const Container = styled.main`
       width: 80%;
     }
   }
+`
+
+const spinnerStyle = css`
+  margin: 50px 0 0 100px;
 `

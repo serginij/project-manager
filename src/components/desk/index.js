@@ -80,7 +80,7 @@ const DeskHeader = styled.header`
 `
 
 const spinnerStyle = css`
-  margin: 20px 0 0 50px;
+  margin: 50px 0 0 100px;
 `
 
 const buttonStyle = css`

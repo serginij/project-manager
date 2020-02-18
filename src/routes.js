@@ -9,6 +9,7 @@ import { CreateTeam } from '@components/team/create-team'
 import { Auth } from '@components/auth'
 import { DeskSettings } from '@components/desk/desk-settings'
 import { TeamSettings } from '@components/team/team-settings'
+import { Signup } from '@components/auth/signup'
 
 export const Routes = () =>
   renderRoutes([
@@ -56,5 +57,10 @@ export const Routes = () =>
       component: TeamSettings,
       path: '/team/settings/:teamId',
       exact: false
+    },
+    {
+      component: Signup,
+      path: '/signup',
+      exact: true
     }
   ])
