@@ -1,5 +1,6 @@
 import { teamsActions } from '@symbiotes/teams'
 import { desksActions } from '@symbiotes/desks'
+import { authActions } from '@symbiotes/auth'
 
 import { get, post, del, update } from '@lib/request'
 import { history } from '@lib/routing'
@@ -16,6 +17,7 @@ export const fetchTeams = token => {
       .catch(err => {
         console.log('effects.js: fetchTeams error', err)
         history.push('/auth')
+        dispatch(authActions.logout())
       })
   }
 }

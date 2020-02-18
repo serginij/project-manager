@@ -37,8 +37,8 @@ export const Desk = () => {
       <DeskHeader>
         <h2>{desk.name}</h2>
         {isAdmin && (
-          <Button>
-            <StyledLink to={`/desk/settings/${currentDesk}`}>
+          <Button className={buttonStyle}>
+            <StyledLink to={`/desk/settings/${currentDesk}`} height={29}>
               Настройки
             </StyledLink>
           </Button>
@@ -66,7 +66,10 @@ const DeskWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   box-sizing: border-box;
-  margin: 0 20px;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  padding: 0 20px;
 `
 
 const DeskHeader = styled.header`
@@ -78,4 +81,10 @@ const DeskHeader = styled.header`
 
 const spinnerStyle = css`
   margin: 20px 0 0 50px;
+`
+
+const buttonStyle = css`
+  a {
+    height: 18px;
+  }
 `

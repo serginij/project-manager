@@ -58,7 +58,7 @@ const ColumnHeader = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   box-sizing: border-box;
   padding: 0 12px;
 `

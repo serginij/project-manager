@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { styled } from 'linaria/react'
-import { css } from 'linaria'
 
 import { CloseButton } from '@ui'
 
@@ -86,7 +85,6 @@ export const Dropdown = ({
                 tabIndex={0}
                 type="button"
                 onClick={() => setVisible(false)}
-                className={closeButton}
               />
             </ContentHeader>
           )}
@@ -138,9 +136,4 @@ const ContentHeader = styled.header`
   box-sizing: border-box;
   margin: 0 12px;
   margin-bottom: 8px;
-`
-
-const closeButton = css`
-  font-size: 24px;
-  font-weight: 200;
 `
