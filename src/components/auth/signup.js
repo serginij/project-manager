@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { signup } from '@symbiotes/effects/'
 
-import { Input, AddButton, StyledLink } from '@ui'
-import { Alert } from '@ui/'
+import { Input, AddButton, StyledLink, Alert } from '@ui'
 
 const initialState = {
   name: {
@@ -32,7 +31,7 @@ const initialState = {
     label: 'Логин',
     error: false,
     pattern: /^[a-z0-9_-]{3,20}$/,
-    message: 'Длина от 3 до 20 символов (1-9, a-z, -, _)',
+    message: 'Латиница. Длина от 3 до 20 символов (1-9, a-z, -, _)',
     type: 'text',
     autocomplete: 'username'
   },
@@ -42,16 +41,16 @@ const initialState = {
     error: false,
     pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,50}$/,
     message:
-      'Длина от 6 до 50 символов. Обязятельно - 1 заглавная буква, 1 прописная буква, 1 цифра.',
+      'Латиница. Длина от 6 до 50 символов. Обязятельно - 1 заглавная буква, 1 прописная буква, 1 цифра.',
     type: 'password',
     autocomplete: 'new-password'
   },
   email: {
     value: '',
-    label: 'Почта',
+    label: 'Эл. почта',
     error: false,
     pattern: '',
-    message: 'Введите почту',
+    message: 'Введите адрес эл. почты',
     type: 'email',
     autocomplete: 'off'
   }

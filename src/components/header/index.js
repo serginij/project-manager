@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { logout as logoutAction } from '@symbiotes/helpers'
-import { Dropdown } from '@ui'
+import { Dropdown, StyledLink } from '@ui'
 
 import user from '@assets/user.svg'
 
@@ -32,7 +32,14 @@ export const Header = () => {
       </Title>
       <Dropdown
         width={100}
-        content={<Item onClick={logout}>Выход</Item>}
+        content={
+          <>
+            <Item onClick={logout}>Выход</Item>
+            <StyledLink to="/edit-profile">
+              <Item>Профиль</Item>
+            </StyledLink>
+          </>
+        }
         align
         close
       >
@@ -88,8 +95,15 @@ const Title = styled.h2`
 `
 
 const Item = styled.p`
-  padding: 0 0.3em;
+  /* padding: 0 0.3em; */
+  margin: 1em 0;
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
+
+  &:last-child {
+    margin-top: 0;
+    padding-top: 1em;
+    border-top: 1px solid var(--secondary);
+  }
 `
