@@ -17,7 +17,8 @@ export const AddUpdateElement = ({
   closable,
   focus,
   minRows = 1,
-  maxRows = 5
+  maxRows = 5,
+  onClick
 }) => {
   let [open, setOpen] = useState(isOpen)
   let [text, setText] = useState(value)
@@ -62,6 +63,11 @@ export const AddUpdateElement = ({
     onCancel()
   }
 
+  let handleOpen = () => {
+    setOpen(true)
+    onClick && onClick()
+  }
+
   return (
     <AddBlock className={className}>
       <DynamicTextarea
@@ -70,7 +76,7 @@ export const AddUpdateElement = ({
         curRows={rows}
         maxRows={maxRows}
         className={styledInput}
-        onClick={() => setOpen(true)}
+        onClick={handleOpen}
         value={text}
         onChange={handleChange}
         onBlur={unfocus}

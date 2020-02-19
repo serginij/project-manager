@@ -7,6 +7,7 @@ import { storeToken } from '../helpers'
 
 export const login = (username, password) => {
   return dispatch => {
+    dispatch(authActions.setError(null))
     return post('/login', {
       username,
       password

@@ -10,6 +10,7 @@ import { Auth } from '@components/auth'
 import { DeskSettings } from '@components/desk/desk-settings'
 import { TeamSettings } from '@components/team/team-settings'
 import { Signup } from '@components/auth/signup'
+import { EditProfile } from '@components/user/edit-profile'
 
 export const Routes = () =>
   renderRoutes([
@@ -61,6 +62,11 @@ export const Routes = () =>
     {
       component: Signup,
       path: '/signup',
+      exact: true
+    },
+    {
+      component: EditProfile,
+      path: '/edit-profile',
       exact: true
     }
   ])
