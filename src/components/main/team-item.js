@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from 'linaria/react'
+import { css } from 'linaria'
 import { useDispatch } from 'react-redux'
 
 import { teamsActions } from '@symbiotes/teams'
@@ -15,7 +16,7 @@ export const TeamItem = ({ name, id, isAdmin }) => {
 
   return (
     <Item onClick={() => setTeam(id)} key={id}>
-      <StyledLink to={link}>
+      <StyledLink to={link} className={linkStyles}>
         <Name>{name}</Name>
       </StyledLink>
     </Item>
@@ -41,4 +42,7 @@ const Item = styled.li`
 
 const Name = styled.b`
   box-sizing: border-box;
+`
+const linkStyles = css`
+  justify-content: flex-start;
 `

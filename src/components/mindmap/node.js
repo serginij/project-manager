@@ -33,7 +33,8 @@ export const Node = props => {
       x: x + 100,
       y: y + 100,
       startX: x + width / 2,
-      startY: y + height / 2
+      startY: y + height / 2,
+      name: ''
     })
   }
 

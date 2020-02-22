@@ -4,6 +4,8 @@ import { cardsActions } from '@symbiotes/cards'
 import { teamsActions } from '@symbiotes/teams'
 import { authActions } from '@symbiotes/auth'
 
+import { history } from '@lib/routing'
+
 export const addColumn = (name, deskId, columnId) => {
   return dispatch => {
     dispatch(columnsActions.addColumn({ name: name, id: columnId }))
@@ -61,5 +63,16 @@ export const deleteLabel = (deskId, labelId) => {
   return dispatch => {
     dispatch(desksActions.deleteLabel(deskId, labelId))
     dispatch(cardsActions.deleteDeskLabel(labelId))
+  }
+}
+
+export const parseDesk = (teamId, desk, columns, cards) => {
+  return dispatch => {
+    dispatch(teamsActions.addDesk(teamId, desk.id))
+    dispatch(desksActions.addDesk(desk))
+    dispatch(columnsActions.getColumns.done(columns))
+    dispatch(cardsActions.getCards.done(cards))
+    dispatch(desksActions.setCurrentDesk(desk.id))
+    history.push(`/desks/${desk.id}`)
   }
 }

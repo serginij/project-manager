@@ -5,13 +5,14 @@ import edit from '@assets/edit.svg'
 
 import { Node } from './node'
 
-export const EditableNode = ({ onClick, onMove, id, x, y }) => {
-  const [text, setText] = useState('')
+export const EditableNode = ({ onClick, onMove, id, x, y, name, onRename }) => {
+  const [text, setText] = useState(name)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleClick = event => {
     event.stopPropagation()
     setIsOpen(!isOpen)
+    onRename(id, text)
   }
 
   const handleChange = event => {
@@ -29,7 +30,7 @@ export const EditableNode = ({ onClick, onMove, id, x, y }) => {
       value={text}
     />
   ) : (
-    <>{id ? (text !== '' ? text : 'node') : 'Root'}</>
+    <>{id ? text : 'Root'}</>
   )
 
   return (

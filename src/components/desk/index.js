@@ -37,11 +37,18 @@ export const Desk = () => {
       <DeskHeader>
         <h2>{desk.name}</h2>
         {isAdmin && (
-          <Button className={buttonStyle}>
-            <StyledLink to={`/desk/settings/${currentDesk}`} height={29}>
-              Настройки
-            </StyledLink>
-          </Button>
+          <>
+            <div>
+              <Button className={buttonStyle}>
+                <StyledLink to="/mindmap">И-карта</StyledLink>
+              </Button>
+              <Button className={buttonStyle}>
+                <StyledLink to={`/desk/settings/${currentDesk}`}>
+                  Настройки
+                </StyledLink>
+              </Button>
+            </div>
+          </>
         )}
       </DeskHeader>
       <DeskWrapper>
@@ -84,7 +91,10 @@ const spinnerStyle = css`
 `
 
 const buttonStyle = css`
-  a {
-    height: 18px;
-  }
+  padding: 0;
+  height: 28px;
+  /* a { */
+  /* height: 28px; */
+  /* width: */
+  /* } */
 `
