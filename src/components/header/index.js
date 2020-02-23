@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 import { Link } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { logout as logoutAction } from '@symbiotes/helpers'
 import { Dropdown, StyledLink } from '@ui'
+import { history } from '@lib/routing'
 
 import user from '@assets/user.svg'
 
@@ -15,15 +16,27 @@ export const Header = () => {
 
   const logout = () => dispatch(logoutAction())
 
+  const goBack = () => {
+    if (history.location.pathname !== '/') {
+      history.goBack()
+    }
+  }
+  console.log(history.location.pathname)
+
+  useEffect(() => {
+    console.log('abc')
+  }, [])
+
   return (
     <StyledHeader hidden={hidden}>
       <NavBar>
-        <Link className={styledLink} to="/">
-          Главная
-        </Link>
-        {/* <Link className={styledLink} to="/mindmap">
-          MindMap
-        </Link> */}
+        <Text
+          // hidden={history.location.pathname === '/'}
+          className={styledLink}
+          onClick={goBack}
+        >
+          Назад
+        </Text>
       </NavBar>
       <Title>
         <Link className={styledLink} to="/">
@@ -92,6 +105,11 @@ const Title = styled.h2`
   @media (max-width: 700px) {
     font-size: 1em;
   }
+`
+
+const Text = styled.p`
+  color: white;
+  cursor: pointer;
 `
 
 const Item = styled.p`

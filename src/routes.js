@@ -1,7 +1,7 @@
 import { renderRoutes } from 'react-router-config'
 
 import { Main } from '@components/main'
-import MindMap from '@components/mindmap'
+import { MindMapWrapper } from '@components/mindmap/'
 import { Desk } from '@components/desk'
 import { Team } from '@components/team'
 import { CreateDesk } from '@components/desk/create-desk'
@@ -20,7 +20,7 @@ export const Routes = () =>
       exact: true
     },
     {
-      component: MindMap,
+      component: MindMapWrapper,
       path: '/mindmap',
       exact: true
     },

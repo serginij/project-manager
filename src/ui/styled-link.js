@@ -9,7 +9,10 @@ export const StyledLink = ({ children, to, className }) => (
 )
 
 const linkTo = css`
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* text-align: center; */
   color: black;
   width: 100%;
   height: 100%;

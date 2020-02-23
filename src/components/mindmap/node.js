@@ -7,6 +7,8 @@ export const Node = props => {
   const [y, setY] = useState(props.y)
   const [dragging, setDragging] = useState(false)
 
+  const editable = props.editable
+
   const handleDrop = event => {
     event.preventDefault()
     setDragging(false)
@@ -33,7 +35,8 @@ export const Node = props => {
       x: x + 100,
       y: y + 100,
       startX: x + width / 2,
-      startY: y + height / 2
+      startY: y + height / 2,
+      name: ''
     })
   }
 
@@ -42,7 +45,7 @@ export const Node = props => {
       onClick={handleAdd}
       x={x}
       y={y}
-      draggable
+      draggable={editable}
       onDragOver={handleOnDrag}
       onDrop={handleDrop}
       onDragStart={handleDragStart}
@@ -63,5 +66,5 @@ const Container = styled.div`
   left: ${props => props.x + 'px'};
   top: ${props => props.y + 'px'};
   opacity: ${props => (props.dragging ? '0.01' : '1')};
-  cursor: grab;
+  cursor: ${props => (props.draggable ? 'grab' : 'default')};
 `

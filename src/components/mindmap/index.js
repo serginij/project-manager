@@ -1,106 +1,123 @@
-import React, { Component } from 'react'
-import cloneDeep from 'lodash.clonedeep'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { Branches } from './branches'
-import { EditableNode } from './editable-node'
+import { parseMindmap } from '@symbiotes/effects/'
+import { history } from '@lib/routing'
 
-class MindMap extends Component {
-  state = {
-    nodes: [
-      {
-        id: 0,
-        x: window.innerWidth / 2 - 20,
-        y: window.innerHeight / 2 - 20
-      }
-    ],
-    tree: {
-      data: {
-        id: 0,
-        x: window.innerWidth / 2 - 20,
-        y: window.innerHeight / 2 - 20
-      },
+import MindMap from './mindmap'
+
+export const MindMapWrapper = () => {
+  const teamId = useSelector(state => state.teams.currentTeam)
+  const desk = useSelector(state =>
+    state.desks.currentDesk ? state.desks.desks[state.desks.currentDesk] : null
+  )
+  const dispatch = useDispatch()
+
+  const handleConvert = tree => {
+    dispatch(parseMindmap(tree, teamId))
+  }
+
+  if (!(history.location.state || desk)) {
+    history.push('/')
+  }
+
+  let name = history.location.state && history.location.state.name
+
+  let { innerWidth } = window
+
+  let mindmap = {}
+  let nodes = []
+
+  if (desk) {
+    let deskWidth = desk.mindmap.data.name.length * 7 + 55
+    let deskCoords = { x: innerWidth / 2 - deskWidth / 2, y: 80 }
+    let data = { ...desk.mindmap.data, x: deskCoords.x, y: deskCoords.y }
+    nodes.push(data)
+    mindmap = {
+      ...desk.mindmap,
+      data,
+      children: desk.mindmap.children.map((column, colIndex) => {
+        let deskStep = innerWidth / desk.mindmap.children.length
+        let columnWidth = column.data.name.length * 7 + 55
+        let colCoords = {
+          x: (colIndex + 1 / 2) * deskStep - columnWidth / 2,
+          y: 160
+        }
+        data = {
+          ...column.data,
+          x: colCoords.x,
+          y: colCoords.y,
+          startX: deskCoords.x + deskWidth / 2,
+          startY: deskCoords.y + 25
+        }
+        nodes.push(data)
+        return {
+          ...column,
+          data,
+          children: column.children.map((card, cardIndex) => {
+            let cardStep = deskStep / column.children.length
+            let cardWidth = column.data.name.length * 7 + 55
+            let cardCoords = {
+              x:
+                (cardIndex + 1 / 2) * cardStep -
+                cardWidth / 2 +
+                deskStep * colIndex,
+              y: 240
+            }
+            data = {
+              ...card.data,
+              x: cardCoords.x,
+              y: cardCoords.y,
+              startX: colCoords.x + columnWidth / 2,
+              startY: colCoords.y + 25
+            }
+            nodes.push(data)
+            return {
+              ...card,
+              data,
+              children: card.children.map((item, itemIndex) => {
+                let itemCoords = {
+                  x: cardCoords.x,
+                  y: cardCoords.y + (itemIndex + 1) * 80
+                }
+                data = {
+                  ...item.data,
+                  x: itemCoords.x,
+                  y: itemCoords.y,
+                  startX: cardCoords.x + cardWidth / 2,
+                  startY: cardCoords.y + 25
+                }
+                nodes.push(data)
+                return {
+                  ...item,
+                  data
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  } else {
+    mindmap = {
+      data: { name: name, id: 1, x: innerWidth / 2 - 20, y: 80 },
       level: 1,
       children: []
-    },
-    counter: 1
-  }
-
-  handleAddNode = (id, data, tree = this.state.tree) => {
-    let newTree = cloneDeep(tree)
-
-    data.id = this.state.counter
-    this.insertNode(id, data, newTree)
-
-    this.setState(prevState => ({
-      tree: newTree,
-      nodes: [
-        ...prevState.nodes,
-        { id: prevState.counter, x: data.x, y: data.y }
-      ],
-      counter: prevState.counter + 1
-    }))
-  }
-
-  insertNode = (id, data, tree) => {
-    if (tree.data.id === id) {
-      tree.children.push({ data, level: tree.level + 1, children: [] })
-    } else if (tree.children.length) {
-      tree.children.forEach(child => this.insertNode(id, data, child))
     }
+    nodes = [{ name: name, id: 1, x: innerWidth / 2 - 20, y: 80 }]
   }
 
-  handleMoveNode = (id, coords) => {
-    let newNodes = cloneDeep(this.state.nodes)
-    let index = newNodes.indexOf(newNodes.find(el => el.id === id))
-    newNodes[index].x = coords.x
-    newNodes[index].y = coords.y
-
-    let newTree = this.state.tree
-    this.updateNode(newTree, id, { id: id, x: coords.x, y: coords.y })
-
-    this.setState({
-      nodes: newNodes,
-      tree: newTree
-    })
+  const handleSave = tree => {
+    console.log(tree)
   }
 
-  updateNode = (tree, id, data) => {
-    if (tree.data.id === id) {
-      tree.data = {
-        ...tree.data,
-        x: data.x,
-        y: data.y
-      }
-      if (tree.children.length) {
-        tree.children.map(child => {
-          child.data.startX = data.x
-          child.data.startY = data.y
-        })
-      }
-    } else if (tree.children.length) {
-      tree.children.forEach(child => this.updateNode(child, id, data))
-    }
-  }
-
-  render() {
-    let nodes = this.state.nodes.map(node => (
-      <EditableNode
-        onClick={this.handleAddNode}
-        onMove={this.handleMoveNode}
-        key={node.id}
-        id={node.id}
-        x={node.x}
-        y={node.y}
-      />
-    ))
-
-    return (
-      <div style={{ marginTop: '-60px' }}>
-        <Branches tree={this.state.tree} />
-        {nodes}
-      </div>
-    )
-  }
+  return (
+    <MindMap
+      onConvert={handleConvert}
+      onSave={handleSave}
+      mindmap={mindmap}
+      nodes={nodes}
+      editable={!desk}
+    />
+  )
 }
-
-export default MindMap

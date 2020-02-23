@@ -18,7 +18,7 @@ const symbiotes = {
     ...state,
     desks: {
       ...state.desks,
-      [desk.id]: { name: desk.name, id: desk.id, columns: [] }
+      [desk.id]: { columns: [], ...desk }
     }
   }),
   updateDesk: (state, desk) => ({
