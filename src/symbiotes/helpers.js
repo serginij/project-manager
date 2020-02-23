@@ -68,11 +68,12 @@ export const deleteLabel = (deskId, labelId) => {
 
 export const parseDesk = (teamId, desk, columns, cards) => {
   return dispatch => {
+    history.replace(`/desks/${desk.id}`)
+    dispatch(cardsActions.getCards.start())
     dispatch(teamsActions.addDesk(teamId, desk.id))
     dispatch(desksActions.addDesk(desk))
     dispatch(columnsActions.getColumns.done(columns))
     dispatch(cardsActions.getCards.done(cards))
     dispatch(desksActions.setCurrentDesk(desk.id))
-    history.push(`/desks/${desk.id}`)
   }
 }

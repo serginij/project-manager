@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
-import { addColumn, getDesk } from '@symbiotes/effects/'
+import { addColumn, getDesk, getMindmap } from '@symbiotes/effects/'
 import { cardsActions } from '@symbiotes/cards'
 
 import { AddForm, Button, StyledLink, Alert, Spinner } from '@ui'
@@ -11,11 +11,11 @@ import { ColumnsList } from './columns/columns-list'
 import { history } from '@lib/routing'
 
 export const Desk = () => {
-  const { currentDesk } = useSelector(state => state.desks)
+  const { currentDesk, desks } = useSelector(state => state.desks)
   const desk = useSelector(state => state.desks.desks[currentDesk])
   const { teams } = useSelector(state => state.teams)
-  const { error } = useSelector(state => state.cards)
-  const { desks } = useSelector(state => state.desks)
+  const { error, cards } = useSelector(state => state.cards)
+  const { columns } = useSelector(state => state.columns)
 
   let isAdmin = desk && teams && teams[desk.team_id].isAdmin
 
@@ -32,6 +32,12 @@ export const Desk = () => {
     }
   }, [desks])
 
+  const handleGetMindmap = () => {
+    dispatch(getMindmap(desk, columns, cards)).then(() =>
+      history.push('/mindmap')
+    )
+  }
+
   return desk ? (
     <>
       <DeskHeader>
@@ -39,9 +45,7 @@ export const Desk = () => {
         {isAdmin && (
           <>
             <div>
-              <Button className={buttonStyle}>
-                <StyledLink to="/mindmap">И-карта</StyledLink>
-              </Button>
+              <Button onClick={handleGetMindmap}>И-карта</Button>
               <Button className={buttonStyle}>
                 <StyledLink to={`/desk/settings/${currentDesk}`}>
                   Настройки

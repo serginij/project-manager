@@ -3,10 +3,20 @@ import { styled } from 'linaria/react'
 
 import { CheckIcon } from '@ui'
 
-export const Checkbox = ({ className, checked, onClick, ...props }) => (
-  <CheckboxContainer className={className} onClick={onClick}>
+export const Checkbox = ({
+  className,
+  checked,
+  onClick,
+  background,
+  ...props
+}) => (
+  <CheckboxContainer onClick={onClick}>
     <HiddenCheckbox checked={checked} {...props} type="checkbox" />
-    <StyledCheckbox checked={checked}>
+    <StyledCheckbox
+      className={className}
+      checked={checked}
+      background={background}
+    >
       <CheckIcon size={16} thickness={2} checked={checked} />
     </StyledCheckbox>
   </CheckboxContainer>
@@ -15,7 +25,6 @@ export const Checkbox = ({ className, checked, onClick, ...props }) => (
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
-  margin: 0 20px 0 8px;
 `
 
 const HiddenCheckbox = styled.input`
@@ -39,8 +48,13 @@ const HiddenCheckbox = styled.input`
 const StyledCheckbox = styled.div`
   width: 16px;
   height: 16px;
+  margin: 0 20px 0 8px;
   background-color: ${props =>
-    props.checked ? 'var(--primary)' : 'var(--secondary__light)'};
+    props.checked
+      ? 'var(--primary)'
+      : props.background
+      ? props.background
+      : 'var(--secondary__light)'};
   border-radius: 3px;
   border: 2px solid
     ${props => (props.checked ? 'var(--primary)' : 'var(--secondary)')};

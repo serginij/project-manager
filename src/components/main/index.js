@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchTeams } from '@symbiotes/effects/'
 import { getToken } from '@symbiotes/helpers'
+import { desksActions } from '@symbiotes/desks'
 
 import { DeskList } from './desk-list'
 import { TeamList } from './team-list'
@@ -22,6 +23,10 @@ export const Main = () => {
     dispatch(getToken())
     !!token && getTeams(token)
   }, [dispatch, getTeams, token])
+
+  useEffect(() => {
+    dispatch(desksActions.setCurrentDesk(null))
+  }, [dispatch])
 
   const teamList = Object.values(teams)
 

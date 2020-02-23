@@ -1,4 +1,5 @@
 import { teamsActions } from '@symbiotes/teams'
+import { desksActions } from '@symbiotes/desks'
 
 import { post } from '@lib/request'
 
@@ -17,5 +18,19 @@ export const parseMindmap = (mindmap, teamId) => {
         dispatch(teamsActions.getTeams.fail(err))
         console.log('parseMindmap err', err)
       })
+  }
+}
+
+export const getMindmap = (desk, columns, cards) => {
+  return dispatch => {
+    return post('/mindmap/parseDesk', {
+      desk: desk,
+      columns: columns,
+      cards: cards
+    })
+      .then(res => {
+        dispatch(desksActions.updateDesk({ id: desk.id, mindmap: res.mindmap }))
+      })
+      .catch(err => console.log(err))
   }
 }

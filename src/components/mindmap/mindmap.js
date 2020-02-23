@@ -9,24 +9,8 @@ import { EditableNode } from './editable-node'
 
 class MindMap extends Component {
   state = {
-    nodes: [
-      {
-        id: 0,
-        x: window.innerWidth / 2 - 20,
-        y: window.innerHeight / 2 - 20,
-        name: 'desk'
-      }
-    ],
-    tree: {
-      data: {
-        id: 0,
-        x: window.innerWidth / 2 - 20,
-        y: window.innerHeight / 2 - 20,
-        name: 'desk'
-      },
-      level: 1,
-      children: []
-    },
+    nodes: this.props.nodes,
+    tree: this.props.mindmap,
     counter: 1
   }
 
@@ -109,6 +93,7 @@ class MindMap extends Component {
   }
 
   render() {
+    let editable = this.props.editable
     let nodes = this.state.nodes.map(node => (
       <EditableNode
         onClick={this.handleAddNode}
@@ -119,25 +104,30 @@ class MindMap extends Component {
         y={node.y}
         name={node.name}
         onRename={this.handleRenameNode}
+        editable={editable}
       />
     ))
 
     return (
       <div style={{ marginTop: '-60px' }}>
-        <Button
-          type="button"
-          onClick={() => this.props.onConvert(this.state.tree)}
-          className={styledButton}
-        >
-          Преобразовать
-        </Button>
-        <Button
-          type="button"
-          onClick={() => this.props.onSave(this.state.tree)}
-          className={saveButton}
-        >
-          Сохранить
-        </Button>
+        {editable && (
+          <>
+            <Button
+              type="button"
+              onClick={() => this.props.onConvert(this.state.tree)}
+              className={styledButton}
+            >
+              Преобразовать
+            </Button>
+            <Button
+              type="button"
+              onClick={() => this.props.onSave(this.state.tree)}
+              className={saveButton}
+            >
+              Сохранить
+            </Button>
+          </>
+        )}
         <Branches tree={this.state.tree} />
         {nodes}
       </div>

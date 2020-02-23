@@ -85,7 +85,7 @@ export const deleteDesk = (teamId, deskId, token) => {
     return del(`/desks/${deskId}`, {}, token)
       .then(() => {
         console.log('effects.js: deleteDesk successful')
-        history.push('/')
+        history.replace('/')
         dispatch(delDesk(teamId, deskId))
       })
       .catch(err => console.log(err))
