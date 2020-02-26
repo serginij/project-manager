@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import cloneDeep from 'lodash.clonedeep'
+import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
-import { Button } from '@ui'
+import { Button, CheckIcon } from '@ui'
+import { colors } from '@lib/colors'
 
 import { Branches } from './branches'
 import { EditableNode } from './editable-node'
@@ -11,28 +13,47 @@ class MindMap extends Component {
   state = {
     nodes: this.props.nodes,
     tree: this.props.mindmap,
-    counter: 1
+    counter: 2,
+    color: '000000',
+    res: false
   }
 
   handleAddNode = (id, data, tree = this.state.tree) => {
     let newTree = cloneDeep(tree)
+    const prevNode = this.state.nodes.filter(node => node.id === id)[0]
 
     data.id = this.state.counter
-    this.insertNode(id, data, newTree)
+
+    this.insertNode(id, { ...data, color: prevNode.color }, newTree)
+    let newNodes = [...this.state.nodes]
+
+    console.log(this.state.res)
+
+    newNodes.push({
+      id: this.state.counter,
+      x: data.x,
+      y: data.y,
+      name: '',
+      color: prevNode.color
+    })
 
     this.setState(prevState => ({
       tree: newTree,
-      nodes: [
-        ...prevState.nodes,
-        { id: prevState.counter, x: data.x, y: data.y, name: '' }
-      ],
+      nodes: newNodes,
       counter: prevState.counter + 1
     }))
   }
 
   insertNode = (id, data, tree) => {
+    console.log(tree.level)
     if (tree.data.id === id) {
-      tree.children.push({ data, level: tree.level + 1, children: [] })
+      if (tree.level < 4) {
+        tree.children.push({
+          data,
+          level: tree.level + 1,
+          children: []
+        })
+      }
     } else if (tree.children.length) {
       tree.children.forEach(child => this.insertNode(id, data, child))
     }
@@ -44,7 +65,7 @@ class MindMap extends Component {
     newNodes[index].x = coords.x
     newNodes[index].y = coords.y
 
-    let newTree = this.state.tree
+    let newTree = cloneDeep(this.state.tree)
     this.updateNode(newTree, id, { id: id, x: coords.x, y: coords.y })
 
     this.setState({
@@ -71,24 +92,38 @@ class MindMap extends Component {
     }
   }
 
-  updateName = (tree, id, name) => {
+  updateName = (tree, id, name, color) => {
     if (tree.data.id === id) {
       tree.data.name = name
+      if (color !== '000000') {
+        tree.data.color = color
+      }
     } else if (tree.children.length) {
-      tree.children.forEach(child => this.updateName(child, id, name))
+      tree.children.forEach(child => this.updateName(child, id, name, color))
     }
   }
 
   handleRenameNode = (id, name) => {
-    let newNodes = cloneDeep(this.state.nodes)
-    let index = newNodes.indexOf(newNodes.find(el => el.id === id))
-    newNodes[index].name = name
-    let newTree = this.state.tree
-    this.updateName(newTree, id, name)
+    let color = this.state.color
+    let newNodes = cloneDeep(this.state.nodes).map(node => {
+      if (node.id === id) {
+        node.name = name
+        if (color !== '000000') {
+          node.color = color
+        }
+      }
+      return node
+    })
+    // let index = newNodes.indexOf(newNodes.find(el => el.id === id))
+
+    // newNodes[index].name = name
+    let newTree = cloneDeep(this.state.tree)
+    this.updateName(newTree, id, name, color)
 
     this.setState({
       tree: newTree,
-      nodes: newNodes
+      nodes: newNodes,
+      color: '000000'
     })
   }
 
@@ -108,10 +143,22 @@ class MindMap extends Component {
       />
     ))
 
+    let colorsList = colors.map(color => (
+      <Color
+        type="button"
+        key={color}
+        color={color}
+        onClick={() => this.setState({ color: color })}
+      >
+        <CheckIcon checked={color === this.state.color} />
+      </Color>
+    ))
+
     return (
       <div style={{ marginTop: '-60px' }}>
         {editable && (
           <>
+            <Colors>{colorsList}</Colors>
             <Button
               type="button"
               onClick={() => this.props.onConvert(this.state.tree)}
@@ -145,6 +192,26 @@ const saveButton = css`
   position: absolute;
   top: 60px;
   right: 136px;
+`
+
+const Colors = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  width: 17vh;
+`
+
+const Color = styled.button`
+  border: none;
+  padding: 0;
+  width: 2vh;
+  height: 2vh;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 2px;
+  background-color: ${props => '#' + props.color};
 `
 
 export default MindMap

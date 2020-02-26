@@ -27,7 +27,7 @@ export const CreateDesk = props => {
 
   const handleAddDesk = () => {
     if (checked) {
-      history.push('/mindmap')
+      history.replace('/mindmap')
       history.location.state = { name: name }
     } else {
       dispatch(addDesk(name, currentTeam)).then(props.history.push('/'))
@@ -46,16 +46,22 @@ export const CreateDesk = props => {
         value={name}
         onChange={handleChange}
       />
+
       <TextBlock>
-        <p>Использовать интеллект-карту</p>
-        <Checkbox
-          checked={checked}
-          onClick={e => setChecked(!e.target.checked)}
-          onChange={e => setChecked(!e.target.checked)}
-          className={checkStyle}
-          background="#ffffff"
-        />
+        {!document.ontouchstart && (
+          <>
+            <p>Использовать интеллект-карту</p>
+            <Checkbox
+              checked={checked}
+              onClick={e => setChecked(!e.target.checked)}
+              onChange={e => setChecked(!e.target.checked)}
+              className={checkStyle}
+              background="#ffffff"
+            />
+          </>
+        )}
       </TextBlock>
+
       <AddButton
         disabled={name === ''}
         type="button"

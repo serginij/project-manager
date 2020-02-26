@@ -50,7 +50,7 @@ export const updateTeam = (name, desc, teamId, token) => {
 export const findUser = username => {
   return dispatch => {
     if (username.length) {
-      return get(`/user/find/${username}`)
+      return get(`/users/find/${username}`)
         .then(res => {
           dispatch(teamsActions.findUsers(res.users))
           console.log(res)

@@ -5,8 +5,8 @@ export const handleErrors = response => {
   return response
 }
 
-// const baseUrl = 'http://localhost:3001'
-const baseUrl = 'https://project--manager.herokuapp.com'
+const baseUrl = 'http://localhost:3001'
+// const baseUrl = 'https://project--manager.herokuapp.com'
 
 export const get = (url, options, auth) =>
   fetch(baseUrl + url, {

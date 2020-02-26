@@ -57,10 +57,11 @@ export const Node = props => {
 }
 
 const Container = styled.div`
-  background-color: white;
-  border-radius: 20%;
+  background-color: var(--secondary__light);
+  /* background-color: white; */
+  border-radius: 30%;
   widht: auto;
-  padding: 1em;
+  padding: 0.5em;
   height: auto;
   position: absolute;
   left: ${props => props.x + 'px'};
