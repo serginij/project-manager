@@ -77,14 +77,15 @@ export const MindMapWrapper = () => {
               data,
               children: card.children.map((item, itemIndex) => {
                 let itemCoords = {
-                  x: cardCoords.x,
+                  x: cardCoords.x + cardWidth / 2,
                   y: cardCoords.y + (itemIndex + 1) * 80
                 }
                 data = {
                   ...item.data,
-                  x: itemCoords.x,
+                  x: itemCoords.x - (cardWidth / 10) * itemIndex,
                   y: itemCoords.y,
-                  startX: cardCoords.x + cardWidth / 2,
+                  // startX: cardCoords.x + cardWidth / 2,
+                  startX: cardCoords.x,
                   startY: cardCoords.y + 25
                 }
                 nodes.push(data)
@@ -100,11 +101,19 @@ export const MindMapWrapper = () => {
     }
   } else {
     mindmap = {
-      data: { name: name, id: 1, x: innerWidth / 2 - 20, y: 80 },
+      data: {
+        name: name,
+        id: 1,
+        x: innerWidth / 2 - 20,
+        y: 80,
+        color: '000000'
+      },
       level: 1,
       children: []
     }
-    nodes = [{ name: name, id: 1, x: innerWidth / 2 - 20, y: 80 }]
+    nodes = [
+      { name: name, id: 1, x: innerWidth / 2 - 20, y: 80, color: '000000' }
+    ]
   }
 
   const handleSave = tree => {

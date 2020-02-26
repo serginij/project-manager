@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Input, Button, AddButton, CheckIcon } from '@ui'
 import { addLabel, deleteLabel, updateLabel } from '@symbiotes/effects/'
+import { colors } from '@lib/colors'
 
 export const EditLabel = ({ color = '', name = '', onClose, labelId }) => {
   let [currentColor, setColor] = useState(color)
@@ -32,19 +33,6 @@ export const EditLabel = ({ color = '', name = '', onClose, labelId }) => {
   const handleChange = e => {
     setText(e.target.value)
   }
-
-  let colors = [
-    'f44336',
-    'ff9800',
-    'fdd835',
-    '4caf50',
-    '00bcd4',
-    '2196f3',
-    'ab47bc',
-    '8bc34a',
-    '3f51b5',
-    'e91e63'
-  ]
 
   let list = colors.map(color => (
     <Color key={color} color={color} onClick={() => setColor(color)}>

@@ -21,8 +21,10 @@ export const EditableNode = ({
   const handleClick = event => {
     event.stopPropagation()
     if (editable) {
+      if (isOpen) {
+        onRename(id, text)
+      }
       setIsOpen(!isOpen)
-      onRename(id, text)
     }
   }
 
@@ -65,6 +67,9 @@ export const EditableNode = ({
 
 const Input = styled.input`
   width: 50%;
+  height: 2em;
+  border-radius: 3px;
+  border: 1px solid var(--secondary__dark);
 `
 
 const Button = styled.button`

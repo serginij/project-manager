@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useCallback } from 'react'
-
 import { styled } from 'linaria/react'
 
 export const Branches = ({ tree }) => {
   const canvasRef = useRef(null)
 
   const drawTree = useCallback((tree, ctx) => {
-    const { startX, startY, x, y } = tree.data
-    ctx.moveTo(tree.data.startX, tree.data.startY)
+    const { startX, startY, x, y, color = '000000' } = tree.data
+    ctx.beginPath()
+    ctx.strokeStyle = '#' + color
 
     ctx.bezierCurveTo(
       startX,
@@ -32,6 +32,7 @@ export const Branches = ({ tree }) => {
 
     ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth)
     ctx.beginPath()
+    ctx.lineWidth = 2
     drawTree(tree, ctx)
   }, [drawTree, tree])
 
