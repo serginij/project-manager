@@ -5,6 +5,9 @@ import { CloseButton } from './close-button'
 import { AddButton } from './add-button'
 import { Input } from './input'
 import { TextArea } from './text-area'
+import { Icon } from './icon'
+
+import plus from '@assets/plus.png'
 
 export const AddForm = ({
   onAdd,
@@ -49,7 +52,10 @@ export const AddForm = ({
   )
 
   return !opened ? (
-    <OpenForm onClick={handleOpenForm}>{inputText}</OpenForm>
+    <OpenForm onClick={handleOpenForm}>
+      <Icon src={plus} alt="" width={22} height={22} opacity={0.8} />
+      {inputText}
+    </OpenForm>
   ) : (
     <Wrapper onSubmit={handleAdd}>
       {input}
@@ -71,11 +77,7 @@ const Wrapper = styled.form`
   flex-direction: column;
   padding: 12px;
   input::placeholder {
-    color: #b8b9bb;
     padding-top: 0;
-  }
-  textarea::placeholder {
-    color: #b8b9bb;
   }
   border-radius: 3px;
 `
@@ -91,20 +93,14 @@ const OpenForm = styled.button`
   width: 100%;
   box-sizing: border-box;
   height: 2.5rem;
-  padding: 0;
-  padding-left: 40px;
-  color: #6b808c;
-  position: relative;
+  padding-left: 10px;
+
+  color: var(--secondary-text);
   cursor: pointer;
-  font: inherit;
   font-size: 15px;
-  &::before {
-    content: '+';
-    left: 12px;
-    font-size: 2em;
-    font-weight: 300;
-    height: 100%;
-    position: absolute;
+
+  img {
+    margin-right: 10px;
   }
 `
 

@@ -42,18 +42,18 @@ export const Desk = () => {
     <>
       <DeskHeader>
         <h2>{desk.name}</h2>
-        {isAdmin && (
-          <>
-            <div>
-              <Button onClick={handleGetMindmap}>И-карта</Button>
-              <Button className={buttonStyle}>
-                <StyledLink to={`/desk/settings/${currentDesk}`}>
-                  Настройки
-                </StyledLink>
-              </Button>
-            </div>
-          </>
-        )}
+        <div>
+          {window.matchMedia('(min-width: 500px)').matches && (
+            <Button onClick={handleGetMindmap}>И-карта</Button>
+          )}
+          {isAdmin && (
+            <Button className={buttonStyle}>
+              <StyledLink to={`/desk/settings/${currentDesk}`}>
+                Настройки
+              </StyledLink>
+            </Button>
+          )}
+        </div>
       </DeskHeader>
       <DeskWrapper>
         <ColumnsList deskId={currentDesk} />
