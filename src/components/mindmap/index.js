@@ -30,7 +30,7 @@ export const MindMapWrapper = () => {
 
   if (desk) {
     let deskWidth = desk.mindmap.data.name.length * 7 + 55
-    let deskCoords = { x: innerWidth / 2 - deskWidth / 2, y: 80 }
+    let deskCoords = { x: innerWidth / 2 - deskWidth / 2, y: 60 }
     let data = { ...desk.mindmap.data, x: deskCoords.x, y: deskCoords.y }
     nodes.push(data)
     mindmap = {
@@ -41,7 +41,7 @@ export const MindMapWrapper = () => {
         let columnWidth = column.data.name.length * 7 + 55
         let colCoords = {
           x: (colIndex + 1 / 2) * deskStep - columnWidth / 2,
-          y: 160
+          y: 140
         }
         data = {
           ...column.data,
@@ -62,7 +62,7 @@ export const MindMapWrapper = () => {
                 (cardIndex + 1 / 2) * cardStep -
                 cardWidth / 2 +
                 deskStep * colIndex,
-              y: 240
+              y: 220
             }
             data = {
               ...card.data,
@@ -78,7 +78,7 @@ export const MindMapWrapper = () => {
               children: card.children.map((item, itemIndex) => {
                 let itemCoords = {
                   x: cardCoords.x + cardWidth / 2,
-                  y: cardCoords.y + (itemIndex + 1) * 80
+                  y: cardCoords.y + (itemIndex + 1) * 60
                 }
                 data = {
                   ...item.data,
@@ -106,13 +106,21 @@ export const MindMapWrapper = () => {
         id: 1,
         x: innerWidth / 2 - 20,
         y: 80,
-        color: '000000'
+        color: '000000',
+        level: 1
       },
       level: 1,
       children: []
     }
     nodes = [
-      { name: name, id: 1, x: innerWidth / 2 - 20, y: 80, color: '000000' }
+      {
+        name: name,
+        id: 1,
+        x: innerWidth / 2 - 20,
+        y: 80,
+        color: '000000',
+        level: 1
+      }
     ]
   }
 

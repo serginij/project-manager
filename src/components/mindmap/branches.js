@@ -46,6 +46,7 @@ export const Branches = ({ tree }) => {
 }
 
 const CanvasBlock = styled.canvas`
+  margin-top: -14px;
   width: ${props => props.width};
   height: ${props => props.height};
 `

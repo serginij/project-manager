@@ -58,9 +58,8 @@ export const Node = props => {
 
 const Container = styled.div`
   background-color: var(--secondary__light);
-  /* background-color: white; */
   border-radius: 30%;
-  widht: auto;
+  min-width: 20px;
   padding: 0.5em;
   height: auto;
   position: absolute;
