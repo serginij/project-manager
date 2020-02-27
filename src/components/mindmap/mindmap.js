@@ -126,6 +126,27 @@ class MindMap extends Component {
     })
   }
 
+  handleDeleteNode = id => {
+    const res = this.deleteNode(id, this.state.tree)
+    const newNodes = this.state.nodes.filter(node => node.id < id)
+    this.setState({ tree: res, nodes: newNodes })
+  }
+
+  deleteNode = (id, tree) => {
+    return {
+      ...tree,
+      children: tree.children.filter(col => {
+        col.children = col.children.filter(card => {
+          card.children = card.children.filter(item => {
+            return item.data.id !== id
+          })
+          return card.data.id !== id
+        })
+        return col.data.id !== id
+      })
+    }
+  }
+
   render() {
     let editable = this.props.editable
     let nodes = this.state.nodes.map(node => (
@@ -138,6 +159,7 @@ class MindMap extends Component {
         y={node.y}
         name={node.name}
         onRename={this.handleRenameNode}
+        onDelete={this.handleDeleteNode}
         editable={editable}
       />
     ))

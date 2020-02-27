@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { styled } from 'linaria/react'
 
 import edit from '@assets/edit.svg'
+import del from '@assets/trash.png'
 
 import { Node } from './node'
 
@@ -13,7 +14,8 @@ export const EditableNode = ({
   y,
   name,
   onRename,
-  editable
+  editable,
+  onDelete
 }) => {
   const [text, setText] = useState(name)
   const [isOpen, setIsOpen] = useState(false)
@@ -34,14 +36,27 @@ export const EditableNode = ({
   }
 
   let nodeContent = isOpen ? (
-    <Input
-      type="text"
-      onClick={e => {
-        e.stopPropagation()
-      }}
-      onChange={handleChange}
-      value={text}
-    />
+    <>
+      <Input
+        type="text"
+        onClick={e => {
+          e.stopPropagation()
+        }}
+        onChange={handleChange}
+        value={text}
+      />
+      {id > 1 && (
+        <Button
+          type="button"
+          onClick={e => {
+            e.stopPropagation()
+            onDelete(id)
+          }}
+        >
+          <img src={del} alt="delete node" width="18px" />
+        </Button>
+      )}
+    </>
   ) : (
     <>{id ? text : 'Root'}</>
   )
@@ -50,6 +65,7 @@ export const EditableNode = ({
     <Node
       onClick={onClick}
       onMove={onMove}
+      onDelete={onDelete}
       id={id}
       x={x}
       y={y}
