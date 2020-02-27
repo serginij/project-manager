@@ -11,17 +11,21 @@ export const Node = props => {
 
   const handleDrop = event => {
     event.preventDefault()
+    const { width, height } = event.target.getBoundingClientRect()
+    let newX = event.clientX - 30
+    let newY = event.clientY - 16
+    props.onMove(props.id, { x: newX + width / 2, y: newY + height / 2 })
     setDragging(false)
   }
 
   const handleOnDrag = event => {
     event.preventDefault()
-    const { width, height } = event.target.getBoundingClientRect()
+    // const { width, height } = event.target.getBoundingClientRect()
     let newX = event.clientX - 30
     let newY = event.clientY - 16
     setX(newX)
     setY(newY)
-    props.onMove(props.id, { x: newX + width / 2, y: newY + height / 2 })
+    // props.onMove(props.id, { x: newX + width / 2, y: newY + height / 2 })
   }
 
   const handleDragStart = () => {
@@ -63,8 +67,10 @@ const Container = styled.div`
   padding: 0.5em;
   height: auto;
   position: absolute;
+  display: flex;
+  align-items: center;
   left: ${props => props.x + 'px'};
   top: ${props => props.y + 'px'};
-  opacity: ${props => (props.dragging ? '0.01' : '1')};
+  /* opacity: ${props => (props.dragging ? '0.01' : '1')}; */
   cursor: ${props => (props.draggable ? 'grab' : 'default')};
 `
