@@ -38,8 +38,8 @@ export const Deadline = ({ cardId }) => {
           <Time>
             {formattedDate}{' '}
             {(checked || overdue) && (
-              <Done overdue={overdue && checked}>
-                {overdue && checked ? 'ВЫПОЛНЕНО' : 'ПРОСРОЧЕНО'}
+              <Done overdue={!overdue && checked}>
+                {!overdue && checked ? 'ВЫПОЛНЕНО' : 'ПРОСРОЧЕНО'}
               </Done>
             )}
             <Icon src={down} alt="" width={14} height={14} />
