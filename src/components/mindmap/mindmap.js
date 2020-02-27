@@ -14,38 +14,39 @@ class MindMap extends Component {
     nodes: this.props.nodes,
     tree: this.props.mindmap,
     counter: 2,
-    color: '000000',
-    res: false
+    color: '000000'
   }
 
   handleAddNode = (id, data, tree = this.state.tree) => {
-    let newTree = cloneDeep(tree)
-    const prevNode = this.state.nodes.filter(node => node.id === id)[0]
+    if (this.props.editable) {
+      let newTree = cloneDeep(tree)
+      const prevNode = this.state.nodes.filter(node => node.id === id)[0]
 
-    data.id = this.state.counter
+      data.id = this.state.counter
 
-    this.insertNode(id, { ...data, color: prevNode.color }, newTree)
-    let newNodes = [...this.state.nodes]
+      this.insertNode(id, { ...data, color: prevNode.color }, newTree)
+      let newNodes = [...this.state.nodes]
 
-    console.log(this.state.res)
+      if (prevNode.level < 4) {
+        newNodes.push({
+          id: this.state.counter,
+          x: data.x,
+          y: data.y,
+          name: '',
+          color: prevNode.color,
+          level: prevNode.level + 1
+        })
+      }
 
-    newNodes.push({
-      id: this.state.counter,
-      x: data.x,
-      y: data.y,
-      name: '',
-      color: prevNode.color
-    })
-
-    this.setState(prevState => ({
-      tree: newTree,
-      nodes: newNodes,
-      counter: prevState.counter + 1
-    }))
+      this.setState(prevState => ({
+        tree: newTree,
+        nodes: newNodes,
+        counter: prevState.counter + 1
+      }))
+    }
   }
 
   insertNode = (id, data, tree) => {
-    console.log(tree.level)
     if (tree.data.id === id) {
       if (tree.level < 4) {
         tree.children.push({
@@ -114,9 +115,7 @@ class MindMap extends Component {
       }
       return node
     })
-    // let index = newNodes.indexOf(newNodes.find(el => el.id === id))
 
-    // newNodes[index].name = name
     let newTree = cloneDeep(this.state.tree)
     this.updateName(newTree, id, name, color)
 
@@ -155,7 +154,7 @@ class MindMap extends Component {
     ))
 
     return (
-      <div style={{ marginTop: '-60px' }}>
+      <div style={{ marginTop: '-50px' }}>
         {editable && (
           <>
             <Colors>{colorsList}</Colors>
