@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Input, Button, AddButton, CheckIcon } from '@ui'
 import { addLabel, deleteLabel, updateLabel } from '@symbiotes/effects/'
-import { colors } from '@lib/colors'
+import { colors } from '@lib/constants'
 
 export const EditLabel = ({ color = '', name = '', onClose, labelId }) => {
   let [currentColor, setColor] = useState(color)
@@ -89,7 +89,7 @@ const Color = styled.div`
   align-items: center;
   justify-content: center
   cursor: pointer;
-  background-color: ${props => '#' + props.color};
+  background-color: ${props => props.color};
 `
 
 const delButton = css`
