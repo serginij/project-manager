@@ -1,7 +1,7 @@
 import { styled } from 'linaria/react'
 
 export const FormWrapper = styled.div`
-  width: 30%;
+  /* width: 30%; */
   margin: auto;
   margin-top: 5%;
   text-align: center;
