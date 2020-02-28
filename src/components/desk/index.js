@@ -43,6 +43,9 @@ export const Desk = () => {
       <DeskHeader>
         <h2>{desk.name}</h2>
         <div>
+          <Button className={buttonStyle}>
+            <StyledLink to="/stats">Анализ</StyledLink>
+          </Button>
           {window.matchMedia('(min-width: 500px)').matches && (
             <Button onClick={handleGetMindmap}>И-карта</Button>
           )}
@@ -85,9 +88,17 @@ const DeskWrapper = styled.div`
 
 const DeskHeader = styled.header`
   display: flex;
-  margin: 0 20px;
+  margin-left: 20px;
+  margin-right: 10px;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 500px) {
+    margin-right: 0;
+  }
+  @media (max-width: 390px) {
+    flex-direction: column-reverse;
+  }
 `
 
 const spinnerStyle = css`
@@ -97,8 +108,4 @@ const spinnerStyle = css`
 const buttonStyle = css`
   padding: 0;
   height: 28px;
-  /* a { */
-  /* height: 28px; */
-  /* width: */
-  /* } */
 `

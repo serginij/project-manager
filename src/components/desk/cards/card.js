@@ -9,6 +9,7 @@ import { EditCard } from './edit-card'
 import { cardsActions } from '@symbiotes/cards'
 import { formatDate } from '@lib/format-date'
 import { getProgress } from '@lib/get-progress'
+import { stages } from '@lib/constants'
 
 import comment from '@assets/comment.png'
 import time from '@assets/time.png'
@@ -69,7 +70,20 @@ export const Card = ({ text, id, card }) => {
       onMouseLeave={() => setVisible(false)}
       onClick={handleClick}
     >
-      {!!labels.length && <List>{list}</List>}
+      {!!labels.length && (
+        <List>
+          {list}
+          {card.stage && (
+            <Item>
+              <ColorBlock
+                color={stages.filter(stage => stage.id === card.stage)[0].color}
+              >
+                {stages.filter(stage => stage.id === card.stage)[0].name}
+              </ColorBlock>
+            </Item>
+          )}
+        </List>
+      )}
       <Text>{text}</Text>
       <InfoBlock>
         {card.deadline && (
@@ -177,12 +191,13 @@ const List = styled.ul`
   margin-top: 8px;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
 `
 
 const Item = styled.li`
   text-decoration: none;
   list-style: none;
-  margin-right: 4px;
+  margin: 0 4px 4px 0;
 `
 
 const ColorBlock = styled.div`
@@ -194,7 +209,7 @@ const ColorBlock = styled.div`
   font-weight: 600;
   font-size: 13px;
   text-align: center;
-  background-color: ${props => '#' + props.color};
+  background-color: ${props => props.color};
   color: white;
   cursor: pointer;
 `
