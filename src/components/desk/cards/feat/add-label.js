@@ -180,19 +180,19 @@ const Label = styled.div`
   font-size: 14px;
   font-weight: 700;
   height: 2.5em;
-  background-color: ${props => '#' + props.color};
+  background-color: ${props => props.color};
   color: white;
   margin-right: 8px;
 
   &:hover {
     padding-left: 16px;
-    box-shadow: -4px 0 ${props => '#' + props.color};
+    box-shadow: -4px 0 ${props => props.color};
     cursor: pointer;
   }
 
   &:focus {
     padding-left: 16px;
-    outline: 1px solid ${props => '#' + props.color};
+    outline: 1px solid ${props => props.color};
   }
 `
 

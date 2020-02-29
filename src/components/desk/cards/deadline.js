@@ -25,7 +25,7 @@ export const Deadline = ({ cardId }) => {
   let overdue = new Date().getTime() > new Date(card.deadline).getTime()
 
   return (
-    <>
+    <div>
       <Title>СРОК</Title>
       <Wrapper>
         <Checkbox
@@ -38,15 +38,15 @@ export const Deadline = ({ cardId }) => {
           <Time>
             {formattedDate}{' '}
             {(checked || overdue) && (
-              <Done overdue={!overdue && checked}>
-                {!overdue && checked ? 'ВЫПОЛНЕНО' : 'ПРОСРОЧЕНО'}
+              <Done overdue={overdue && !checked}>
+                {!checked && overdue ? 'ПРОСРОЧЕНО' : 'ВЫПОЛНЕНО'}
               </Done>
             )}
             <Icon src={down} alt="" width={14} height={14} />
           </Time>
         </AddDeadline>
       </Wrapper>
-    </>
+    </div>
   )
 }
 
@@ -75,7 +75,7 @@ const Time = styled.button`
 `
 
 const Done = styled.p`
-  background-color: ${props => (props.overdue ? 'var(--green)' : 'var(--red)')};
+  background-color: ${props => (props.overdue ? 'var(--red)' : 'var(--green)')};
   color: white;
   font-size: 14px;
   margin: 3px;

@@ -6,6 +6,7 @@ import { AddUser } from './add-user'
 import { AddLabel } from './add-label'
 import { AddList } from './add-list'
 import { AddDeadline } from './add-deadline'
+import { AddStage } from './add-stage'
 import { ConfirmBlock } from '@ui/'
 
 import { deleteCard } from '@symbiotes/effects/'
@@ -44,6 +45,9 @@ export const FeatBlock = ({ allLabels, cardLabels }) => {
         <AddDeadline startDate={card.deadline || new Date()}>
           <Item>Срок</Item>
         </AddDeadline>
+        <AddStage card={card}>
+          <Item>Стадия</Item>
+        </AddStage>
         <ConfirmBlock
           onConfirm={handleDeleteCard}
           title="Удаление карточки"

@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
 import { Button, CheckIcon } from '@ui'
-import { colors } from '@lib/colors'
+import { colors } from '@lib/constants'
 
 import { Branches } from './branches'
 import { EditableNode } from './editable-node'
@@ -232,7 +232,7 @@ const Color = styled.button`
   margin: 5px;
   cursor: pointer;
   border-radius: 2px;
-  background-color: ${props => '#' + props.color};
+  background-color: ${props => props.color};
 `
 
 export default MindMap

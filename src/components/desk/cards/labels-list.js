@@ -43,6 +43,7 @@ const List = styled.ul`
   list-style: none;
   padding: 0;
   display: flex;
+  flex-wrap: wrap;
 `
 
 const Item = styled.li`
@@ -87,7 +88,7 @@ const ColorBlock = styled.div`
   font-weight: 700;
   font-size: 14px;
   text-align: center;
-  background-color: ${props => '#' + props.color};
+  background-color: ${props => props.color};
   color: white;
   cursor: pointer;
 `

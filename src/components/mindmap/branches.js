@@ -7,7 +7,7 @@ export const Branches = ({ tree }) => {
   const drawTree = useCallback((tree, ctx) => {
     const { startX, startY, x, y, color = '000000' } = tree.data
     ctx.beginPath()
-    ctx.strokeStyle = '#' + color
+    ctx.strokeStyle = color
 
     ctx.bezierCurveTo(
       startX,

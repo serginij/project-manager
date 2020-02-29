@@ -11,6 +11,7 @@ import { Checklists } from './checklists'
 import { Deadline } from './deadline'
 import { Progress } from './progress'
 import { LabelsList } from './labels-list'
+import { Stage } from './stage'
 
 import { updateCard } from '@symbiotes/effects/'
 
@@ -65,7 +66,10 @@ export const EditCard = ({ onClick, cardId, allLabels }) => {
             allLabels={allLabels}
             cardLabels={card.labels}
           />
-          {card.deadline && <Deadline cardId={cardId} />}
+          <InfoBlock>
+            {card.deadline && <Deadline cardId={cardId} />}
+            {card.stage && <Stage id={card.stage} />}
+          </InfoBlock>
           <Progress lists={card.checklists} />
           <h4>Описание</h4>
           <AddUpdateElement
@@ -179,5 +183,16 @@ const descStyle = css`
 
   button {
     margin-left: 0;
+  }
+`
+
+const InfoBlock = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 700px) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 `
