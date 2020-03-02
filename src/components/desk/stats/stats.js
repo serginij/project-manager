@@ -6,7 +6,10 @@ import { useSelector } from 'react-redux'
 import { getProgress } from '@lib/get-progress'
 import { stages } from '@lib/constants'
 import { history } from '@lib/routing'
+import { getLifeCycle } from '@lib/get-life-model'
 import { Progress, FormWrapper as Wrapper } from '@ui'
+
+import { StageChart } from './stages-chart'
 
 export const Stats = () => {
   const desk = useSelector(state => state.desks.desks[state.desks.currentDesk])
@@ -23,7 +26,7 @@ export const Stats = () => {
   let total = 0
   const stagesProgress = {}
   stages.forEach(stage => {
-    stagesProgress[stage.id] = { value: 0, total: 0 }
+    stagesProgress[stage.id] = { value: 0, total: 0, progress: 0 }
   })
 
   desk &&
@@ -35,24 +38,25 @@ export const Stats = () => {
         progress += res.value
         total += res.total
         if (card.stage) {
-          stagesProgress[card.stage].value += res.value
-          stagesProgress[card.stage].total += res.total
+          let stage = { ...stagesProgress[card.stage] }
+          stage.value += res.value
+          stage.total += res.total
+          stage.progress =
+            stage.total > 0 ? (stage.value / stage.total) * 100 : 0
+          stagesProgress[card.stage] = stage
         }
       })
     })
   console.log(progress, total)
 
+  let lifeCycle = getLifeCycle(Object.values(stagesProgress)).map(stage => (
+    <Text key={stage}>{stage}</Text>
+  ))
+
   const stats = stages.map(({ id, color, name }) => (
     <>
       <h3>{name}</h3>
-      <Progress
-        color={color}
-        progress={
-          stagesProgress[id].total
-            ? (stagesProgress[id].value / stagesProgress[id].total) * 100
-            : 0
-        }
-      />
+      <Progress color={color} progress={stagesProgress[id].progress} />
     </>
   ))
   return (
@@ -64,6 +68,9 @@ export const Stats = () => {
         progress={total ? (progress / total) * 100 : 0}
       />
       {stats}
+      <h3>Предполагаемые модель жизненного цикла</h3>
+      {lifeCycle}
+      <StageChart data={Object.values(stagesProgress)} />
     </Wrapper>
   )
 }
@@ -76,3 +83,5 @@ const wrapperStyle = css`
 const Title = styled.h1`
   text-align: center;
 `
+
+const Text = styled.p``
