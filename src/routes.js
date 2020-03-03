@@ -11,7 +11,7 @@ import { DeskSettings } from '@components/desk/desk-settings'
 import { TeamSettings } from '@components/team/team-settings'
 import { Signup } from '@components/auth/signup'
 import { EditProfile } from '@components/user/edit-profile'
-import { Stats } from '@components/desk/stats'
+import { Stats } from '@components/desk/stats/stats'
 
 export const Routes = () =>
   renderRoutes([
