@@ -7,6 +7,7 @@ import ok from '@assets/ok.png'
 export const Alert = ({
   runEffect,
   success = false,
+  color,
   text = success ? 'Успешно' : 'Произошла ошибка'
 }) => {
   const [visible, setVisible] = useState(false)
@@ -20,7 +21,12 @@ export const Alert = ({
   }, [runEffect])
 
   return (
-    <Body visible={visible} onClick={() => setVisible(false)} success={success}>
+    <Body
+      visible={visible}
+      onClick={() => setVisible(false)}
+      success={success}
+      color={color}
+    >
       <Img src={success ? ok : warning} alt="" />
       <p>{text}</p>
     </Body>
@@ -38,7 +44,8 @@ const Body = styled.div`
   min-width: 180px;
   min-height: 40px;
   border-radius: 3px;
-  background-color: ${props => (props.success ? 'var(--green)' : 'var(--red)')};
+  background-color: ${props =>
+    props.color ? props.color : props.success ? 'var(--green)' : 'var(--red)'};
   color: white;
   font-weight: 400;
   cursor: pointer;
