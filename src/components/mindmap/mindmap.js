@@ -3,7 +3,7 @@ import cloneDeep from 'lodash.clonedeep'
 import { styled } from 'linaria/react'
 import { css } from 'linaria'
 
-import { Button, CheckIcon } from '@ui'
+import { Button, CheckIcon, Alert } from '@ui'
 import { colors } from '@lib/constants'
 
 import { Branches } from './branches'
@@ -14,7 +14,9 @@ class MindMap extends Component {
     nodes: this.props.nodes,
     tree: this.props.mindmap,
     counter: 2,
-    color: '000000'
+    color: '000000',
+    childErr: false,
+    depthErr: false
   }
 
   handleAddNode = (id, data, tree = this.state.tree) => {
@@ -57,6 +59,13 @@ class MindMap extends Component {
       }
     } else if (tree.children.length) {
       tree.children.forEach(child => this.insertNode(id, data, child))
+    }
+    if (tree.children.length > 7) {
+      this.setState({ childErr: true }, () => {
+        setTimeout(() => {
+          this.setState({ childErr: false })
+        }, 5000)
+      })
     }
   }
 
@@ -198,6 +207,15 @@ class MindMap extends Component {
         )}
         <Branches tree={this.state.tree} />
         {nodes}
+        {this.state.childErr && (
+          <Alert color="#ffab00" text="Один из элементов имеет > 7 потомков" />
+        )}
+        {this.state.depthErr && (
+          <Alert
+            color="#ffab00"
+            text="Дерево неравомерно. Разница в глубине > 2"
+          />
+        )}
       </div>
     )
   }
