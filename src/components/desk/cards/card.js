@@ -70,7 +70,7 @@ export const Card = ({ text, id, card }) => {
       onMouseLeave={() => setVisible(false)}
       onClick={handleClick}
     >
-      {!!labels.length && (
+      {(!!labels.length || card.stage) && (
         <List>
           {list}
           {card.stage && (

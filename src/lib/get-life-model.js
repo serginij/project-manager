@@ -1,11 +1,3 @@
-// const arr = [
-//   { name: 'Инициализация', id: 'init', color: '#ffab00', progress: 100 },
-//   { name: 'Планирование', id: 'plan', color: '#43a047', progress: 10 },
-//   { name: 'Реализация', id: 'impl', color: '#c51162', progress: 60 },
-//   { name: 'Тестирование', id: 'test', color: '#aa00ff', progress: 10 },
-//   { name: 'Завершение', id: 'end', color: '#2962ff', progress: 100 }
-// ]
-
 const stages = [
   {
     id: 'cascade',

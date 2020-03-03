@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import { styled } from 'linaria/react'
-import { css } from 'linaria'
 import { useSelector } from 'react-redux'
 
 import { getProgress } from '@lib/get-progress'
 import { stages } from '@lib/constants'
 import { history } from '@lib/routing'
 import { getLifeCycle } from '@lib/get-life-model'
-import { Progress, FormWrapper as Wrapper } from '@ui'
+import { Progress } from '@ui'
 
 import { StageChart } from './stages-chart'
 
@@ -59,25 +58,59 @@ export const Stats = () => {
       <Progress color={color} progress={stagesProgress[id].progress} />
     </>
   ))
+
   return (
-    <Wrapper className={wrapperStyle}>
+    <Wrapper>
       <Title>Статистика выполнения стадий проекта</Title>
       <h2>Выполнение проекта</h2>
       <Progress
         color="var(--primary)"
         progress={total ? (progress / total) * 100 : 0}
       />
-      {stats}
-      <h3>Предполагаемые модель жизненного цикла</h3>
+
+      <h3>Предполагаемая модель жизненного цикла</h3>
       {lifeCycle}
-      <StageChart data={Object.values(stagesProgress)} />
+      <LifecycleStats>
+        <LifecycleProgress>{stats}</LifecycleProgress>
+        <StageChart
+          data={stages.map(stage => {
+            return {
+              ...stage,
+              progress: Math.ceil(stagesProgress[stage.id].progress)
+            }
+          })}
+        />
+      </LifecycleStats>
+      {/* <StageChart2
+        data={stages.map(stage => {
+          return {
+            name: stage.name,
+            progress: Math.ceil(stagesProgress[stage.id].progress),
+            fill: stage.color
+          }
+        })}
+      />
+      <StageChart3
+        data={stages.map(stage => {
+          return {
+            name: stage.name,
+            progress: Math.ceil(stagesProgress[stage.id].progress),
+            fill: stage.color
+          }
+        })} */}
+      {/* /> */}
     </Wrapper>
   )
 }
 
-const wrapperStyle = css`
+const Wrapper = styled.div`
   text-align: left;
-  max-width: 70%;
+  width: 70%;
+  margin: auto;
+
+  @media (max-width: 1550px) {
+    width: 90%;
+  }
 `
 
 const Title = styled.h1`
@@ -85,3 +118,21 @@ const Title = styled.h1`
 `
 
 const Text = styled.p``
+
+const LifecycleStats = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 1250px) {
+    flex-direction: column;
+  }
+`
+
+const LifecycleProgress = styled.div`
+  width: 100%;
+  max-width: 500px;
+  @media (max-width: 1250px) {
+    max-width: unset;
+  }
+`
