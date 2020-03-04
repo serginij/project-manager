@@ -15,7 +15,7 @@ import comment from '@assets/comment.png'
 import time from '@assets/time.png'
 import check from '@assets/check.png'
 
-export const Card = ({ text, id, card }) => {
+export const Card = ({ text, id, card, provided, isDragging }) => {
   const [visible, setVisible] = useState(false)
   const [edit, setEdit] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -69,6 +69,10 @@ export const Card = ({ text, id, card }) => {
       onMouseEnter={showEdit}
       onMouseLeave={() => setVisible(false)}
       onClick={handleClick}
+      isDragging={isDragging}
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
     >
       {(!!labels.length || card.stage) && (
         <List>
@@ -144,7 +148,6 @@ const Wrapper = styled.li`
 
   &:hover {
     background-color: var(--secondary__light);
-    /* opacity: 0.7; */
   }
 `
 
