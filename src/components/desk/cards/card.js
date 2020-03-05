@@ -142,9 +142,8 @@ const Wrapper = styled.li`
   cursor: pointer;
   transition: background-color 0.2s ease;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+  box-shadow: ${props =>
+    props.isDragging ? '2px 2px 1px var(--secondary)' : 'none'};
 
   &:hover {
     background-color: var(--secondary__light);

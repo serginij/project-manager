@@ -56,10 +56,11 @@ const Wrapper = styled.ul`
   box-sizing: border-box;
   width: 100%;
   padding: 0 12px;
+  margin-bottom: -8px;
   overflow-x: hidden;
 `
 
 const DropZone = styled.div`
-  min-height: 4px;
+  min-height: 12px;
   width: 100%;
 `
