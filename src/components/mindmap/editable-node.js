@@ -15,7 +15,8 @@ export const EditableNode = ({
   name,
   onRename,
   editable,
-  onDelete
+  onDelete,
+  level
 }) => {
   const [text, setText] = useState(name)
   const [isOpen, setIsOpen] = useState(false)
@@ -70,6 +71,7 @@ export const EditableNode = ({
       x={x}
       y={y}
       editable={editable}
+      level={level}
     >
       {nodeContent}
       {id && editable ? (

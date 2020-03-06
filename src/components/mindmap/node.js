@@ -20,12 +20,11 @@ export const Node = props => {
 
   const handleOnDrag = event => {
     event.preventDefault()
-    // const { width, height } = event.target.getBoundingClientRect()
+
     let newX = event.clientX - 30
     let newY = event.clientY - 16
     setX(newX)
     setY(newY)
-    // props.onMove(props.id, { x: newX + width / 2, y: newY + height / 2 })
   }
 
   const handleDragStart = () => {
@@ -44,6 +43,22 @@ export const Node = props => {
     })
   }
 
+  let label = null
+  switch (props.level) {
+    case 1:
+      label = 'доска'
+      break
+    case 2:
+      label = 'столбец'
+      break
+    case 3:
+      label = 'карточка'
+      break
+    case 4:
+      label = 'задача'
+      break
+  }
+
   return (
     <Container
       onClick={handleAdd}
@@ -55,6 +70,7 @@ export const Node = props => {
       onDragStart={handleDragStart}
       dragging={dragging}
     >
+      {label && <Type>{label}</Type>}
       {props.children}
     </Container>
   )
@@ -62,15 +78,28 @@ export const Node = props => {
 
 const Container = styled.div`
   background-color: var(--secondary__light);
-  border-radius: 30%;
+  position: relative;
+  border-radius: 5px;
   min-width: 20px;
-  padding: 0.5em;
+  padding: 0.8em 0 0 0.8em;
   height: auto;
   position: absolute;
   display: flex;
   align-items: center;
   left: ${props => props.x + 'px'};
   top: ${props => props.y + 'px'};
-  /* opacity: ${props => (props.dragging ? '0.01' : '1')}; */
+  margin-left: ${props => (props.dragging ? '4px' : '0')};
+  opacity: ${props => (props.dragging ? '0.01' : '1')};
   cursor: ${props => (props.draggable ? 'grab' : 'default')};
+`
+
+const Type = styled.p`
+  position: absolute;
+  color: var(--secondary-color);
+  background-color: var(--secondary__light);
+  font-size: 12px;
+  font-weight: 300;
+  top: 0;
+  left: 0;
+  margin: 0;
 `
