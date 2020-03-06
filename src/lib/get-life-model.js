@@ -31,7 +31,11 @@ export const getLifeCycle = arr => {
         case 0:
           //каскадная
           if (index == 0) {
-            if ((curr < 100 && next == 0) || curr == 100) {
+            if (
+              (curr < 100 && next == 0) ||
+              curr == 100 ||
+              (curr == 0 && next == 0)
+            ) {
               flag = i
             } else {
               flag = -1
@@ -43,7 +47,11 @@ export const getLifeCycle = arr => {
               flag = -1
             }
           } else if (flag == i) {
-            if (curr < 100 && (prev < 100 || next > 0)) {
+            if (
+              curr < 100 &&
+              curr > 0 &&
+              ((prev < 100 && prev > 0) || next > 0)
+            ) {
               flag = -1
             } else {
               flag = i
@@ -87,7 +95,7 @@ export const getLifeCycle = arr => {
           } else if (index == 4 && flag == i) {
             if (curr < 100 && prev < 100 && prev > 0 && curr > 0) {
               flag = -1
-            } else if (lessHundred && curr < 100) {
+            } else if (lessHundred && curr < 100 && curr > 0) {
               flag = -1
             } else {
               flag = i
@@ -95,9 +103,9 @@ export const getLifeCycle = arr => {
           } else if (flag == i) {
             if (prev < 100 && prev > 0 && next < 100 && next > 0) {
               flag = -1
-            } else if (lessHundred && curr < 100) {
+            } else if (lessHundred && curr < 100 && curr > 0) {
               flag = -1
-            } else if (curr < 100) {
+            } else if (curr < 100 && curr > 0) {
               lessHundred = true
             } else {
               flag = i
