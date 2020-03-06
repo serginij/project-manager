@@ -1,12 +1,13 @@
 import React from 'react'
 import { styled } from 'linaria/react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Draggable } from 'react-beautiful-dnd'
 
 import { AddForm, CloseButton, ToggleInput, ConfirmBlock } from '@ui'
 import { deleteColumn, addCard, updateColumn } from '@symbiotes/effects/'
 import { CardsList } from '../cards/cards-list'
 
-export const Column = ({ columnId }) => {
+export const Column = ({ columnId, index }) => {
   const { cards, name, id } = useSelector(
     state => state.columns.columns[columnId]
   )
@@ -19,26 +20,39 @@ export const Column = ({ columnId }) => {
   const handleUpdateColumn = name => dispatch(updateColumn(id, name, token))
 
   return (
-    <ColumnWrapper>
-      <ColumnHeader>
-        <ToggleInput onSubmit={handleUpdateColumn} text={name} />
-        <ConfirmBlock
-          onConfirm={handleDeleteColumn}
-          title="Удаление столбца"
-          buttonText="Удалить столбец"
+    <Draggable draggableId={columnId + ''} index={index}>
+      {(provided, snapshot) => (
+        <ColumnWrapper
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
         >
-          <CloseButton />
-        </ConfirmBlock>
-      </ColumnHeader>
-      <CardsList tabIndex={0} cardsById={cards} columnId={columnId} />
-      <AddForm
-        onAdd={handleAddCard}
-        buttonText="Добавить карточку"
-        inputText="Добавить еще однy карточку"
-        placeholder="Название карточки"
-        type="card"
-      />
-    </ColumnWrapper>
+          <ColumnHeader isDragging={snapshot.isDragging}>
+            <ToggleInput onSubmit={handleUpdateColumn} text={name} />
+            <ConfirmBlock
+              onConfirm={handleDeleteColumn}
+              title="Удаление столбца"
+              buttonText="Удалить столбец"
+            >
+              <CloseButton />
+            </ConfirmBlock>
+          </ColumnHeader>
+          <CardsList
+            listType="CARDS"
+            tabIndex={0}
+            cardsById={cards}
+            columnId={columnId}
+          />
+          <AddForm
+            onAdd={handleAddCard}
+            buttonText="Добавить карточку"
+            inputText="Добавить еще однy карточку"
+            placeholder="Название карточки"
+            type="card"
+          />
+        </ColumnWrapper>
+      )}
+    </Draggable>
   )
 }
 

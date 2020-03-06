@@ -69,3 +69,24 @@ export const deleteCardUser = (cardId, userId, token) => {
       .catch(err => console.log(err))
   }
 }
+
+export const moveCard = (
+  cardId,
+  fromCol,
+  toCol,
+  cards,
+  index,
+  token,
+  columns
+) => {
+  return dispatch => {
+    dispatch(columnsActions.getColumns.done(columns))
+    return post(
+      `/cards/${cardId}/moveCard`,
+      { fromCol: fromCol, toCol: toCol, cards: cards, index: index },
+      token
+    ).catch(err => {
+      dispatch(cardsActions.setError(err))
+    })
+  }
+}
