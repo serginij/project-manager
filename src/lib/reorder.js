@@ -10,20 +10,31 @@ export const reorderCards = (columns, source, destination) => {
   const current = [...columns[source.droppableId].cards]
   const next = [...columns[destination.droppableId].cards]
   const target = current[source.index]
+  let cards = []
+  let result
 
   if (source.droppableId === destination.droppableId) {
     const reordered = reorder(current, source.index, destination.index)
-    const result = {
+
+    result = {
       ...columns,
       [source.droppableId]: { ...columns[source.droppableId], cards: reordered }
     }
-    return result
+
+    return {
+      cards: reordered,
+      fromCol: +source.droppableId,
+      toCol: +destination.droppableId,
+      index: destination.index,
+      cardId: target,
+      columns: result
+    }
   }
 
   current.splice(source.index, 1)
   next.splice(destination.index, 0, target)
 
-  const result = {
+  result = {
     ...columns,
     [source.droppableId]: { ...columns[source.droppableId], cards: current },
     [destination.droppableId]: {
@@ -31,6 +42,12 @@ export const reorderCards = (columns, source, destination) => {
       cards: next
     }
   }
-
-  return result
+  return {
+    cards: cards,
+    fromCol: +source.droppableId,
+    toCol: +destination.droppableId,
+    index: destination.index,
+    cardId: target,
+    columns: result
+  }
 }

@@ -1,4 +1,5 @@
 import { desksActions } from '@symbiotes/desks'
+import { cardsActions } from '@symbiotes/cards'
 
 import { post, del } from '@lib/request'
 
@@ -21,6 +22,19 @@ export const deleteColumn = columnId => {
   return dispatch => {
     return del(`/desks/columns/${columnId}`).then(() => {
       dispatch(desksActions.deleteColumn(columnId))
+    })
+  }
+}
+
+export const moveColumn = (deskId, columns, token) => {
+  return dispatch => {
+    dispatch(desksActions.updateDesk({ id: deskId, columns: columns }))
+    return post(
+      `/desks/${deskId}/moveColumn`,
+      { columns: columns },
+      token
+    ).catch(err => {
+      dispatch(cardsActions.setError(err))
     })
   }
 }

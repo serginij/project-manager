@@ -4,24 +4,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { reorder, reorderCards } from '@lib/reorder'
-import { desksActions } from '@symbiotes/desks'
-import { columnsActions } from '@symbiotes/columns'
+import { moveColumn, moveCard } from '@symbiotes/effects'
 
 import { Column } from './column'
 
 export const ColumnsList = ({ deskId }) => {
   const allColumns = useSelector(state => state.desks.desks[deskId].columns)
   const { columns } = useSelector(state => state.columns)
+  const { token } = useSelector(state => state.auth)
 
   const dispatch = useDispatch()
 
-  const handleUpdateDesk = columns => {
-    dispatch(desksActions.updateDesk({ id: deskId, columns: columns }))
+  const handleMoveColumn = columns => {
+    dispatch(moveColumn(deskId, columns, token))
   }
 
-  const handleSetColumns = newColumns => {
-    console.log(newColumns)
-    dispatch(columnsActions.getColumns.done(newColumns))
+  const handleMoveCard = data => {
+    let { cards, fromCol, toCol, index, cardId, columns } = data
+    dispatch(moveCard(cardId, fromCol, toCol, cards, index, token, columns))
   }
 
   const onDragEnd = result => {
@@ -30,7 +30,7 @@ export const ColumnsList = ({ deskId }) => {
       if (result.type === 'COLUMN') {
         const shallow = [...allColumns]
         shallow.splice(result.source.index, 1)
-        handleUpdateDesk(shallow)
+        handleMoveColumn(shallow)
         return
       }
 
@@ -41,7 +41,8 @@ export const ColumnsList = ({ deskId }) => {
         ...columns,
         [result.source.droppableId]: withQuoteRemoved
       }
-      handleSetColumns(columns)
+
+      handleMoveCard(reorderCards(columns, source, destination))
       return
     }
 
@@ -60,13 +61,11 @@ export const ColumnsList = ({ deskId }) => {
 
     if (result.type === 'COLUMN') {
       const ordered = reorder(allColumns, source.index, destination.index)
-      handleUpdateDesk(ordered)
+      handleMoveColumn(ordered)
       return
     }
 
-    const data = reorderCards(columns, source, destination)
-
-    handleSetColumns(data)
+    handleMoveCard(reorderCards(columns, source, destination))
   }
 
   const columnsList =
