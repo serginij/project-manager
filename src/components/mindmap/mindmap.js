@@ -169,6 +169,7 @@ class MindMap extends Component {
         name={node.name}
         onRename={this.handleRenameNode}
         onDelete={this.handleDeleteNode}
+        level={node.level}
         editable={editable}
       />
     ))
