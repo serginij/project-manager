@@ -26,25 +26,27 @@ class MindMap extends Component {
 
       data.id = this.state.counter
 
-      this.insertNode(id, { ...data, color: prevNode.color }, newTree)
-      let newNodes = [...this.state.nodes]
+      this.setState({ depthErr: { column: false, task: false } }, () => {
+        this.insertNode(id, { ...data, color: prevNode.color }, newTree)
+        let newNodes = [...this.state.nodes]
 
-      if (prevNode.level < 4) {
-        newNodes.push({
-          id: this.state.counter,
-          x: data.x,
-          y: data.y,
-          name: '',
-          color: prevNode.color,
-          level: prevNode.level + 1
-        })
-      }
+        if (prevNode.level < 4) {
+          newNodes.push({
+            id: this.state.counter,
+            x: data.x,
+            y: data.y,
+            name: '',
+            color: prevNode.color,
+            level: prevNode.level + 1
+          })
+        }
 
-      this.setState(prevState => ({
-        tree: newTree,
-        nodes: newNodes,
-        counter: prevState.counter + 1
-      }))
+        this.setState(prevState => ({
+          tree: newTree,
+          nodes: newNodes,
+          counter: prevState.counter + 1
+        }))
+      })
     }
   }
 
@@ -66,6 +68,16 @@ class MindMap extends Component {
           this.setState({ childErr: false })
         }, 5000)
       })
+    }
+    if (tree.children.length > 2 && tree.level === 3) {
+      this.setState(prevState => ({
+        depthErr: { ...prevState.depthErr, task: true }
+      }))
+    }
+    if (tree.level == 2 && tree.children.length == 0) {
+      this.setState(prevState => ({
+        depthErr: { ...prevState.depthErr, column: true }
+      }))
     }
   }
 
@@ -211,10 +223,16 @@ class MindMap extends Component {
         {this.state.childErr && (
           <Alert color="#ffab00" text="Один из элементов имеет > 7 потомков" />
         )}
-        {this.state.depthErr && (
+        {this.state.nodes.length > 20 && (
           <Alert
             color="#ffab00"
-            text="Дерево неравомерно. Разница в глубине > 2"
+            text="Оптимальное количество элементов превышено"
+          />
+        )}
+        {this.state.depthErr.column && this.state.depthErr.task && (
+          <Alert
+            color="#ffab00"
+            text="Дерево неравомерно. Одна из веток более детализирована"
           />
         )}
       </div>

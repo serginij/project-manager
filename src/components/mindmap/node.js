@@ -81,7 +81,7 @@ const Container = styled.div`
   position: relative;
   border-radius: 5px;
   min-width: 20px;
-  padding: 0.8em 0 0 0.8em;
+  padding: 1em 0 0 0.8em;
   height: auto;
   position: absolute;
   display: flex;
