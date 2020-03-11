@@ -14,7 +14,10 @@ export const Header = () => {
   const hidden = useSelector(state => state.auth.hidden)
   const dispatch = useDispatch()
 
-  const logout = () => dispatch(logoutAction())
+  const logout = () => {
+    dispatch(logoutAction())
+    history.replace('/auth')
+  }
 
   const goBack = () => {
     if (history.location.pathname !== '/') {

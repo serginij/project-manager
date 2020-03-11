@@ -45,9 +45,11 @@ export const FeatBlock = ({ allLabels, cardLabels }) => {
         <AddDeadline startDate={card.deadline || new Date()}>
           <Item>Срок</Item>
         </AddDeadline>
-        <AddStage card={card}>
-          <Item>Стадия</Item>
-        </AddStage>
+        {isAdmin && (
+          <AddStage card={card}>
+            <Item>Стадия</Item>
+          </AddStage>
+        )}
         <ConfirmBlock
           onConfirm={handleDeleteCard}
           title="Удаление карточки"
