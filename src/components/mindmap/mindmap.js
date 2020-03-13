@@ -69,10 +69,18 @@ class MindMap extends Component {
         }, 5000)
       })
     }
-    if (tree.children.length > 2 && tree.level === 3) {
-      this.setState(prevState => ({
-        depthErr: { ...prevState.depthErr, task: true }
-      }))
+    if (tree.level === 2) {
+      let count = tree.children.reduce((acc, el) => {
+        el.children.forEach(() => {
+          acc++
+        })
+        return ++acc
+      }, 0)
+      if (count > 7) {
+        this.setState(prevState => ({
+          depthErr: { ...prevState.depthErr, task: true }
+        }))
+      }
     }
     if (tree.level == 2 && tree.children.length == 0) {
       this.setState(prevState => ({
