@@ -54,7 +54,7 @@ export const updateEmail = (email, token) => {
   return dispatch => {
     dispatch(authActions.setError(null))
     return update(
-      '/users/update-email',
+      '/users/update/email',
       {
         email
       },
@@ -63,6 +63,7 @@ export const updateEmail = (email, token) => {
       .then(res => {
         dispatch(authActions.login(res.token))
         storeToken(res.token)
+        return res
       })
       .catch(err => {
         console.log(err)

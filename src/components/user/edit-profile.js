@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import jwt_decode from 'jwt-decode'
 
 import { Input, AddButton, Button, CloseButton, Alert } from '@ui'
-import { updateUser, updatePassword } from '@symbiotes/effects/'
+import { updateUser, updatePassword, updateEmail } from '@symbiotes/effects/'
 import { history } from '@lib/routing'
 
 const initialState = {
@@ -146,7 +146,13 @@ export const EditProfile = () => {
   const submitEmail = e => {
     setSuccess(false)
     e.preventDefault()
-    setSuccess(true)
+    disp(updateEmail(state.email.value, token)).then(res => {
+      console.log(res)
+      if (!res.ok) return
+      dispatch({ field: 'email', value: { value: '' } })
+      setEmailEdit(false)
+    })
+
     console.log('submit email', state.email.value)
   }
 
@@ -167,7 +173,14 @@ export const EditProfile = () => {
           state.new_password.value,
           token
         )
-      )
+      ).then(res => {
+        console.log(res)
+        if (!res.ok) return
+        dispatch({ field: 'new_password', value: { value: '' } })
+        dispatch({ field: 'new_password_check', value: { value: '' } })
+        dispatch({ field: 'old_password', value: { value: '' } })
+        setEditPassword(false)
+      })
     }
   }
 
@@ -276,6 +289,10 @@ export const EditProfile = () => {
       )}
       {state.new_password.error && (
         <Alert text="Введенные пароли не сопадают" />
+      )}
+
+      {error && error.reason === 'email' && (
+        <Alert text="Произошла ошибка при сохранении адреса" />
       )}
 
       {success && <Alert text="Информация обновлена успешно" success />}
