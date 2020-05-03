@@ -14,6 +14,8 @@ export const Node = props => {
     const { width, height } = event.target.getBoundingClientRect()
     let newX = event.clientX - 30
     let newY = event.clientY - 16
+    setX(newX)
+    setY(newY)
     props.onMove(props.id, { x: newX + width / 2, y: newY + height / 2 })
     setDragging(false)
   }
@@ -81,15 +83,19 @@ const Container = styled.div`
   position: relative;
   border-radius: 5px;
   min-width: 20px;
-  padding: 1em 0 0 0.8em;
+  padding: 1.5em 0.5em 0.5em 1.3em;
   height: auto;
   position: absolute;
   display: flex;
   align-items: center;
   left: ${props => props.x + 'px'};
   top: ${props => props.y + 'px'};
-  margin-left: ${props => (props.dragging ? '4px' : '0')};
-  opacity: ${props => (props.dragging ? '0.01' : '1')};
+  /* margin: 8px; */
+  /* &:-webkit-user-drag {
+    margin: 0;
+  } */
+  /* margin-left: ${props => (props.dragging ? '4px' : '0')}; */
+  /* opacity: ${props => (props.dragging ? '0.01' : '1')}; */
   cursor: ${props => (props.draggable ? 'grab' : 'default')};
 `
 
@@ -99,7 +105,7 @@ const Type = styled.p`
   background-color: var(--secondary__light);
   font-size: 12px;
   font-weight: 300;
-  top: 0;
-  left: 0;
+  top: 0.5em;
+  left: 0.5em;
   margin: 0;
 `
