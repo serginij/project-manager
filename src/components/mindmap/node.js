@@ -83,7 +83,7 @@ const Container = styled.div`
   position: relative;
   border-radius: 5px;
   min-width: 20px;
-  padding: 1.5em 0.5em 0.5em 1.3em;
+  padding: 1.2em 0.2em 0.2em 1em;
   height: auto;
   position: absolute;
   display: flex;
@@ -105,7 +105,7 @@ const Type = styled.p`
   background-color: var(--secondary__light);
   font-size: 12px;
   font-weight: 300;
-  top: 0.5em;
-  left: 0.5em;
+  top: 0.2em;
+  left: 0.2em;
   margin: 0;
 `
