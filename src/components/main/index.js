@@ -31,7 +31,7 @@ export const Main = () => {
   const teamList = Object.values(teams)
 
   let desksList =
-    teamList.length &&
+    teamList.length > 0 &&
     teamList.map(team => {
       return (
         <DeskList
